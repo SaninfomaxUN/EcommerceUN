@@ -1,0 +1,33 @@
+
+.buttonVendedor,.buttonComprador{
+    background-color: black;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    height: 15%;
+}
+
+.DivRegister{
+
+        width: 70%;
+        height: 80%;
+        margin: auto;
+        justify-content: center;
+        text-align: center;
+    }
+
+.complete{
+    display: flex;
+
+}
+
+
+.imgComprador{
+    width: 300px;
+    height: 350px;
+}
+
+.imgVendedor{
+    width: 300px;
+    height: 350px;
+}

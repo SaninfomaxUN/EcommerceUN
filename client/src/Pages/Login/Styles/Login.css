@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+	color: #676fe0;
+} 
+
+/* * {
+	box-sizing: border-box;	
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	box-sizing: border-box;
+	text-align: center;
+	justify-content: center;
+	
+} */
+/* .containerLog{
+	height: auto;
+	padding: 5%;
+} */
+/* Estilos navbar */
+.nav-item {
+	font-size: 25px;
+	font-family: DM Verdana, Geneva, Tahoma, sans-serif;
+	padding: 1px;
+}
+
+.navlink {
+	margin: 6px;
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+}
+
+.allbar {
+	display: flex;
+}
+
+.barSearch {
+	width: 600px;
+}
+
+/* Styles LOGIN page */
+.singup {
+	color: #fff;
+}
+
+.cont-singup {
+	background-color: black;
+	border-radius: 0.4rem;
+}
+
+/* Login styles */
+.containerLog {
+	background-color: #ee9c30;
+	height: auto;
+	padding: 5%;
+}
+
+.divcard {
+	width: 70%;
+	height: 80%;
+	margin: auto;
+	justify-content: center;
+	text-align: center;
+}
+
+.input1, .input2 {
+	width: 50%;
+	justify-content: center;
+	margin: auto;
+}
+
+.imgCohete {
+	width: 200px;
+	height: 200px;
+}
+
+.RecoverPassword {
+	text-decoration: none;
+	font-size: 14px;	
+}
+
+.btnLogin {
+	width: 50%;
+	background-color: #000;
+	color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+	/* Aquí puedes agregar estilos para pantallas más pequeñas */
+}

@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.barraColor{
+background-color: antiquewhite;
+}
+.submitButton{
+    background-color: #000000;
+    color: #ffff;
+}
+
+.containerRegi{
+    
+    padding: 5%;
+}
+
+.divCard{
+   background-color: #ffff;
+    color: #ffff;
+    margin: auto ;
+    width: 70%;
+}
+
+.all{
+    background-color: #ee9c30;
+}
+
+.card-header{
+    color: black;
+}
+
+.submitButton{
+    width: 50%;
+    color:white;
+}
+label{
+    color: black;
+    text-align: start;
+}

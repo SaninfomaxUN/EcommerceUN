@@ -1,0 +1,22 @@
+.itemData, .itemlist{
+    font-size: 30px;
+    
+    width: 100%;
+    list-style: none;
+    text-decoration: none;
+
+}
+
+
+
+.cardUser{
+  
+    width: 60%;
+    margin: auto auto ;
+}
+
+.cardItems{
+    width: 60%;
+    margin: auto auto;
+    padding: initial;
+}

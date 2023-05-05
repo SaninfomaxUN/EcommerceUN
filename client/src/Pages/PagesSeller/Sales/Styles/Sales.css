@@ -1,0 +1,114 @@
+
+
+
+
+
+
+
+
+
+
+.inputEntry{
+    width: 30%;
+    margin: auto auto;
+    padding: 5px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid ;    
+    cursor: pointer;
+
+
+}
+.DivInformacion{
+    width: 60%;
+   
+}
+.DivCondicion{
+    width: 60%;
+    
+}
+
+.DivCategoria{
+    width: 60%;
+}
+
+
+
+
+/*drag and drop*/
+.DivImg{
+   width: 50%;
+    
+   
+}
+.drop-area{
+    border: 5px dashed #ddd;
+    height: 200px;
+    width: 300px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto auto;
+
+}
+
+.dragandDrop{
+    font-size: 10px;
+}
+
+
+.drop-area.active{
+    background-color: #b8d4fe;
+    color: black;
+    border: 2px dashed #618ac9;
+}
+
+.drop-area{
+    font-size: 20px;
+    font-weight: 500;
+    color: #000;
+}
+
+.drop-area span{
+    font-size: 25px;
+    color: #000;
+}
+
+.drop-area button{
+    padding: 10px 25px;
+    font-size: 20px;
+    border: 0;
+    outline: none;
+    background-color:#c96827 ;
+    color: wheat;
+    border-radius: 5px;
+    cursor: pointer;    
+    margin: 20px;
+}
+
+.file-container
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: solid 1px #ddd;
+}
+
+#preview{
+    margin-top: 10px;
+}
+
+.status-text{
+    padding: 0 10px;
+}
+
+.success{
+    color: green;
+}
+.failure{
+    color: red;
+}
+

@@ -1,0 +1,20 @@
+.NotFound{
+    background-image:url("../Assets/notFoundPage.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+
+.notfound{
+    width: 80%;
+    height: 80%;
+}
+
+
+.btnNotfound{
+    color: white;
+    background-color: black;
+    width: 20%;
+   
+}
