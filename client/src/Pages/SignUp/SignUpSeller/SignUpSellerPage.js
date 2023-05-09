@@ -3,10 +3,13 @@ import axios from 'axios'
 import "./Styles/SignUpSeller.css"
 import countries from "../Data/countries";
 import Swal from 'sweetalert2'
+import {useNavigate} from "react-router-dom";
 
 
 
 const SignUpSellerPage = (value, onChange) => {
+    const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
@@ -72,6 +75,8 @@ const SignUpSellerPage = (value, onChange) => {
       alert("La contraseña no puede ser igual al correo electrónico del usuario");
       return;
     }
+
+    navigate("/2FA_Verification", { state: { emailToVerify: formData.email }})
   
     axios.post('http://localhost:5000/api/serviceSignUpSeller', formData)
       .then(res => console.log(res.data))

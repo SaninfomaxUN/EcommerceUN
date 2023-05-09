@@ -1,12 +1,32 @@
 import React, {useState} from 'react'
+import { useNavigate } from "react-router-dom";
+
 import axios from 'axios'
 import "./Styles/SignUpShopper.css"
 import countries from "../Data/countries";
 import Swal from 'sweetalert2'
 
+let formSavedDataSingUpShopper;
+function saveDataSingUpShopper(formData) {
+  formSavedDataSingUpShopper = formData.clone
+}
+export const doSignUpShopper = ()=>{
 
+  axios.post('http://localhost:5000/api/serviceSignUpShopper', formSavedDataSingUpShopper)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err));
+
+  Swal.fire(
+      '¡Has sido registrado correctamente!',
+      '',
+      'success')
+
+
+};
 
 const SignUpShopperPage = () => {
+  const navigate = useNavigate();
+
 
 
   const [formData, setFormData] = useState({
@@ -18,25 +38,28 @@ const SignUpShopperPage = () => {
     rol: '',
     password: '',
     confirmPassword:'',
-    fechaRegistro: new Date().toISOString().slice(0, 19).replace('T', ' ') 
+    fechaRegistro: new Date().toISOString().slice(0, 19).replace('T', ' ')
   });
 
-const handleChange = (e) => {
-  setFormData({
-    ...formData,
-    [e.target.name]: e.target.value
-  });
-};
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
-const [selectedCountry, setSelectedCountry] = useState("");
 
-const handleCountryChange = (event) => {
+
+  const [selectedCountry, setSelectedCountry] = useState("");
+
+  const handleCountryChange = (event) => {
   setSelectedCountry(event.target.value);
   setFormData({
     ...formData,
     pais: event.target.value
   });
 };
+
 
 
 const handleSubmit = (e) => {
@@ -72,14 +95,10 @@ const handleSubmit = (e) => {
     return;
   }
 
-  axios.post('http://localhost:5000/api/serviceSignUpShopper', formData)
-    .then(res => console.log(res.data))
-    .catch(err => console.log(err));
-    
-  Swal.fire(
-    '¡Has sido registrado correctamente!',
-    '',
-    'success')
+  navigate("/2FA_Verification", { state: { emailToVerify: formData.email }})
+
+  saveDataSingUpShopper(formData);
+  doSignUpShopper()
 };
 
 
@@ -96,49 +115,49 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
       <div className='card-header '> Registrate</div>
         <div className='contInput1'>
           <form onSubmit={handleSubmit} action="" typeof='control' className='formUser'>
-           
+
             <br/>
           <label  className=''>Nombre</label>
           <input  placeholder='Nombre'  className='form-control input1'
-          required 
+          required
           type="text" name="nombre" value={formData.nombre} onChange={handleChange}
           />
 
           <label className=''>Apellido</label>
-          <input 
-          type="text" 
-          placeholder='acá va tú apellido'  
+          <input
+          type="text"
+          placeholder='acá va tú apellido'
           className='form-control input1'
           name="apellido" value={formData.apellido} onChange={handleChange}
           />
 
           <label htmlFor="" className=''>email</label>
-          <input  
-          type="email" 
-          placeholder='acá va tú correo'  
+          <input
+          type="email"
+          placeholder='acá va tú correo'
           className='form-control input1'
-          required   
-          name="email" value={formData.email} onChange={handleChange} 
+          required
+          name="email" value={formData.email} onChange={handleChange}
           />
 
 
           <label htmlFor="" className=''>Número de celular</label>
-          <input  
-          placeholder='Ingresa tú número de celular'  
+          <input
+          placeholder='Ingresa tú número de celular'
           className='form-control input1'
-          required   
+          required
           type="tel" name="telefono" value={formData.telefono} onChange={handleChange}
           />
-<label htmlFor="" className=''>Selecciona tu país: </label>
+<label htmlFor="#" className=''>Selecciona tu país: </label>
 <br/>
 <select value={selectedCountry} onChange={handleCountryChange}>
-  
+
   {countries.map((country) => (
     <option key={country.code} value={country.code}>
       {country.name}
     </option>
   ))}
-  
+
 </select>
 <br/>
 <br/>
