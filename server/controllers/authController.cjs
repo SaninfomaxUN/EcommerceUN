@@ -7,7 +7,7 @@ const {promisify} = require('util')
 
 exports.login = async (req, res)=>{
     
-    const conexion = await mysql.createConnection({
+    const conexion = mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: 'root',
@@ -32,7 +32,7 @@ exports.login = async (req, res)=>{
         }else{
             conexion.query('SELECT*FROM credencialcomprador WHERE email =?',[email],async(error,results)=>{
 
-                if(results.length ==0 || !(await bcryptjs.compare(pass, results[0].pass))){
+                if(results.length ===0 || !(await bcryptjs.compare(pass, results[0].pass))){
                     res.render('login',{
                         alert:"Error",
                         alerTitle: "Advertencia",
