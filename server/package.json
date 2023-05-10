@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "start": ""
   },
@@ -27,6 +27,7 @@
     "mssql": "^9.1.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.2.0",
+    "nodemailer": "^6.9.1",
     "nodemon": "^2.0.19",
     "passport": "^0.6.0",
     "react-google-login": "^5.2.2",

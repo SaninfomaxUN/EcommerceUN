@@ -5,8 +5,8 @@ const mysql = require('mysql2/promise');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { promisify } = require('util');
-
-
+const nodemailer = require("nodemailer");
+const generate2FA = require("../Services/service2FA.cjs");
 
 
 // router.post('/login', async (req, res) => {
@@ -269,6 +269,43 @@ router.post('/serviceSignUpSeller', async (req, res) => {
     return res.status(500).json({ message: 'Error al registrar usuario' });
  
   }
+});
+
+
+
+router.post("/sendTwoFA", async (req,res) =>{
+    var transport = nodemailer.createTransport({
+        host: "sandbox.smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+            user: "0dbe72d85cacdc",
+            pass: "7d0ed0d61960f8"
+        }
+    });
+    const email = req.body.email
+    console.log(email)
+
+    const code2FA = generate2FA(6)
+
+    const mailOptions = {
+        from: "Remitente",
+        to: "santy.happy79@gmail.com",
+        subject: "Enviado por tu EcommerceUN",
+        text: "Aqui esta tu codigo de seguridad: " + code2FA,
+    };
+
+
+
+    await transport.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            res.status(500).send(error.message);
+            console.log("Email NO enviado!!!")
+            console.log(error)
+        } else {
+            console.log("Email enviado!!!")
+            res.status(200).jsonp(code2FA);
+        }
+    });
 });
 
 

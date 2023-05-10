@@ -19,8 +19,6 @@ import MyPurchasesPage from '../Pages/PagesShopper/MyPurchases/MyPurchasesPage'
 import NotificationPage from '../Components/Commons/Notification/NotificationPage'
 import WishListPage from '../Pages/PagesShopper/WishList/WishListPage'
 
-import TwoFAPage from "../Pages/2FA/TwoFAPage";
-
 
 
 export default function App(){
@@ -64,8 +62,6 @@ return(
 
             <Route path="/Notification" element ={<NotificationPage/>} />
 
-            {/* 2FA Verification */}
-            <Route path="/2FA_Verification" element ={<TwoFAPage />} />
 
             {/* Shopper */}
             <Route path="/DashShopper" element ={<DashboardShopper/>} />
