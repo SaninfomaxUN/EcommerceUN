@@ -20,8 +20,8 @@ function TwoFA(props) {
 
     }
     const sendToCheckVerification2FA = (codeEntered) => {
-        const codeEnteredJson = {code: codeEntered}
-        axios.post('http://localhost:5000/api/check2FA', codeEnteredJson)
+        const codeDataToSend = {dataToSend: props.dataToSend, code: codeEntered}
+        axios.post('http://localhost:5000/api/check2FA', codeDataToSend)
             .then(
                 res => {
                     setIsCode2FACorrect(!res.data)
@@ -53,7 +53,7 @@ function TwoFA(props) {
                         <form onSubmit={handleSubmit} typeof='control' className='form2FA'>
                             <Stack spacing={2}>
                                 <Box>Ingresa el Código de Verificación enviado al Correo:</Box>
-                                <Box display="flex" justifyContent="center" alignItems="center" className="emailBox">{props.email}</Box>
+                                <Box display="flex" justifyContent="center" alignItems="center" className="emailBox">{props.dataToSend.email}</Box>
                                 <TextField error={isCode2FACorrect} id="codeField" label="Código de 6 dígitos" variant="outlined" helperText={isCode2FACorrect && "Código de Verificación incorrecto!"}
                                            inputProps={{maxLength: 6}}
                                            required={true}  inputRef={code2FAEntered}/>

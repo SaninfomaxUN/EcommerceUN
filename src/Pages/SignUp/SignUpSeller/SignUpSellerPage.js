@@ -122,7 +122,7 @@ const SignUpSellerPage = (value, onChange) => {
                           setShowConfirmPassword={setShowConfirmPassword}
                           showConfirmPassword={showConfirmPassword}
             />
-            <TwoFA open={open2FA} close={() => setOpen2FA(false)} email={formData.email} verifySignUp={verifySignUp}/>
+            <TwoFA open={open2FA} close={() => setOpen2FA(false)} dataToSend={formData} verifySignUp={verifySignUp}/>
         </div>
     )
 }

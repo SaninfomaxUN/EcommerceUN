@@ -102,7 +102,6 @@ const SignUpShopperPage = () => {
             return;
         }
         //navigate("/2FA_Verification", { state: { emailToVerify: formData.email }})
-
         doVerification2FA(formData);
         setOpen2FA(true)
     };
@@ -125,7 +124,7 @@ const SignUpShopperPage = () => {
                            setShowConfirmPassword={setShowConfirmPassword}
 
             />
-            <TwoFA open={open2FA} close={() => setOpen2FA(false)} email={formData.email} verifySignUp={verifySignUp}/>
+            <TwoFA open={open2FA} close={() => setOpen2FA(false)} dataToSend={formData} verifySignUp={verifySignUp}/>
         </div>
     )
 }
