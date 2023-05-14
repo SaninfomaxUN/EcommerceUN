@@ -1,36 +1,31 @@
 import React, {useState} from 'react'
 
 import axios from 'axios'
-import Swal from 'sweetalert2'
 import TwoFA from "../../2FA/TwoFA";
 import SignUpShopper from "./SignUpShopper"
+import {doVerification2FA} from "../../2FA/TwoFAFunction"
+import {showAlertError, showAlertSuccess} from "../../../Components/Commons/Alerts/AlertsModal";
+
 
 
 export const doSignUpShopper = (formData) => {
-
     axios.post('http://localhost:5000/api/serviceSignUpShopper', formData)
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err));
-
-    Swal.fire(
-        '¡Has sido registrado correctamente!',
-        '',
-        'success')
-
-
-};
-
-export const doVerification2FA = (formData, setOpen) => {
-    setOpen(true);
-    axios.post('http://localhost:5000/api/sendTwoFA', formData)
-        .then(res => {return res})
-        .catch(err => console.log(err));
+        .then(res => {
+            console.log(res.data)
+            showAlertSuccess("¡Has sido registrado correctamente!")
+        }).catch(err => {
+            console.log(err)
+            showAlertError("No has sido registrado correctamente :(")
+        });
 
 };
+
+
 
 const SignUpShopperPage = () => {
+
     //const navigate = useNavigate();
-    const [open2FA, setOpen] = React.useState(false);
+    const [open2FA, setOpen2FA] = React.useState(false);
 
 
     const [formData, setFormData] = useState({
@@ -46,6 +41,14 @@ const SignUpShopperPage = () => {
         fechaRegistro: new Date().toISOString().slice(0, 19).replace('T', ' ')
     });
 
+    const verifySignUp = (verification) =>{
+        if(verification){
+            setOpen2FA(false)
+            doSignUpShopper(formData)
+
+        }
+    };
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -54,7 +57,7 @@ const SignUpShopperPage = () => {
     };
 
 
-    const [selectedCountry, setSelectedCountry] = useState("");
+    const [selectedCountry, setSelectedCountry] = useState("Colombia");
 
     const handleCountryChange = (event) => {
         setSelectedCountry(event.target.value);
@@ -63,6 +66,7 @@ const SignUpShopperPage = () => {
             pais: event.target.value
         });
     };
+
 
 
     const handleSubmit = (e) => {
@@ -98,9 +102,9 @@ const SignUpShopperPage = () => {
             return;
         }
         //navigate("/2FA_Verification", { state: { emailToVerify: formData.email }})
-        const code = doVerification2FA(formData, setOpen);
-        console.log(code)
-        doSignUpShopper(formData)
+
+        doVerification2FA(formData);
+        setOpen2FA(true)
     };
 
 
@@ -119,8 +123,9 @@ const SignUpShopperPage = () => {
                            showPassword={showPassword}
                            showConfirmPassword={showConfirmPassword}
                            setShowConfirmPassword={setShowConfirmPassword}
+
             />
-            <TwoFA open={open2FA} close={() => setOpen(false)} email={formData.email}/>
+            <TwoFA open={open2FA} close={() => setOpen2FA(false)} email={formData.email} verifySignUp={verifySignUp}/>
         </div>
     )
 }

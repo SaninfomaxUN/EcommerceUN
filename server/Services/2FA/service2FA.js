@@ -1,8 +1,9 @@
 const nodemailer = require("nodemailer");
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
+let code2FA = "";
 function generate2FA(length) {
-    let result = ' ';
+    let result = '';
     const charactersLength = characters.length;
     for ( let i = 0; i < length; i++ ) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -13,8 +14,8 @@ function generate2FA(length) {
 
 
 module.exports = {
-    s2FA: async (req, res) => {
-        var transport = nodemailer.createTransport({
+    send2FA: async (req, res) => {
+        const transport = nodemailer.createTransport({
             host: "sandbox.smtp.mailtrap.io",
             port: 2525,
             auth: {
@@ -25,8 +26,8 @@ module.exports = {
         const email = req.body.email
         console.log(email)
 
-        const code2FA = generate2FA(6)
-
+        code2FA = generate2FA(6)
+        console.log(code2FA)
         const mailOptions = {
             from: "verification@EcommerceUN.com",
             to: email,
@@ -45,5 +46,14 @@ module.exports = {
                 res.status(200).jsonp(code2FA);
             }
         });
+    },
+    check2FA: async (req, res) => {
+        const codeEntered = req.body.code
+        if (codeEntered===code2FA){
+            res.send(true);
+        }else{
+            res.send(false);
+        }
+
     }
 }

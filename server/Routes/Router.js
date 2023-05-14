@@ -22,7 +22,9 @@ Router.post('/serviceSignUpShopper', serviceSignUpShopper.signUpNewShopper)
 Router.post('/serviceSignUpSeller', serviceSignUpSeller.signUpNewSeller)
 
 
-Router.post("/sendTwoFA", service2FA.s2FA)
+Router.post("/send2FA", service2FA.send2FA)
+
+Router.post("/check2FA", service2FA.check2FA)
 
 
 module.exports = Router;
