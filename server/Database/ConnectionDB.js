@@ -1,4 +1,4 @@
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 
 const ConnectionDB = mysql.createConnection({
     host: 'localhost',
@@ -15,13 +15,13 @@ module.exports = {
         return ConnectionDB;
     },
     testConnection: () =>{
-        ConnectionDB.connect((error) => {
+        /*ConnectionDB.connect((error) => {
             if (error) {
                 console.error('Error connecting to Database: ', error);
             } else {
                 console.log('Connected to Database!');
             }
-        });
+        });*/
     }
 
 }

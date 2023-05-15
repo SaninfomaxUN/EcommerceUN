@@ -16,7 +16,9 @@ Router.post('/login', serviceAuth.login)
 Router.post('/logout', serviceAuth.logout)
 
 
-Router.post('/serviceSignUpShopper', serviceSignUpShopper.signUpNewShopper)
+Router.post('/signUpShopper', serviceSignUpShopper.signUpNewShopper)
+
+Router.post('/checkExistingShopper', serviceSignUpShopper.checkExistingShopper)
 
 
 Router.post('/serviceSignUpSeller', serviceSignUpSeller.signUpNewSeller)

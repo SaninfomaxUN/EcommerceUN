@@ -25,7 +25,7 @@ module.exports = {
             ];
 
         try {
-            const connection = ConnectionDB.getConnection();
+            const connection = await ConnectionDB.getConnection();
 
             // Insert new record in the "comprador" table
             await connection.execute(sql, values);

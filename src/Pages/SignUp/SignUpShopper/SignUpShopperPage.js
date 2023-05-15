@@ -5,11 +5,26 @@ import TwoFA from "../../2FA/TwoFA";
 import SignUpShopper from "./SignUpShopper"
 import {doVerification2FA} from "../../2FA/TwoFAFunction"
 import {showAlertError, showAlertSuccess} from "../../../Components/Commons/Alerts/AlertsModal";
+import {useNavigate} from "react-router-dom";
+
+
+export const checkExistingShopper = (formData, nav) => {
+    const check = false
+    axios.post('http://localhost:5000/api/checkExistingShopper', formData)
+        .then(() => {})
+        .catch(err => {
+            console.log(err)
+            showAlertError(err.response.data.message)
+            nav('/Login')
+    });
+    return check
+
+};
 
 
 
 export const doSignUpShopper = (formData) => {
-    axios.post('http://localhost:5000/api/serviceSignUpShopper', formData)
+    axios.post('http://localhost:5000/api/signUpShopper', formData)
         .then(res => {
             console.log(res.data)
             showAlertSuccess("¡Has sido registrado correctamente!")
@@ -23,7 +38,7 @@ export const doSignUpShopper = (formData) => {
 
 
 const SignUpShopperPage = () => {
-
+    const navigate = useNavigate();
     //const navigate = useNavigate();
     const [open2FA, setOpen2FA] = React.useState(false);
 
@@ -101,9 +116,14 @@ const SignUpShopperPage = () => {
             alert("La contraseña no puede ser igual al correo electrónico del usuario");
             return;
         }
-        //navigate("/2FA_Verification", { state: { emailToVerify: formData.email }})
-        doVerification2FA(formData);
-        setOpen2FA(true)
+        navigate("/2FA_Verification", { state: { emailToVerify: formData.email }})
+
+        const check = checkExistingShopper(formData, navigate)
+        if (check){
+            doVerification2FA(formData);
+            setOpen2FA(true)
+        }
+
     };
 
 
