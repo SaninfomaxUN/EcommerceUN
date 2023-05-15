@@ -13,4 +13,10 @@ export const showAlertError = (Title) => {
         'error')
 }
 
+export const showAlertInfo = (Title) => {
+    Swal.fire(
+        Title,
+        '',
+        'info')
+}
 

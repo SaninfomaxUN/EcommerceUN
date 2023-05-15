@@ -1,20 +1,24 @@
 import React, {useState} from 'react'
-
+import {useNavigate} from "react-router-dom";
 import axios from 'axios'
+
 import TwoFA from "../../2FA/TwoFA";
 import SignUpShopper from "./SignUpShopper"
 import {doVerification2FA} from "../../2FA/TwoFAFunction"
-import {showAlertError, showAlertSuccess} from "../../../Components/Commons/Alerts/AlertsModal";
-import {useNavigate} from "react-router-dom";
+import {showAlertError, showAlertInfo, showAlertSuccess} from "../../../Components/Commons/Alerts/AlertsModal";
 
 
+let checkExisting = false
 export const checkExistingShopper = (formData, nav) => {
-    const checkExisting = false
+
     axios.post('http://localhost:5000/api/checkExistingShopper', formData)
-        .then(() => {})
+        .then(() => {
+            checkExisting = true
+        }
+        )
         .catch(err => {
             console.log(err)
-            showAlertError(err.response.data.message)
+            showAlertInfo(err.response.data.message)
             nav('/Login')
     });
     return checkExisting

@@ -1,10 +1,28 @@
 import React, {useState} from 'react'
+import {useNavigate} from "react-router-dom";
 import axios from 'axios'
+
 import TwoFA from "../../2FA/TwoFA";
 import SignUpSeller from "./SignUpSeller";
 import {doVerification2FA} from "../../2FA/TwoFAFunction";
-import {showAlertError, showAlertSuccess} from "../../../Components/Commons/Alerts/AlertsModal";
+import {showAlertError, showAlertInfo, showAlertSuccess} from "../../../Components/Commons/Alerts/AlertsModal";
 
+let checkExisting = false
+export const checkExistingSeller = (formData, nav) => {
+
+
+    axios.post('http://localhost:5000/api/checkExistingSeller', formData)
+        .then(res => {
+            checkExisting = true
+        })
+        .catch(err => {
+            console.log(err)
+            showAlertInfo(err.response.data.message)
+            nav('/Login')
+    });
+    return checkExisting
+
+};
 
 export const doSignUpSeller = (formData) => {
 
@@ -13,16 +31,17 @@ export const doSignUpSeller = (formData) => {
             console.log(res.data)
             showAlertSuccess("¡Has sido registrado correctamente!")
         }).catch(err => {
-            console.log(err)
-            showAlertError("No has sido registrado correctamente :(")
-        });
+        console.log(err)
+        showAlertError("No has sido registrado correctamente :(")
+    });
 
 
 };
 
 
-
 const SignUpSellerPage = (value, onChange) => {
+    const navigate = useNavigate();
+
     const [open2FA, setOpen2FA] = React.useState(false);
 
 
@@ -41,8 +60,8 @@ const SignUpSellerPage = (value, onChange) => {
         fechaRegistro: new Date().toISOString().slice(0, 19).replace('T', ' ')
     });
 
-    const verifySignUp = (verification) =>{
-        if(verification){
+    const verifySignUp = (verification) => {
+        if (verification) {
             setOpen2FA(false)
             doSignUpSeller(formData)
         }
@@ -98,12 +117,13 @@ const SignUpSellerPage = (value, onChange) => {
             alert("La contraseña no puede ser igual al correo electrónico del usuario");
             return;
         }
-
-        doVerification2FA(formData);
-        setOpen2FA(true)
+        const check = checkExistingSeller(formData, navigate)
+        if (check){
+            doVerification2FA(formData);
+            setOpen2FA(true)
+        }
 
     };
-
 
 
     const [showPassword, setShowPassword] = useState(false);

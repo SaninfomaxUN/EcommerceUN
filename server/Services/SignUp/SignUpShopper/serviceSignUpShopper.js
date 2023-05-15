@@ -2,6 +2,7 @@ const ConnectionDB = require('../../../Database/ConnectionDB.js')
 const bcrypt = require('bcrypt');
 
 
+
 module.exports = {
     checkExistingShopper: async (req, res) => {
 
@@ -12,7 +13,9 @@ module.exports = {
         try {
             const connection = await ConnectionDB.getConnection();
             const id = [req.body.idComprador]
-            // Check if Id is already registered
+
+
+            // Check if id is already registered
             const resultId = await connection.execute(sqlVerifyId, id);
 
             if (resultId[0].length > 0) {
@@ -27,8 +30,7 @@ module.exports = {
                     return res.status(400).json({message: "El Correo electrónico " + req.body.email + " ya se encuentra está registrado."});
                 }
 
-                console.log('Usuario No existe. Continuar.')
-                return res.status(200)/*.json({ message: 'Usuario registrado correctamente' })*/;
+                return res.status(200).json();
             }
 
         } catch (error) {
@@ -38,12 +40,11 @@ module.exports = {
 
     },
     signUpNewShopper: async (req, res) => {
-        const saltRounds = 10;
 
         const insertShopperCredentials = "INSERT INTO credencialcomprador (id_Comprador, email, password) VALUES (?, ?, ?)";
         const insertShopper = "INSERT INTO comprador (id_Comprador, nombre, apellido, pais, telefono, fechaRegistro) VALUES (?, ?, ?, ?, ?, NOW())";
 
-        const values = [
+        const dataShopeer = [
             req.body.idComprador,
             req.body.nombre,
             req.body.apellido,
@@ -56,29 +57,30 @@ module.exports = {
         const password = req.body.password;
 
 
-
         try {
             const connection = await ConnectionDB.getConnection();
 
             // Hash password
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-            // Insert new record in the "credencialcomprador" table with hashed password
-            const valuesInsert = [idComprador, email, hashedPassword];
-            await connection.execute(insertShopperCredentials, valuesInsert);
+            const hashedPassword = await bcrypt.hash(password, 10);
 
             // Insert new record in the "comprador" table
-            await connection.execute(insertShopper, values);
+            await connection.execute(insertShopper, dataShopeer);
+
+            // Insert new record in the "credencialcomprador" table with hashed password
+            const credentials = [idComprador, email, hashedPassword];
+            await connection.execute(insertShopperCredentials, credentials);
+
+
 
 
             console.log('Usuario registrado correctamente')
             return res.status(200).json({message: 'Usuario registrado correctamente'});
 
-        }catch(error) {
+        } catch (error) {
             console.error(error);
             return res.status(500).json({message: 'Error al registrar usuario'});
+        }
+
+
     }
-
-
-}
 }

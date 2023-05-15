@@ -89,13 +89,9 @@ function SignUpSeller(props) {
                                 >
                                     {props.showPassword ? (
                                         <i className="fas fa-eye-slash"><span
-                                            className="material-symbols-outlined ojito">
-      visibility
-      </span></i>
+                                            className="material-symbols-outlined ojito">visibility</span></i>
                                     ) : (
-                                        <i className="fas fa-eye"><span className="material-symbols-outlined ojito">
-      visibility_off
-      </span></i>
+                                        <i className="fas fa-eye"><span className="material-symbols-outlined ojito">visibility_off</span></i>
                                     )}
                                 </a>
 
@@ -123,14 +119,10 @@ function SignUpSeller(props) {
                                 >
                                     {props.showConfirmPassword ? (
                                         <i className="fas fa-eye-slash ojito"><span
-                                            className="material-symbols-outlined ojito">
-      visibility
-      </span></i>
+                                            className="material-symbols-outlined ojito">visibility</span></i>
                                     ) : (
                                         <i className="fas fa-eye ojito"><span
-                                            className="material-symbols-outlined  ojito">
-      visibility_off
-      </span></i>
+                                            className="material-symbols-outlined  ojito">visibility_off</span></i>
                                     )}
                                 </a>
                                 <input

@@ -17,12 +17,11 @@ Router.post('/logout', serviceAuth.logout)
 
 
 Router.post('/signUpShopper', serviceSignUpShopper.signUpNewShopper)
-
 Router.post('/checkExistingShopper', serviceSignUpShopper.checkExistingShopper)
 
 
 Router.post('/serviceSignUpSeller', serviceSignUpSeller.signUpNewSeller)
-
+Router.post('/checkExistingSeller', serviceSignUpSeller.checkExistingSeller)
 
 Router.post("/send2FA", service2FA.send2FA)
 
