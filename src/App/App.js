@@ -23,22 +23,6 @@ import WishListPage from '../Pages/PagesShopper/WishList/WishListPage'
 
 export default function App(){
 
-
-
-// const [user, setUser] = useState(null)
-// const login=()=>{
-//     setUser({
-//         id:1,
-//         name:"john",
-//         rol:['admin']
-//     })
-// }
-// const logout =()=> setUser(null)
-
-
-
-
-
 return(
     <BrowserRouter>
         <Routes>
@@ -54,14 +38,8 @@ return(
             {/* Rutas de CategoriasPages */}
             <Route path="/PageCategories" element ={<PageCategories/>} />
 
-
-
-
-
             {/* rutas a proteger */}
-
             <Route path="/Notification" element ={<NotificationPage/>} />
-
 
             {/* Shopper */}
             <Route path="/DashShopper" element ={<DashboardShopper/>} />
