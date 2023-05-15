@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 
 
 export const checkExistingShopper = (formData, nav) => {
-    const check = false
+    const checkExisting = false
     axios.post('http://localhost:5000/api/checkExistingShopper', formData)
         .then(() => {})
         .catch(err => {
@@ -17,7 +17,7 @@ export const checkExistingShopper = (formData, nav) => {
             showAlertError(err.response.data.message)
             nav('/Login')
     });
-    return check
+    return checkExisting
 
 };
 
@@ -39,7 +39,7 @@ export const doSignUpShopper = (formData) => {
 
 const SignUpShopperPage = () => {
     const navigate = useNavigate();
-    //const navigate = useNavigate();
+
     const [open2FA, setOpen2FA] = React.useState(false);
 
 
@@ -116,7 +116,7 @@ const SignUpShopperPage = () => {
             alert("La contraseña no puede ser igual al correo electrónico del usuario");
             return;
         }
-        navigate("/2FA_Verification", { state: { emailToVerify: formData.email }})
+        //navigate("/2FA_Verification", { state: { emailToVerify: formData.email }})
 
         const check = checkExistingShopper(formData, navigate)
         if (check){
