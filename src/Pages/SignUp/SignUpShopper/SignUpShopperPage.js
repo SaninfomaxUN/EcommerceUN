@@ -64,7 +64,7 @@ const SignUpShopperPage = () => {
         if(verification){
             setOpen2FA(false)
             doSignUpShopper(formData)
-
+            navigate('/Login')
         }
     };
 

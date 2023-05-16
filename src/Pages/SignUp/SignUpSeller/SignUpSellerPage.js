@@ -64,6 +64,7 @@ const SignUpSellerPage = (value, onChange) => {
         if (verification) {
             setOpen2FA(false)
             doSignUpSeller(formData)
+            navigate('/Login')
         }
     };
 

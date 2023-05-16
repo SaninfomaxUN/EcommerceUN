@@ -34,7 +34,6 @@ function TwoFA(props) {
     const checkVerification2FA= (verification) => {
         if(verification){
             props.verifySignUp(verification);
-            navigate('/Login')
         }
 
     }

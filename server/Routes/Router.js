@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 
 const serviceAuth = require("../Services/Auth/serviceAuth.js")
+const serviceRecoverPassword = require("../Services/RecoverPassword/serviceRecoverPassword.js")
 const service2FA = require("../Services/2FA/service2FA.js")
 const serviceSignUpSeller = require("../Services/SignUp/SignUpSeller/serviceSignUpSeller.js")
 const serviceSignUpShopper = require("../Services/SignUp/SignUpShopper/serviceSignUpShopper.js")
@@ -12,7 +13,8 @@ const serviceSignUpShopper = require("../Services/SignUp/SignUpShopper/serviceSi
 
 
 Router.post('/login', serviceAuth.login)
-
+Router.post('/resetPasswordShopper', serviceRecoverPassword.doRecoverPasswordShopper)
+Router.post('/resetPasswordSeller', serviceRecoverPassword.doRecoverPasswordSeller)
 Router.post('/logout', serviceAuth.logout)
 
 
