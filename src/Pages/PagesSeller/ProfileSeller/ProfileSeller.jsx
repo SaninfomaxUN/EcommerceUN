@@ -17,7 +17,7 @@ const ProfileSeller = () => {
 
 <div className="card container cardUser">
 
-<h3><span class="material-symbols-outlined">
+<h3><span className="material-symbols-outlined">
 account_circle
 </span>user.name</h3>
 </div>
@@ -30,16 +30,16 @@ account_circle
 
 <div className="card container cardItems ">
 <ul>
-    <li className="itemlist"><span class="material-symbols-outlined">account_circle</span>
+    <li className="itemlist"><span className="material-symbols-outlined">account_circle</span>
     <a href="PagesSeller/ProfileSeller" className="itemData  ">Mis datos</a>
     </li>
 
-    <li className="itemlist"> <span class="material-symbols-outlined">verified_user</span>
+    <li className="itemlist"> <span className="material-symbols-outlined">verified_user</span>
     <a href="PagesSeller/ProfileSeller" className="itemData ">Seguridad</a>
     </li>
 
     <li className="itemlist">
-    <span class="material-symbols-outlined">privacy_tip</span>
+    <span className="material-symbols-outlined">privacy_tip</span>
     <a href="PagesSeller/ProfileSeller" className="itemData ">Privacidad</a>
     </li>
 </ul>

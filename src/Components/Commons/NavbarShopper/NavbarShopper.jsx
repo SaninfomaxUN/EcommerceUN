@@ -24,8 +24,9 @@ export default function NavbarShopper() {
    }
 
 
-  const clearCookies = () => {
+   const clearCookies = () => {
     Cookies.remove('token');
+    Cookies.remove('role')
   }
   return (
     <>

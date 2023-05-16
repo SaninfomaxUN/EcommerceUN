@@ -3,6 +3,7 @@ import React from 'react';
 import "../../../Pages/Login/Styles/Login.css";
 import logo from "../../../Pages/Login/Assets/logoProp.png";
 
+
 export default function Navbar({ search, searcher, porfin }) {
   return (
     <div>
