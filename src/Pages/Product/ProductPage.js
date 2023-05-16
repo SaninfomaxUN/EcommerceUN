@@ -4,9 +4,13 @@ import Footer from '../../Components/Commons/Footer/Footer'
 import data from './data/data';
 import CardProduct from './Components/CardProduct';
 import './Styles/ProductPage.css';
+import { useParams } from 'react-router';
 
 function ProductPage() {
-    const primerProducto = data[0];
+    
+    const {name} = useParams;
+    console.log(name);
+    const producto = data[3];
     return (
         <div className='container-body'>
             <header>
@@ -20,11 +24,11 @@ function ProductPage() {
             </header>
             <div className='main-container'>
                 <CardProduct
-                    id={primerProducto.id}
-                    nombre={primerProducto.nombre}
-                    precio={primerProducto.precio}
-                    foto={primerProducto.foto}
-                    descripcion={primerProducto.descripcion}
+                    id={producto.id}
+                    nombre={producto.nombre}
+                    precio={producto.precio}
+                    foto={producto.foto}
+                    descripcion={producto.descripcion}
                 />
             </div>
             <Footer />

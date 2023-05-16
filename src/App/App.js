@@ -58,7 +58,7 @@ return(
 
             {/* Rutas para resultados y vista de producto */}
             <Route path='/Results' element = {<ResultsPage/>}/>
-            <Route path='/Product' element = {<ProductPage/>}/>
+            <Route path='/Product/:id' element = {<ProductPage/>}/>
 
             {/* rutas a proteger */}
 

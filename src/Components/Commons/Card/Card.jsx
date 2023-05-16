@@ -3,7 +3,7 @@
 import './Styles/Card.css';
 import { useLocation,useNavigate } from 'react-router';
 
-function Card({ nombre, precio, foto, descripcion }) {
+function Card({ id,nombre, precio, foto, descripcion }) {
   // const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   // const handleCardClick = () => {
@@ -15,7 +15,7 @@ function Card({ nombre, precio, foto, descripcion }) {
   // };
   const navigate = useNavigate();
   const toOpen = ()=>{
-    navigate("/Product"/*,{state:{toString:search}}*/)
+    navigate(`/Product/${id}`/*,{state:{toString:search}}*/)
   }
 
   return (

@@ -57,6 +57,7 @@ const  ResultsPage = () => {
           .map((item) => (
             <Card
               key={item.id}
+              id={item.id}
               nombre={item.nombre}
               precio={item.precio}
               foto={item.foto}

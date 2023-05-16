@@ -1,7 +1,7 @@
 import './Styles/CardProduct.css';
 import React, { useState } from 'react';
 
-function CardProduct({ nombre, precio, foto, descripcion }) {
+function CardProduct({ id,nombre, precio, foto, descripcion }) {
   const [agregadoCarrito, setAgregadoCarrito] = useState(false);
 
   const handleClick = () => {
