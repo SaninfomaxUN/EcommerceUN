@@ -18,7 +18,7 @@ import img6 from './Assets/Carrousel/img6.jpg'
 
 import Navbar from "../../Components/Commons/Navbar/Navbar.jsx"
 import Deslice from "../../Components/Commons/Deslice/Deslice.jsx"
-
+import Footer from '../../Components/Commons/Footer/Footer'
 
 
 
@@ -82,6 +82,7 @@ return (
  
 <br />
 <br />
+
 </div>
 </section>
 
@@ -263,6 +264,7 @@ directions_car
   </div>
 
 </div>
+<Footer/>
 </div>
   )  
 }

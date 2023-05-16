@@ -8,16 +8,18 @@ import SignUpSellerPage from '../Pages/SignUp/SignUpSeller/SignUpSellerPage'
 import LoginPage from '../Pages/Login/LoginPage'
 import PageCategories from '../Pages/PagesCategories/PageCategories'
 import DashboardShopper from '../Components/Commons/NavbarShopper/DashboardShopper'
-import DashBoardSeller from '../Components/Commons/NavbarSeller/DashBoardSeller'
-import RecoverPasswordPage from '../Pages/Login/RecoverPassword/RecoverPasswordPage'
-import ProfilePage from '../Pages/PagesShopper/Profile/ProfilePage'
-import ProfileSellerPage from '../Pages/PagesSeller/ProfileSeller/ProfileSellerPage'
-import SalesPage from '../Pages/PagesSeller/Sales/SalesPage'
-import PaymentMethodsPage from '../Pages/PagesShopper/PaymentMethods/PaymentMethodsPage'
-import PaymentsPage from '../Pages/PagesSeller/Payments/PaymentsPage'
-import MyPurchasesPage from '../Pages/PagesShopper/MyPurchases/MyPurchasesPage'
-import NotificationPage from '../Components/Commons/Notification/NotificationPage'
-import WishListPage from '../Pages/PagesShopper/WishList/WishListPage'
+import DashBoardSeller from '../Components/Commons/NavbarSeller/DashBoardSeller';
+import RecoverPasswordPage from '../Pages/Login/RecoverPassword/RecoverPasswordPage';
+import ProfilePage from '../Pages/PagesShopper/Profile/ProfilePage';
+import ProfileSellerPage from '../Pages/PagesSeller/ProfileSeller/ProfileSellerPage';
+import SalesPage from '../Pages/PagesSeller/Sales/SalesPage';
+import PaymentMethodsPage from '../Pages/PagesShopper/PaymentMethods/PaymentMethodsPage';
+import PaymentsPage from '../Pages/PagesSeller/Payments/PaymentsPage';
+import MyPurchasesPage from '../Pages/PagesShopper/MyPurchases/MyPurchasesPage';
+import NotificationPage from '../Components/Commons/Notification/NotificationPage';
+import WishListPage from '../Pages/PagesShopper/WishList/WishListPage';
+import ResultsPage from '../Pages/Results/ResultsPage';
+import ProductPage from '../Pages/Product/ProductPage';
 
 
 
@@ -54,9 +56,9 @@ return(
             {/* Rutas de CategoriasPages */}
             <Route path="/PageCategories" element ={<PageCategories/>} />
 
-
-
-
+            {/* Rutas para resultados y vista de producto */}
+            <Route path='/Results' element = {<ResultsPage/>}/>
+            <Route path='/Product/:id' element = {<ProductPage/>}/>
 
             {/* rutas a proteger */}
 
@@ -81,7 +83,7 @@ return(
             <Admin/>
             </ProtectedRoute> */}
 
-
+            
 
 
 
