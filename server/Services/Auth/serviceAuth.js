@@ -15,13 +15,6 @@ const time = 30
 const cookiexpires = 30
 
 
-const conexion = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'ecommerce'
-});
-
 module.exports = {
     login: async (req, res) => {
         function getJwtSecret() {
@@ -39,7 +32,6 @@ module.exports = {
 
         try {
             const connection = ConnectionDB.getConnection();
-
             const email = req.body.email;
             const plainTextPassword = req.body.password;
             if (!email || !plainTextPassword) {
@@ -48,8 +40,9 @@ module.exports = {
                     message: 'Ingrese un correo y contraseña',
                 });
             } else {
-                const [rows, fields] = await connection.query("SELECT * FROM credencialcomprador WHERE email = ?", [email]);
 
+                console.log("sssssssssss")
+                const [rows, fields] = await connection.query("SELECT * FROM credencialcomprador WHERE email = ?", [email]);
                 if (rows.length === 0) {
                     return res.json({
                         success: false,

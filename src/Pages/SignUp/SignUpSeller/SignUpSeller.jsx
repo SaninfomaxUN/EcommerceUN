@@ -11,7 +11,7 @@ function SignUpSeller(props) {
                         <form onSubmit={props.handleSubmit} action="SignUp/SignUpSeller" typeof='control' className='formUser'>
                             <br/>
                             <label className='labelCampos'>Nombre</label>
-                            <input placeholder='Nombre' className='form-control input1'
+                            <input placeholder='Ingresa tu Nombre completo.' className='form-control input1'
                                    required
                                    type="text" name="nombre" value={props.data.nombre} onChange={props.handleChange}
                             />
@@ -19,7 +19,7 @@ function SignUpSeller(props) {
                             <label className='labelCampos'>Apellido</label>
                             <input
                                 type="text"
-                                placeholder='acá va tú apellido'
+                                placeholder='Ingresa tu Apellido completo.'
                                 className='form-control input1'
                                 name="apellido" value={props.data.apellido} onChange={props.handleChange}
                             />
@@ -27,16 +27,16 @@ function SignUpSeller(props) {
                             <label htmlFor="" className='labelCampos'>email</label>
                             <input
                                 type="email"
-                                placeholder='acá va tú correo'
+                                placeholder='Ingresa tú correo.'
                                 className='form-control input1'
                                 required
                                 name="email" value={props.data.email} onChange={props.handleChange}
                             />
 
-                            <label className='labelCampos'>NiT o número de cedúla</label>
+                            <label className='labelCampos'>NIT o número de cedúla</label>
                             <input
                                 type="text"
-                                placeholder='Nit o número de cedula'
+                                placeholder='Ingresa el Nit o número de cédula.'
                                 className='form-control input1'
                                 name="nit" value={props.data.nit} onChange={props.handleChange}
                             />
@@ -44,7 +44,7 @@ function SignUpSeller(props) {
 
                             <label htmlFor="" className='labelCampos'>Número de celular</label>
                             <input
-                                placeholder='Ingresa tú número de celular'
+                                placeholder='Ingresa tú número de celular.'
                                 className='form-control input1'
                                 required
                                 type="tel" name="telefono" value={props.data.telefono} onChange={props.handleChange}
@@ -65,7 +65,7 @@ function SignUpSeller(props) {
                             <label className='labelCampos'>Dirección</label>
                             <input
                                 type="text"
-                                placeholder='Dirección '
+                                placeholder='Ingresa la dirección del establecimiento.'
                                 className='form-control input1'
                                 name="direccionPersonal" value={props.data.direccionPersonal}
                                 onChange={props.handleChange}
@@ -75,7 +75,7 @@ function SignUpSeller(props) {
                             <label className='labelCampos'>Razón Social</label>
                             <input
                                 type="text"
-                                placeholder='Razón Social'
+                                placeholder='Ingresa la Razón Social.'
                                 className='form-control input1'
                                 name="razonSocial" value={props.data.razonSocial} onChange={props.handleChange}
                             />
@@ -89,13 +89,9 @@ function SignUpSeller(props) {
                                 >
                                     {props.showPassword ? (
                                         <i className="fas fa-eye-slash"><span
-                                            className="material-symbols-outlined ojito">
-      visibility
-      </span></i>
+                                            className="material-symbols-outlined ojito">visibility</span></i>
                                     ) : (
-                                        <i className="fas fa-eye"><span className="material-symbols-outlined ojito">
-      visibility_off
-      </span></i>
+                                        <i className="fas fa-eye"><span className="material-symbols-outlined ojito">visibility_off</span></i>
                                     )}
                                 </a>
 
@@ -103,7 +99,7 @@ function SignUpSeller(props) {
                                 <input
                                     id="passwordInput"
                                     type={props.showPassword ? "text" : "password"}
-                                    placeholder='acá va tú contraseña'
+                                    placeholder='Ingresa una contraseña segura.'
                                     className='form-control input1'
                                     required
                                     name="password"
@@ -123,14 +119,10 @@ function SignUpSeller(props) {
                                 >
                                     {props.showConfirmPassword ? (
                                         <i className="fas fa-eye-slash ojito"><span
-                                            className="material-symbols-outlined ojito">
-      visibility
-      </span></i>
+                                            className="material-symbols-outlined ojito">visibility</span></i>
                                     ) : (
                                         <i className="fas fa-eye ojito"><span
-                                            className="material-symbols-outlined  ojito">
-      visibility_off
-      </span></i>
+                                            className="material-symbols-outlined  ojito">visibility_off</span></i>
                                     )}
                                 </a>
                                 <input

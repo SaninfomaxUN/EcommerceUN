@@ -1,0 +1,23 @@
+.TwoFAPage{
+    background-color:  #ee9c30;
+}
+
+.Container{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.Box{
+    background-color: #ee9c30;
+    min-Height: 100px;
+}
+
+.emailBox{
+    font-Weight: bold
+}
+
+.BoxInside{
+    background-color: white;
+    padding: 80px 100px 80px 100px;
+}
+
