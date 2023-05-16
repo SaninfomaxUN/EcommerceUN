@@ -1,0 +1,76 @@
+/* SeeProduct.css */
+
+.card {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .producto-imagen {
+    color: black;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-right: 20px;
+    position: left;
+  }
+  
+  .producto-nombre {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 50px;
+  }
+  
+  .producto-descripcion {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .producto-precio {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .producto-puntaje {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #f0ad4e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  .agregar-carrito{
+    padding: 15px 10px;
+    font-size: 16px;
+    background-color:#911f14  ;
+    color: #Fff;
+    border: black;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px;
+  }
+
+  .agregar-carrito:hover{
+    background-color: #952c23;
+  }
+  
+  .agregar-carrito:active{
+    background-color: #715a58;
+  }
+
+  .producto-puntaje:hover {
+    background-color: #e69538;
+  }
+  
+  .producto-puntaje:active {
+    background-color: #d47d21;
+  }
+  

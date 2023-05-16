@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, NavLink  } from "react-router-dom";
 
 export default function Product(props) {
   return (
@@ -7,8 +8,10 @@ export default function Product(props) {
       <h2>{props.name}</h2>
       <p className="price">{props.price}</p>
       <p>{props.description}</p>
-      <p>
-        <button className="buttonProduct">Añadir al carrito</button>
+      <p> 
+        <NavLink to='/SeeProduct'>
+          <button className="buttonProduct">Ver producto</button>
+        </NavLink>
       </p>
     </div>
   );

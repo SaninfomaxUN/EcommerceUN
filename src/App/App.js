@@ -18,6 +18,8 @@ import PaymentsPage from '../Pages/PagesSeller/Payments/PaymentsPage'
 import MyPurchasesPage from '../Pages/PagesShopper/MyPurchases/MyPurchasesPage'
 import NotificationPage from '../Components/Commons/Notification/NotificationPage'
 import WishListPage from '../Pages/PagesShopper/WishList/WishListPage'
+import SeeProduct from '../Components/Commons/SeeProduct/SeeProduct'
+
 
 
 
@@ -50,6 +52,8 @@ return(
             <Route path="/SignUpSeller" element ={<SignUpSellerPage/>} />
             <Route path="/RecoverPassword" element ={<RecoverPasswordPage/>} />
             <Route path="/*" element ={<NotFoundPage/>} />
+            <Route path="/SeeProduct" element ={<SeeProduct/>} />
+
 
             {/* Rutas de CategoriasPages */}
             <Route path="/PageCategories" element ={<PageCategories/>} />
