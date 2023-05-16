@@ -28,7 +28,7 @@ export const checkExistingShopper = (formData, nav) => {
 
 
 export const doSignUpShopper = (formData) => {
-    axios.post('http://localhost:5000/api/signUpShopper', formData)
+    axios.post('http://localhost:5000/api/serviceSignUpShopper', formData)
         .then(res => {
             console.log(res.data)
             showAlertSuccess("¡Has sido registrado correctamente!")

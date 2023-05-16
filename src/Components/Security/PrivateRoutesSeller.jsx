@@ -9,7 +9,7 @@ const PrivateRoutesSeller = () => {
   if (token && role === 'vendedor') {
     return <Outlet />;
   } else {
-    return <Navigate to="/login" />;
+    return <Navigate to="/*" />;
   }
 };
 

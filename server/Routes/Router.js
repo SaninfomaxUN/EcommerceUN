@@ -8,18 +8,11 @@ const serviceSignUpShopper = require("../Services/SignUp/SignUpShopper/serviceSi
 const cors = require('cors');
 const cookieParser = require("cookie-parser")
 
-Router.use(cors())
-Router.use(cors({
-    origin:["http://localhost:3000"],
-    methods:["Get","POST"],
-    credentials:true
-}));
+
 // rutas de Autenticación
 Router.post('/login', serviceAuth.login)
 Router.post('/resetPasswordShopper', serviceRecoverPassword.doRecoverPasswordShopper)
 Router.post('/resetPasswordSeller', serviceRecoverPassword.doRecoverPasswordSeller)
-Router.post('/logout', serviceAuth.logout)
-
 Router.post('/isUserAuth', serviceAuth.isUserAuth)
 
 
