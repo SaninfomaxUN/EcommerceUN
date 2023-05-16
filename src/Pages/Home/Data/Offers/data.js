@@ -19,76 +19,121 @@ export const responsive = {
     },
   };
   
-  export const productData = [
+  export const data = [
     {
       id: 1,
-      imageurl:
-        "https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHByb2R1Y3RzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      name: "Colorful sneakers",
-      price: "$150.000",
-      description: "Zapatillas-sneakers",
+      nombre: "Mouse gamer Logitech g203",
+      precio: 10.99,
+      foto: "https://http2.mlstatic.com/D_NQ_NP_998265-MCO42038100864_062020-O.webp",
+      descripcion: "El mouse gamer Logitech g203 es perfecto para aquellos que buscan precisión y velocidad en sus juegos. Con una velocidad de seguimiento de hasta 8,000 DPI y una tasa de informe de 1,000 Hz, este mouse te permitirá llevar tu juego al siguiente nivel."
     },
     {
       id: 2,
-      imageurl:
-        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZHVjdHN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-      name: "Sport sneakers",
-      price: "$150.000",
-      description: "Zapatillas nike",
+      nombre: "Producto 2",
+      precio: 19.99,
+      foto: "https://http2.mlstatic.com/D_NQ_NP_818240-MPE50012400045_052022-O.jpg",
+      descripcion: "Producto 2 es una excelente opción para aquellos que buscan calidad y durabilidad. Con una construcción resistente y materiales de alta calidad, este producto durará por mucho tiempo."
     },
     {
       id: 3,
-      imageurl:
-        "https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHByb2R1Y3RzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      name: "iWatch",
-      price: "$150.000",
-      description: "I wacht de apple",
+      nombre: "Producto 3",
+      precio: 10.99,
+      foto: "https://http2.mlstatic.com/D_NQ_NP_2X_615158-MLA46232793009_062021-V.webp",
+      descripcion: "Producto 3 es perfecto para aquellos que buscan una solución económica y funcional. Con un diseño simple pero eficiente, este producto te ayudará a resolver tus necesidades sin tener que gastar demasiado."
     },
     {
       id: 4,
-      imageurl:
-        "https://images.unsplash.com/photo-1610824352934-c10d87b700cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fHByb2R1Y3RzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      name: "Water Bottle",
-      price: "$14.900",
-      description: "Termo de agua ",
+      nombre: "Producto 4",
+      precio: 19.99,
+      foto: "https://dobleclicknet.com/wp-content/uploads/2022/02/lieutenant-2.png",
+      descripcion: "Producto 4 es una excelente opción para aquellos que buscan rendimiento y estilo. Con un diseño elegante y moderno, este producto te permitirá destacar entre la multitud mientras realizas tus actividades diarias."
     },
     {
       id: 5,
-      imageurl:
-        "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fHByb2R1Y3RzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      name: "Vans sneakers",
-      price: "$200.000",
-      description: "Vans sneakers",
+      nombre: "Producto 5",
+      precio: 10.99,
+      foto: "https://falabella.scene7.com/is/image/FalabellaCO/7590681_1?wid=800&hei=800&qlt=70",
+      descripcion: "Producto 5 es una excelente opción para aquellos que buscan una solución práctica y funcional. Con un diseño ergonómico y materiales de alta calidad, este producto te permitirá realizar tus actividades diarias con mayor comodidad."
     },
     {
       id: 6,
-      imageurl:
-        "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzV8fHByb2R1Y3RzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      name: "Coco Noir",
-      price: "$20.000",
-      description: "Perfume coco noir",
+      nombre: "Producto 6",
+      precio: 19.99,
+      foto: "https://www.alcarrito.com/media/catalog/product/1023/M-W-CW905-BL/ONIKUMA-CW905-6400-DPI-Wired-Gaming-Mouse-USB-yythk-1.png?width=600&height=600&canvas=600,600&optimize=medium&bg-color=255,255,255&fit=bounds&format=jpeg",
+      descripcion: "Producto 6 es perfecto para aquellos que buscan una experiencia de juego inmersiva y emocionante. Con una resolución de hasta 6,400 DPI y botones programables, este mouse tepermitirá personalizar tu configuración de juego y obtener el máximo rendimiento en cada partida."
+  
     },
     {
-      id: 7,
-      imageurl:
-        "https://images.unsplash.com/photo-1589782182703-2aaa69037b5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTJ8fHByb2R1Y3RzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      name: "Sunglasses",
-      price: "$10.000",
-      description: "Gafas de sol ",
+    id: 7,
+    nombre: "Producto 7",
+    precio: 10.99,
+    foto: "https://jyrtechnology.com.co/wp-content/uploads/2020/10/MGJR-033-1.png",
+    descripcion: "Producto 7 es una opción versátil y funcional para aquellos que buscan un producto multiusos. Con características innovadoras y un diseño compacto, este producto te ayudará a simplificar tus tareas diarias y optimizar tu productividad."
     },
     {
-      id: 8,
-      imageurl:
-        "https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2R1Y3RzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      name: "Dove cream",
-      price: "$8000",
-      description: "Crema dove para la cara",
-    },{
-      id: 8,
-      imageurl:
-        "https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2R1Y3RzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      name: "Dove cream",
-      price: "$8000",
-      description: "Crema dove para la cara",
-    }
+    id: 8,
+    nombre: "Producto 8",
+    precio: 19.99,
+    foto: "https://teknopolis.vtexassets.com/arquivos/ids/181286/Imagen-1.jpg?v=636857755012570000",
+    descripcion: "Producto 8 es una elección ideal para aquellos que buscan rendimiento y eficiencia. Con una velocidad de procesamiento rápida y un diseño elegante, este producto te permitirá realizar tus tareas con fluidez y estilo."
+    },
+    {
+    id: 11,
+    nombre: "Mouse gamer Logitech g203",
+    precio: 10.99,
+    foto: "https://http2.mlstatic.com/D_NQ_NP_998265-MCO42038100864_062020-O.webp",
+    descripcion: "El mouse gamer Logitech g203 es perfecto para aquellos que buscan precisión y velocidad en sus juegos. Con una velocidad de seguimiento de hasta 8,000 DPI y una tasa de informe de 1,000 Hz, este mouse te permitirá llevar tu juego al siguiente nivel."
+    },
+    {
+    id: 21,
+    nombre: "Producto 2",
+    precio: 19.99,
+    foto: "https://http2.mlstatic.com/D_NQ_NP_818240-MPE50012400045_052022-O.jpg",
+    descripcion: "Producto 2 es una excelente opción para aquellos que buscan calidad y durabilidad. Con una construcción resistente y materiales de alta calidad, este producto durará por mucho tiempo."
+    },
+    {
+    id: 31,
+    nombre: "Producto 3",
+    precio: 10.99,
+    foto: "https://http2.mlstatic.com/D_NQ_NP_2X_615158-MLA46232793009_062021-V.webp",
+    descripcion: "Producto 3 es perfecto para aquellos que buscan una solución económica y funcional. Con un diseño simple pero eficiente, este producto te ayudará a resolver tus necesidades sin tener que gastar demasiado."
+    },
+    {
+    id: 42,
+    nombre: "Producto 4",
+    precio: 19.99,
+    foto: "https://dobleclicknet.com/wp-content/uploads/2022/02/lieutenant-2.png",
+    descripcion: "Producto 4 es una excelente opción para aquellos que buscan rendimiento y estilo. Con un diseño elegante y moderno, este producto te permitirá destacar entre la multitud mientras realizas tus actividades diarias."
+    },
+    {
+    id: 52,
+    nombre: "Producto 5",
+    precio: 10.99,
+    foto: "https://falabella.scene7.com/is/image/FalabellaCO/7590681_1?wid=800&hei=800&qlt=70",
+    descripcion: "Producto 5 es una excelente opción para aquellosque buscan una solución práctica y funcional. Con un diseño ergonómico y materiales de alta calidad, este producto te permitirá realizar tus actividades diarias con mayor comodidad."
+  
+  },
+  {
+  id: 62,
+  nombre: "Producto 6",
+  precio: 19.99,
+  foto: "https://www.alcarrito.com/media/catalog/product/1023/M-W-CW905-BL/ONIKUMA-CW905-6400-DPI-Wired-Gaming-Mouse-USB-yythk-1.png?width=600&height=600&canvas=600,600&optimize=medium&bg-color=255,255,255&fit=bounds&format=jpeg",
+  descripcion: "Producto 6 es perfecto para aquellos que buscan una experiencia de juego inmersiva y emocionante. Con una resolución de hasta 6,400 DPI y botones programables, este mouse te permitirá personalizar tu configuración de juego y obtener el máximo rendimiento en cada partida."
+  },
+  {
+  id: 72,
+  nombre: "Producto 7",
+  precio: 10.99,
+  foto: "https://jyrtechnology.com.co/wp-content/uploads/2020/10/MGJR-033-1.png",
+  descripcion: "Producto 7 es una opción versátil y funcional para aquellos que buscan un producto multiusos. Con características innovadoras y un diseño compacto, este producto te ayudará a simplificar tus tareas diarias y optimizar tu productividad."
+  },
+  {
+  id: 82,
+  nombre: "Producto 8",
+  precio: 19.99,
+  foto: "https://teknopolis.vtexassets.com/arquivos/ids/181286/Imagen-1.jpg?v=636857755012570000",
+  descripcion: "Producto 8 es una elección ideal para aquellos que buscan rendimiento y eficiencia. Con una velocidad de procesamiento rápida y un diseño elegante, este producto te permitirá realizar tus tareas con fluidez y estilo."
+  }
   ];
+  
+export default data;

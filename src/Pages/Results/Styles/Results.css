@@ -1,0 +1,73 @@
+body{
+  background: rgb(148, 255, 146);
+  background: linear-gradient(90deg, rgba(182, 253, 155, 0.416) 5%, rgba(148,237,255,0.5803571428571428) 100%);
+}
+header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+header button{
+  background-color: #76fb69;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+header button:hover{
+  background-color: #6fff2c;
+  box-shadow: 0 0 5px #03ff29;
+}
+.navbar{
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 25px;
+    padding-top: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    align-items: center;
+    justify-items: center;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+
+}
+
+.pagination button {
+  background-color: #76fb69;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #6fff2c;
+  box-shadow: 0 0 5px #03ff29;
+
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 16px;
+}

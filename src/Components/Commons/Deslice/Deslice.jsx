@@ -1,8 +1,8 @@
 import "./Styles/Deslice.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Product from "../../../Pages/ProductPage/Product";
-import { productData, responsive } from "../../../Pages/Home/Data/Offers/data";
+import Product from "./Product";
+import { productData, responsive } from "./data";
 
 export default function Deslice() {
   const product = productData.map((item) => (
