@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Styles/NavbarSeller.css";
+import Cookies from "js-cookie";
 
 export default function NavbarSeller() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -19,6 +20,12 @@ export default function NavbarSeller() {
     body.classList.toggle("dark");
     setIsDarkMode(!isDarkMode);
   };
+
+  
+  const clearCookies = () => {
+    Cookies.remove('token');
+    Cookies.remove('role')
+  }
 
   return (
     <>
@@ -82,7 +89,7 @@ export default function NavbarSeller() {
 
 
               <li className="">
-              <a href="/Home">
+              <a href="/" onClick={clearCookies} >
                 <i className="bx bx-log-out icon"></i>
                 <span className="text nav-text">Logout</span>
               </a>

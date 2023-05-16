@@ -1,5 +1,5 @@
-import React from 'react'
-import {BrowserRouter, Routes,Route, Outlet,Redirect} from 'react-router-dom'
+import React, { useState } from 'react';
+import {BrowserRouter, Routes,Route, Outlet, Redirect} from 'react-router-dom'
 import NotFoundPage from '../Pages/NotfoundPage/NotFoundPage'
 import HomePage from '../Pages/Home/HomePage'
 import SignUpPage from '../Pages/SignUp/SignUpPage'
@@ -20,25 +20,11 @@ import NotificationPage from '../Components/Commons/Notification/NotificationPag
 import WishListPage from '../Pages/PagesShopper/WishList/WishListPage';
 import ResultsPage from '../Pages/Results/ResultsPage';
 import ProductPage from '../Pages/Product/ProductPage';
-
+import PrivateRoutesShopper from '../Components/Security/PrivateRoutesShopper'
+import PrivateRoutesSeller from '../Components/Security/PrivateRoutesSeller'
 
 
 export default function App(){
-
-
-
-// const [user, setUser] = useState(null)
-// const login=()=>{
-//     setUser({
-//         id:1,
-//         name:"john",
-//         rol:['admin']
-//     })
-// }
-// const logout =()=> setUser(null)
-
-
-
 
 
 return(
@@ -52,41 +38,29 @@ return(
             <Route path="/SignUpSeller" element ={<SignUpSellerPage/>} />
             <Route path="/RecoverPassword" element ={<RecoverPasswordPage/>} />
             <Route path="/*" element ={<NotFoundPage/>} />
-
             {/* Rutas de CategoriasPages */}
             <Route path="/PageCategories" element ={<PageCategories/>} />
 
-            {/* Rutas para resultados y vista de producto */}
             <Route path='/Results' element = {<ResultsPage/>}/>
             <Route path='/Product/:id' element = {<ProductPage/>}/>
 
-            {/* rutas a proteger */}
-
-            <Route path="/Notification" element ={<NotificationPage/>} />
-
-
-            {/* Shopper */}
-            <Route path="/DashShopper" element ={<DashboardShopper/>} />
-            <Route path="/Profile" element ={<ProfilePage/>} />
-            <Route path="/WishList" element ={<WishListPage/>} />
-            <Route path="/MyPurchases" element ={<MyPurchasesPage/>} />
-            <Route path="/PaymentMethods" element ={<PaymentMethodsPage/>} />
-
-            {/* Seller */}
-            <Route path="/DashSeller" element ={<DashBoardSeller/>} />
-            <Route path="/ProfileSeller" element ={<ProfileSellerPage/>} />
-            <Route path="/Sales" element ={<SalesPage/>} />
-            <Route path="/Payments" element ={<PaymentsPage/>} />
-
-            {/*
-            <ProtectedRoute isAllowed={!!user && user.roles.includes('admin')}>
-            <Admin/>
-            </ProtectedRoute> */}
-
-            
-
-
-
+            {/* rutas a proteger comprador*/}
+            <Route element={<PrivateRoutesShopper/>}>
+                    <Route path="/DashShopper" element ={<DashboardShopper/>} />   
+                    <Route path="/Profile" element ={<ProfilePage/>} />
+                    <Route path="/WishList" element ={<WishListPage/>} />
+                    <Route path="/MyPurchases" element ={<MyPurchasesPage/>} />
+                    <Route path="/PaymentMethods" element ={<PaymentMethodsPage/>} />
+                    <Route path="/Notification" element ={<NotificationPage/>} /> 
+            </Route>
+    
+            {/* rutas a protegervendedor */}
+            <Route element={<PrivateRoutesSeller/>}>
+                      <Route path="/DashSeller" element ={<DashBoardSeller/>} />
+                      <Route path="/ProfileSeller" element ={<ProfileSellerPage/>} />
+                      <Route path="/Sales" element ={<SalesPage/>} />
+                      <Route path="/Payments" element ={<PaymentsPage/>} />
+             </Route>
         </Routes>
     </BrowserRouter>
 

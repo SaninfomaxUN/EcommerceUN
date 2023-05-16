@@ -1,42 +1,102 @@
 import { useState } from 'react'
-import { Navigate, Link } from 'react-router-dom'
+import { Link, useNavigate,Navigate} from 'react-router-dom'
 import cohete from './Assets/cohete.jpg'
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const Login = () => {
+  const Navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
   }
-
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    try {
-      const response = await fetch('http://localhost:5000/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      })
-      const responseData = await response.json()
-      console.log(responseData)
-      localStorage.setItem('token', responseData.token)
+//   const handleSubmit = async (e) => {
+//   e.preventDefault()
+//   try {
+//   const response = await fetch('http://localhost:5000/api/login', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ email, password }),
+//     })
+//   const responseData = await response.json()
+//     console.log(responseData)
+//     Cookies.set('token', responseData.token)
+//     // const token = Cookies.get('token');
+//     setTimeout(() => {
+//       userAuthenticated()
+//     }, 1000) // Esperar 1 segundo antes de llamar a userAuthenticated
+//   } catch (error) {
+//     setError(error.message)
+//   }
+// }
 
+//   const userAuthenticated = () => {
+//   axios.post("http://localhost:5000/api/isUserAuth", {}, {
+//     headers: {
+//       authorization: Cookies.get("token")
+//     }
+//   }).then((response) => {
+//     console.log(response)
+//     if (response.data) {
+//       Navigate('/DashShopper')
+//     }
+//   }) 
+// }
 
-
-      // Redirigir al usuario a otra página
-      Navigate('/DashShopper')
-    } catch (error) {
-      setError(error.message)
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  try {
+    const response = await fetch('http://localhost:5000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+    const responseData = await response.json()
+    console.log(responseData)
+    Cookies.set('token', responseData.token)
+    Cookies.set("role",responseData.userType)
+    // const token = Cookies.get('token');
+    setTimeout(() => {
+      userAuthenticated(responseData.userType)
+    }, 1000) // Esperar 1 segundo antes de llamar a userAuthenticated
+  } catch (error) {
+    setError(error.message)
   }
+}
+
+const userAuthenticated = (userType) => {
+  axios.post("http://localhost:5000/api/isUserAuth", {}, {
+    headers: {
+      authorization: Cookies.get("token")
+    }
+  }).then((response) => {
+    console.log(response)
+    if (response.data && userType === 'comprador') {
+      Navigate('/DashShopper')
+    } else if (response.data && userType === 'vendedor') {
+      Navigate('/DashSeller')
+    }
+  }) 
+}
+
+
+
+
+
+
+
+
+
 
   return (
     <div>
@@ -51,7 +111,7 @@ const Login = () => {
                 </div>
 
                 <div className='contInput1'>
-                  <form onSubmit={handleSubmit} className='formUser'>
+                  <form onSubmit={handleSubmit}  className='formUser'>
                     <label htmlFor='email' className=''>
                       Usuario
                     </label>
@@ -99,7 +159,7 @@ const Login = () => {
                     registrate
                   </Link>
                 </div>
-                {/* <Google /> */}
+               
               </div>
             </div>
           </div>

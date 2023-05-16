@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./Styles/NavbarShopper.css";
+import axios from "axios";
+
+import Cookies from "js-cookie";
 
 export default function NavbarShopper() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -18,8 +21,13 @@ export default function NavbarShopper() {
     const body = document.querySelector("body");
     body.classList.toggle("dark");
     setIsDarkMode(!isDarkMode);
-  };
+   }
 
+
+   const clearCookies = () => {
+    Cookies.remove('token');
+    Cookies.remove('role')
+  }
   return (
     <>
       <nav className="sidebar close">
@@ -86,7 +94,7 @@ export default function NavbarShopper() {
 
 
               <li className="">
-              <a href="/Home">
+              <a href="/" onClick={clearCookies} >
                 <i className="bx bx-log-out icon"></i>
                 <span className="text nav-text">Logout</span>
               </a>
