@@ -5,7 +5,10 @@ import axios from 'axios'
 import TwoFA from "../../2FA/TwoFA";
 import SignUpShopper from "./SignUpShopper"
 import {doVerification2FA} from "../../2FA/TwoFAFunction"
+import ValidationAlert from "../../../Components/Commons/Validations/ValidationAlert"
 import {showAlertError, showAlertInfo, showAlertSuccess} from "../../../Components/Commons/Alerts/AlertsModal";
+import {passwordValidation} from "../../../Components/Commons/Validations/passwordValidations";
+
 
 
 let checkExisting = false
@@ -43,9 +46,10 @@ export const doSignUpShopper = (formData) => {
 
 const SignUpShopperPage = () => {
     const navigate = useNavigate();
+    const [openValidation, setOpenValidation] = React.useState(false);
+    const [messageValidation, setMessageValidation] = React.useState('');
 
     const [open2FA, setOpen2FA] = React.useState(false);
-
 
     const [formData, setFormData] = useState({
         nombre: '',
@@ -91,36 +95,12 @@ const SignUpShopperPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (formData.password !== formData.confirmPassword) {
-            alert("Las contraseñas no coinciden");
+        const [validation, message] = passwordValidation(formData.password, formData.confirmPassword, formData.email)
+        setMessageValidation(message)
+        setOpenValidation(!validation)
+        if (!validation){
             return;
         }
-
-        if (formData.password.length < 8) {
-            alert("La contraseña debe tener al menos 8 caracteres");
-            return;
-        }
-
-        if (!/[A-Z]/.test(formData.password)) {
-            alert("La contraseña debe contener al menos una letra mayúscula");
-            return;
-        }
-
-        if (!/[a-z]/.test(formData.password)) {
-            alert("La contraseña debe contener al menos una letra minúscula");
-            return;
-        }
-
-        if (!/\d/.test(formData.password)) {
-            alert("La contraseña debe contener al menos un número");
-            return;
-        }
-
-        if (formData.password === formData.email) {
-            alert("La contraseña no puede ser igual al correo electrónico del usuario");
-            return;
-        }
-        //navigate("/2FA_Verification", { state: { emailToVerify: formData.email }})
 
         const check = checkExistingShopper(formData, navigate)
         if (check){
@@ -137,6 +117,9 @@ const SignUpShopperPage = () => {
 
     return (
         <div className='all'>
+            <div>
+                {openValidation && <ValidationAlert openValidation={openValidation} setOpenValidation={setOpenValidation} messageValidation={messageValidation} />}
+            </div>
             <SignUpShopper data={formData}
                            handleSubmit={handleSubmit}
                            handleChange={handleChange}
@@ -149,6 +132,7 @@ const SignUpShopperPage = () => {
 
             />
             <TwoFA open={open2FA} close={() => setOpen2FA(false)} dataToSend={formData} verifySignUp={verifySignUp}/>
+
         </div>
     )
 }

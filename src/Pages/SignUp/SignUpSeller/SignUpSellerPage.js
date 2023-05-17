@@ -6,13 +6,15 @@ import TwoFA from "../../2FA/TwoFA";
 import SignUpSeller from "./SignUpSeller";
 import {doVerification2FA} from "../../2FA/TwoFAFunction";
 import {showAlertError, showAlertInfo, showAlertSuccess} from "../../../Components/Commons/Alerts/AlertsModal";
+import {passwordValidation} from "../../../Components/Commons/Validations/passwordValidations";
+import ValidationAlert from "../../../Components/Commons/Validations/ValidationAlert";
 
 let checkExisting = false
 export const checkExistingSeller = (formData, nav) => {
 
 
     axios.post('http://localhost:5000/api/checkExistingSeller', formData)
-        .then(res => {
+        .then(() => {
             checkExisting = true
         })
         .catch(err => {
@@ -39,9 +41,10 @@ export const doSignUpSeller = (formData) => {
 };
 
 
-const SignUpSellerPage = (value, onChange) => {
+const SignUpSellerPage = () => {
     const navigate = useNavigate();
-
+    const [openValidation, setOpenValidation] = React.useState(false);
+    const [messageValidation, setMessageValidation] = React.useState('');
     const [open2FA, setOpen2FA] = React.useState(false);
 
 
@@ -89,35 +92,13 @@ const SignUpSellerPage = (value, onChange) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (formData.password !== formData.confirmPassword) {
-            alert("Las contraseñas no coinciden");
+        const [validation, message] = passwordValidation(formData.password, formData.confirmPassword, formData.email)
+        setMessageValidation(message)
+        setOpenValidation(!validation)
+        if (!validation){
             return;
         }
 
-        if (formData.password.length < 8) {
-            alert("La contraseña debe tener al menos 8 caracteres");
-            return;
-        }
-
-        if (!/[A-Z]/.test(formData.password)) {
-            alert("La contraseña debe contener al menos una letra mayúscula");
-            return;
-        }
-
-        if (!/[a-z]/.test(formData.password)) {
-            alert("La contraseña debe contener al menos una letra minúscula");
-            return;
-        }
-
-        if (!/\d/.test(formData.password)) {
-            alert("La contraseña debe contener al menos un número");
-            return;
-        }
-
-        if (formData.password === formData.email) {
-            alert("La contraseña no puede ser igual al correo electrónico del usuario");
-            return;
-        }
         const check = checkExistingSeller(formData, navigate)
         if (check){
             doVerification2FA(formData);
@@ -133,6 +114,9 @@ const SignUpSellerPage = (value, onChange) => {
 
     return (
         <div className='all'>
+            <div>
+                {openValidation && <ValidationAlert openValidation={openValidation} setOpenValidation={setOpenValidation} messageValidation={messageValidation} />}
+            </div>
             <SignUpSeller data={formData}
                           handleSubmit={handleSubmit}
                           handleChange={handleChange}
