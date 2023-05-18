@@ -120,12 +120,7 @@ module.exports = {
 
 
     login: async (req, res) => {
-      const connection = await mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'root',
-        database: 'ecommerce'
-      });
+      const connection = await ConnectionDB.getConnection();
     
       function getJwtSecret() {
         return secret || 'your_secret_key';

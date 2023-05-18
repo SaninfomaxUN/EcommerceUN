@@ -3,16 +3,42 @@ import RecoverPassword from './RecoverPassword'
 import TwoFA from "../../2FA/TwoFA";
 import {doVerification2FA} from "../../2FA/TwoFAFunction";
 import RestorePassword from "./Components/RestorePassword";
+import axios from "axios";
+import {showAlertInfo} from "../../../Components/Commons/Alerts/AlertsModal";
+import {useNavigate} from "react-router-dom";
 
 
+let checkExisting = false
+export const checkExistingUser = async (credential, checked, nav) => {
+    let url
+    if (checked) {
+        url = "http://localhost:5000/api/checkExistingSeller"
+    } else {
+        url = "http://localhost:5000/api/checkExistingShopper"
+    }
+    await axios.post(url, credential)
+        .then(() => {
+                showAlertInfo("El correo ingresado NO se encuentra registrado!")
+                nav('/Login')
+            }
+        )
+        .catch(() => {
+            checkExisting = true
+        });
+    return checkExisting
+
+};
 
 const RecoverPasswordPage = () => {
+    const navigate = useNavigate();
     const [open2FA, setOpen2FA] = React.useState(false);
     const [openRestore, setOpenRestore] = React.useState(false);
     const [checked, setChecked] = useState(false);
     const [credential, setCredential] = useState({
         email: '',
-        newPassword: ''
+        newPassword: '',
+        idComprador: 0,
+        nit: 0
 
     })
 
@@ -22,17 +48,13 @@ const RecoverPasswordPage = () => {
     };
 
 
-
     const recoverPassword = (verification) => {
-        if (verification){
+        if (verification) {
             setOpen2FA(false)
             setOpenRestore(true)
 
         }
     };
-
-
-
 
 
     const handleChange = (e) => {
@@ -45,6 +67,10 @@ const RecoverPasswordPage = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        const check = checkExistingUser(credential, checked, navigate)
+        if (!check) {
+            return;
+        }
         doVerification2FA(credential);
 
         setOpen2FA(true)
@@ -58,11 +84,12 @@ const RecoverPasswordPage = () => {
                 data={credential}
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
-                /*messageStr={message}*/
                 switchHandler={switchHandler}
             />
-            <TwoFA open={open2FA} close={() => setOpen2FA(false)} dataToSend={credential} verifySignUp={recoverPassword}/>
-            <RestorePassword open={openRestore} close={() => setOpenRestore(false)} credential={credential} check={checked}/>
+            <TwoFA open={open2FA} close={() => setOpen2FA(false)} dataToSend={credential}
+                   verifySignUp={recoverPassword}/>
+            <RestorePassword open={openRestore} close={() => setOpenRestore(false)} credential={credential}
+                             check={checked}/>
 
         </div>
     )

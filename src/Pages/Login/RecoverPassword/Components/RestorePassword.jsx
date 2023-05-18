@@ -57,10 +57,10 @@ function RestorePassword(props) {
                             <Stack spacing={2}>
                                 <Box>Ingresa tu nueva contraseña para:</Box>
                                 <Box display="flex" justifyContent="center" alignItems="center" className="emailBox">{props.credential.email}</Box>
-                                <TextField error={arePasswordsIncorrect} id="newPasswordField" label="Contraseña" variant="outlined"
+                                <TextField error={arePasswordsIncorrect} id="newPasswordField" type='password' label="Contraseña" variant="outlined"
                                            inputProps={{minLength: 8}}
                                            required={true} inputRef={newPassword}/>
-                                <TextField error={arePasswordsIncorrect} id="newPasswordFieldAgain" label="Confirmar Contraseña" variant="outlined"
+                                <TextField error={arePasswordsIncorrect} id="newPasswordFieldAgain" type='password' label="Confirmar Contraseña" variant="outlined"
                                            inputProps={{minLength: 8}}
                                            required={true} inputRef={newPasswordAgain}/>
                                 <Button type="submit" variant="contained" size="large" color="secondary">
