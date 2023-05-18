@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Link, useNavigate, Navigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import cohete from './Assets/cohete.jpg'
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -67,14 +67,14 @@ const Login = () => {
             Cookies.set("role", responseData.userType)
             // const token = Cookies.get('token');
             setTimeout(() => {
-                userAuthenticated(responseData.userType)
+                userAuthenticated()
             }, 1000) // Esperar 1 segundo antes de llamar a userAuthenticated
         } catch (error) {
             setError(error.message)
         }
     }
 
-    const userAuthenticated = (userType) => {
+    const userAuthenticated = () => {
         axios.post("http://localhost:5000/api/isUserAuth", {}, {
             headers: {
                 authorization: Cookies.get("token")

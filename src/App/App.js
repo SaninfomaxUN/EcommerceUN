@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {BrowserRouter, Routes,Route, Outlet, Redirect} from 'react-router-dom'
+import React from 'react';
+import {BrowserRouter, Routes,Route} from 'react-router-dom'
 import NotFoundPage from '../Pages/NotfoundPage/NotFoundPage'
 import HomePage from '../Pages/Home/HomePage'
 import SignUpPage from '../Pages/SignUp/SignUpPage'
@@ -7,8 +7,6 @@ import SignUpShopperPage from '../Pages/SignUp/SignUpShopper/SignUpShopperPage'
 import SignUpSellerPage from '../Pages/SignUp/SignUpSeller/SignUpSellerPage'
 import LoginPage from '../Pages/Login/LoginPage'
 import PageCategories from '../Pages/PagesCategories/PageCategories'
-import DashboardShopper from '../Components/Commons/NavbarShopper/DashboardShopper'
-import DashBoardSeller from '../Components/Commons/NavbarSeller/DashBoardSeller';
 import RecoverPasswordPage from '../Pages/Login/RecoverPassword/RecoverPasswordPage';
 import ProfilePage from '../Pages/PagesShopper/Profile/ProfilePage';
 import ProfileSellerPage from '../Pages/PagesSeller/ProfileSeller/ProfileSellerPage';

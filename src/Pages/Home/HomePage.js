@@ -1,7 +1,6 @@
 import React from 'react'
 import Home from "./Home";
 import Cookies from "js-cookie";
-import {Outlet} from "react-router-dom";
 
 
 const HomePage = () => {
