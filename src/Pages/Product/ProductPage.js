@@ -8,8 +8,8 @@ import { useParams } from 'react-router';
 
 function ProductPage() {
     
-    const {name} = useParams;
-    console.log(name);
+    const {id} = useParams();
+    console.log(id);
     const producto = data[3];
     return (
         <div className='container-body'>
