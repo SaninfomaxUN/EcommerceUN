@@ -5,6 +5,9 @@ import Card from '../../Components/Commons/Card/Card';
 import Footer from '../../Components/Commons/Footer/Footer'; 
 import data from './data/data';
 import './Styles/Results.css';
+import NavbarShopper from "../../Components/Commons/NavbarShopper/NavbarShopper";
+import NavbarSeller from "../../Components/Commons/NavbarSeller/NavbarSeller";
+import Cookies from "js-cookie";
 
 const  ResultsPage = () => {
   const location = useLocation();
@@ -17,6 +20,15 @@ const  ResultsPage = () => {
     handleSearch(ImportedSearch)
   },[]);
 
+  const token = Cookies.get('token');
+  const role = Cookies.get('role');
+  let shopperConnected = false
+  let sellerConnected = false
+  if (token && role === 'comprador') {
+    shopperConnected=true
+  }else if (token && role === 'vendedor') {
+    sellerConnected=true
+  }
 
   const handleSearch = (text) => {
     setSearchText(text);
@@ -45,6 +57,8 @@ const  ResultsPage = () => {
 
   return (
     <div>
+      {shopperConnected && <NavbarShopper/>}
+      {sellerConnected && <NavbarSeller/>}
       <header>
         <Link to='/'><button>Home</button></Link>
         <SearchBar onSearch={handleSearch} inicialState={ImportedSearch} />

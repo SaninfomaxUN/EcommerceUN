@@ -39,10 +39,10 @@ export default function NavbarSeller() {
 
         <div className="menu-bar">
           <div className="menu">
-            <li className="search-box" onClick={handleSearchBtnClick}>
+            {/*<li className="search-box" onClick={handleSearchBtnClick}>
               <i className="bx bx-search icon"></i>
               <input type="text" placeholder="Search..." />
-            </li>
+            </li>*/}
 
             <ul className="menu-links">
 

@@ -39,7 +39,9 @@ body{
 }
 
 .barSearch {
-	width: 600px;
+	width: 400px;
+	max-width: 600px;
+	min-width: 100px;
 }
 
 /* Styles LOGIN page */

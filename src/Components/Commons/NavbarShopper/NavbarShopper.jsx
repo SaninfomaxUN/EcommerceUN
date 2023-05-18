@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Styles/NavbarShopper.css";
-import axios from "axios";
 
 import Cookies from "js-cookie";
 
@@ -40,10 +39,10 @@ export default function NavbarShopper() {
 
         <div className="menu-bar">
           <div className="menu">
-            <li className="search-box" onClick={handleSearchBtnClick}>
+{/*            <li className="search-box" onClick={handleSearchBtnClick}>
               <i className="bx bx-search icon"></i>
               <input type="text" placeholder="Search..." />
-            </li>
+            </li>*/}
 
             <ul className="menu-links">
 
