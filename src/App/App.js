@@ -46,7 +46,7 @@ return(
 
             {/* rutas a proteger comprador*/}
             <Route element={<PrivateRoutesShopper/>}>
-                    <Route path="/DashShopper" element ={<DashboardShopper/>} />   
+                    {/*<Route path="/DashShopper" element ={<DashboardShopper/>} /> */}
                     <Route path="/Profile" element ={<ProfilePage/>} />
                     <Route path="/WishList" element ={<WishListPage/>} />
                     <Route path="/MyPurchases" element ={<MyPurchasesPage/>} />
@@ -56,7 +56,7 @@ return(
     
             {/* rutas a protegervendedor */}
             <Route element={<PrivateRoutesSeller/>}>
-                      <Route path="/DashSeller" element ={<DashBoardSeller/>} />
+                      {/*<Route path="/DashSeller" element ={<DashBoardSeller/>} />*/}
                       <Route path="/ProfileSeller" element ={<ProfileSellerPage/>} />
                       <Route path="/Sales" element ={<SalesPage/>} />
                       <Route path="/Payments" element ={<PaymentsPage/>} />

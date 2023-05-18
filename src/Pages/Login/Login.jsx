@@ -81,11 +81,7 @@ const Login = () => {
             }
         }).then((response) => {
             console.log(response)
-            if (response.data && userType === 'comprador') {
-                Navigate('/DashShopper')
-            } else if (response.data && userType === 'vendedor') {
-                Navigate('/DashSeller')
-            }
+            Navigate('/Home')
         })
     }
 
