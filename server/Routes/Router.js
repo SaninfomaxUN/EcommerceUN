@@ -5,6 +5,7 @@ const serviceRecoverPassword = require("../Services/RecoverPassword/serviceRecov
 const service2FA = require("../Services/2FA/service2FA.js")
 const serviceSignUpSeller = require("../Services/SignUp/SignUpSeller/serviceSignUpSeller.js")
 const serviceSignUpShopper = require("../Services/SignUp/SignUpShopper/serviceSignUpShopper.js")
+const serviceProduct = require("../Services/Product/serviceProduct")
 const cors = require('cors');
 const cookieParser = require("cookie-parser")
 
@@ -23,9 +24,10 @@ Router.post('/checkExistingShopper', serviceSignUpShopper.checkExistingShopper)
 Router.post('/checkExistingSeller', serviceSignUpSeller.checkExistingSeller)
 
 Router.post("/send2FA", service2FA.send2FA)
-
 Router.post("/check2FA", service2FA.check2FA)
 
+//Consultar Productos
+Router.post('/getProduct', serviceProduct.getProduct)
 
 module.exports = Router;
 
