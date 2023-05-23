@@ -4,7 +4,7 @@ import cohete from './Assets/cohete.jpg'
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Switch, FormControlLabel } from '@mui/material';
-import {showAlertError, showAlertInfo, showAlertSuccess} from "../../Components/Commons/Alerts/AlertsModal";
+import {showAlertError} from "../../Components/Commons/Alerts/AlertsModal";
 
 
 const Login = () => {
@@ -22,7 +22,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let endpoint = '';
+      let endpoint;
   
       if (isSeller) {
         endpoint = 'http://localhost:5000/api/loginSeller';
@@ -44,7 +44,7 @@ const Login = () => {
       Cookies.set('token', responseData.token);
       Cookies.set('role', responseData.userType);
   
-      userAuthenticated(responseData.userType);
+      userAuthenticated();
     } catch (error) {
       setError(error.message);
     }
@@ -52,7 +52,7 @@ const Login = () => {
 
 
   
-const userAuthenticated = async (userType) => {
+const userAuthenticated = async () => {
   try {
     const response = await axios.post("http://localhost:5000/api/isUserAuth", {}, {
       headers: {
@@ -71,7 +71,7 @@ const userAuthenticated = async (userType) => {
 
 
 
-const [isSeller, setIsSeller] = useState(true);
+const [isSeller, setIsSeller] = useState(false);
 const handleSwitch = () => {
   setIsSeller(!isSeller);
 };
@@ -89,7 +89,7 @@ const handleSwitch = () => {
               <div className='card-header'> Ingresa sesión</div>
               <div className='card-body'>
                 <div className='divImg2'>
-                  <img className='img-fluid rounded-start imgCohete' src={cohete} />
+                  <img alt={""} className='img-fluid rounded-start imgCohete' src={cohete} />
                 </div>
 
                 <div className='contInput1'>

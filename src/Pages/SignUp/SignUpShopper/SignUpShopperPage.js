@@ -116,7 +116,7 @@ const SignUpShopperPage = () => {
 
 
     return (
-        <div className='all'>
+        <div className='all fullWidthBackground'>
             <div>
                 {openValidation && <ValidationAlert openValidation={openValidation} setOpenValidation={setOpenValidation} messageValidation={messageValidation} />}
             </div>

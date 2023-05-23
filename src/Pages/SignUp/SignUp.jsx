@@ -8,7 +8,7 @@ import vendedor from "./Assets/vendedor.jpg"
 
 const SignUp = () => {
   return (
- 
+      <div  className="fullWidthBackground">
         <div className='container-fluid containerLog'>
           <br />
           <br />
@@ -21,7 +21,7 @@ const SignUp = () => {
         <div className='complete'>
         
         <div className='comprador'>
-          <img className="img-fluid rounded-start imgComprador" src={comprador}  />
+          <img alt={""} className="img-fluid rounded-start imgComprador" src={comprador}  />
           <NavLink to="/SignUpShopper">
            <button className='btn buttonComprador'> Registro para compradores</button>
           </NavLink >
@@ -29,7 +29,7 @@ const SignUp = () => {
 
 
         <div className='vendedor'>
-          <img className="img-fluid rounded-start imgVendedor" src={vendedor}  />
+          <img alt={""} className="img-fluid rounded-start imgVendedor" src={vendedor}  />
           <NavLink to="/SignUpSeller">
         <button className='btn buttonVendedor'> Registro para Vendedores</button>
         </NavLink>
@@ -38,6 +38,7 @@ const SignUp = () => {
         <br />
         </div>
 
+        </div>
         </div>
         </div>
         </div>

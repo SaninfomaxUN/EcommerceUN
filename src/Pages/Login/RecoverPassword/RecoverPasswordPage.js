@@ -79,7 +79,7 @@ const RecoverPasswordPage = () => {
 
 
     return (
-        <div className='all'>
+        <div className='all fullWidthBackground'>
             <RecoverPassword
                 data={credential}
                 handleSubmit={handleSubmit}
