@@ -60,11 +60,8 @@ const userAuthenticated = async (userType) => {
       }
     });
     console.log(response);
-    if (response.data && userType === 'comprador') {
-      Navigate('/DashShopper');
-    } else if (response.data && userType === 'vendedor') {
-      Navigate('/DashSeller');
-    }
+    Navigate('/Home');
+
   } catch (error) {
     console.error(error);
     // Mostrar SweetAlert con el mensaje de error

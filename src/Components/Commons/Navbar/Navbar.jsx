@@ -47,7 +47,7 @@ export default function Navbar(props) {
                                     <NavLink className="navlink" to="/Home">Inicio</NavLink>
                                 </li>}
                                 <li className="nav-item">
-                                    <NavLink className="navlink" to="#">Tú carrito</NavLink>
+                                    <NavLink className="navlink" to="/Login">Tú carrito</NavLink>
                                 </li>
                                 {props.userConnected &&
                                     <li className="nav-item cont-singup">

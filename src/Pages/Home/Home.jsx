@@ -30,7 +30,7 @@ export default function Home(props) {
         <div>
             {props.shopperConnected && <NavbarShopper/>}
             {props.sellerConnected && <NavbarSeller/>}
-            <Navbar userConnected={!props.shopperConnected || !props.shopperConnected}/>
+            <Navbar userConnected={!props.shopperConnected && !props.sellerConnected}/>
 
 
             <div className='carousel'>
