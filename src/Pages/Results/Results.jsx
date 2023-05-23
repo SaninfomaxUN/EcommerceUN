@@ -5,6 +5,7 @@ import SearchBar from "../../Components/Commons/SearchBar/SearchBar";
 import Card from "../../Components/Commons/Card/Card";
 import Footer from "../../Components/Commons/Footer/Footer";
 import React from "react";
+import {Alert} from "@mui/material";
 
 
 const Results = (props) => {
@@ -25,6 +26,7 @@ const Results = (props) => {
                 </Link>
             </header>
             <div className="card-container">
+                {props.notFoundAlert && <Alert severity="error">No se encontraron productos!</Alert>}
                 {props.filteredData
                     .slice((props.currentPage - 1) * props.cardsLimit, props.currentPage * props.cardsLimit)
                     .map((item) => (
