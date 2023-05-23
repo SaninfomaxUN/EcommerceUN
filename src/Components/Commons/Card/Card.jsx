@@ -15,7 +15,7 @@ function Card({ id,nombre, precio, foto, descripcion }) {
   // };
   const navigate = useNavigate();
   const toOpen = ()=>{
-    navigate(`/Product/${id}`/*,{state:{toString:search}}*/)
+    navigate(`/Product/${nombre+"$$"+id}`/*,{state:{toString:search}}*/)
   }
 
   return (

@@ -1,51 +1,73 @@
-import React from 'react';
-import Cookies from "js-cookie";
+import React, {useEffect, useState} from 'react';
 import Footer from '../../Components/Commons/Footer/Footer'
-import data from './data/data';
 import CardProduct from './Components/CardProduct';
 import './Styles/ProductPage.css';
-import { useParams } from 'react-router';
-import NavbarShopper from "../../Components/Commons/NavbarShopper/NavbarShopper";
-import NavbarSeller from "../../Components/Commons/NavbarSeller/NavbarSeller";
+import {useParams} from 'react-router';
+import axios from "axios";
+import {CircularProgress} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
-function ProductPage() {
-    const token = Cookies.get('token');
-    const role = Cookies.get('role');
-    let shopperConnected = false
-    let sellerConnected = false
-    if (token && role === 'comprador') {
-        shopperConnected=true
-    }else if (token && role === 'vendedor') {
-        sellerConnected=true
-    }
-    const {name} = useParams();
-    console.log(name);
-    const producto = data[3];
+
+const getProduct = (idProducto, setProduct, setLoaded, navigate) => {
+    let product
+    axios.post('http://localhost:5000/api/getProduct', {idProducto: idProducto})
+        .then(res => {
+            setLoaded(true)
+            setProduct(res.data[0])
+        })
+        .catch(err => {
+            navigate("/*")
+        });
+    return product
+};
+
+const ProductPage = () => {
+    const [product, setProduct] = useState({
+        id_producto: '',
+        N_PRODUCTO: '',
+        DESCRIPCION: '',
+        PRECIOFINAL: '',
+        IMAGEN: ''
+
+    })
+    const [loaded, setLoaded] = useState(false);
+    const {id} = useParams();
+    let [nombre, idProducto] = id.split("$$")
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        getProduct(idProducto, setProduct, setLoaded, navigate)
+    }, [idProducto]);
+
     return (
-        <div className='container-body'>
-            {shopperConnected && <NavbarShopper/>}
-            {sellerConnected && <NavbarSeller/>}
-            <header>
-                <nav className='navbar'>
-                    <div className='navbar-links'>
-                        <a href='/'>Inicio</a>
-                        <a href='/'>Seguir buscando</a>
-                        <a href='/'>Mi Carrito</a>
+        <div>
+            {!loaded && <CircularProgress color="success"/>}
+            {loaded &&
+                <div className='container-body'>
+                    <header>
+                        <nav className='navbar'>
+                            <div className='navbar-links'>
+                                <a href='/'>Inicio</a>
+                                <a href='/'>Seguir buscando</a>
+                                <a href='/'>Mi Carrito</a>
+                            </div>
+                        </nav>
+                    </header>
+                    <div className='main-container'>
+                        <CardProduct
+                            id={product.id_producto}
+                            nombre={product.N_PRODUCTO}
+                            precio={product.PRECIOFINAL}
+                            foto={product.IMAGEN}
+                            descripcion={product.DESCRIPCION}
+                        />
                     </div>
-                </nav>
-            </header>
-            <div className='main-container'>
-                <CardProduct
-                    id={producto.id}
-                    nombre={producto.nombre}
-                    precio={producto.precio}
-                    foto={producto.foto}
-                    descripcion={producto.descripcion}
-                />
-            </div>
-            <Footer />
+                    <Footer/>
+                </div>}
         </div>
     )
 }
+
 
 export default ProductPage;

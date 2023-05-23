@@ -7,7 +7,6 @@ function CardProduct({ id,nombre, precio, foto, descripcion }) {
   const handleClick = () => {
     setAgregadoCarrito(!agregadoCarrito);
   }
-
   return (
     <div className="product-container">
       <div className='product-image'>

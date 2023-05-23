@@ -8,7 +8,7 @@ const data = [
   },
   {
     id: 2,
-    nombre: "Producto 2",
+    nombre: "Mouse Redragon Storm",
     precio: 19.99,
     foto: "https://http2.mlstatic.com/D_NQ_NP_818240-MPE50012400045_052022-O.jpg",
     descripcion: "Producto 2 es una excelente opción para aquellos que buscan calidad y durabilidad. Con una construcción resistente y materiales de alta calidad, este producto durará por mucho tiempo."
