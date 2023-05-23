@@ -1,7 +1,7 @@
 const data = [
   {
-    id: 1,
-    nombre: "Mouse gamer Logitech g203",
+    id: 3,
+    nombre: "Mouse gamer Logitech G203",
     precio: 10.99,
     foto: "https://http2.mlstatic.com/D_NQ_NP_998265-MCO42038100864_062020-O.webp",
     descripcion: "El mouse gamer Logitech g203 es perfecto para aquellos que buscan precisión y velocidad en sus juegos. Con una velocidad de seguimiento de hasta 8,000 DPI y una tasa de informe de 1,000 Hz, este mouse te permitirá llevar tu juego al siguiente nivel."
@@ -10,11 +10,11 @@ const data = [
     id: 2,
     nombre: "Mouse Redragon Storm",
     precio: 19.99,
-    foto: "https://http2.mlstatic.com/D_NQ_NP_818240-MPE50012400045_052022-O.jpg",
+    foto: "https://http2.mlstatic.com/D_927757-MLA45375926725_032021-O.jpg",
     descripcion: "Producto 2 es una excelente opción para aquellos que buscan calidad y durabilidad. Con una construcción resistente y materiales de alta calidad, este producto durará por mucho tiempo."
   },
   {
-    id: 3,
+    id: 1,
     nombre: "Producto 3",
     precio: 10.99,
     foto: "https://http2.mlstatic.com/D_NQ_NP_2X_615158-MLA46232793009_062021-V.webp",
@@ -58,7 +58,7 @@ const data = [
   },
   {
   id: 11,
-  nombre: "Mouse gamer Logitech g203",
+  nombre: "Mouse gamer Logitech A203",
   precio: 10.99,
   foto: "https://http2.mlstatic.com/D_NQ_NP_998265-MCO42038100864_062020-O.webp",
   descripcion: "El mouse gamer Logitech g203 es perfecto para aquellos que buscan precisión y velocidad en sus juegos. Con una velocidad de seguimiento de hasta 8,000 DPI y una tasa de informe de 1,000 Hz, este mouse te permitirá llevar tu juego al siguiente nivel."
