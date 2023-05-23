@@ -3,9 +3,7 @@ const bcrypt = require("bcrypt");
 
 const doSetQuery = async (sqlSetNewCredential, email, newPassword) => {
     try {
-
         const connection = await ConnectionDB.getConnection();
-
         // Hash password
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
 

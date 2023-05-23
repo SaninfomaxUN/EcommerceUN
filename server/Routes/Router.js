@@ -10,7 +10,10 @@ const cookieParser = require("cookie-parser")
 
 
 // rutas de Autenticación
-Router.post('/login', serviceAuth.login)
+Router.post('/loginSeller', serviceAuth.serviceLoginSeller)
+Router.post('/loginShopper', serviceAuth.serviceLoginShopper)
+
+
 Router.post('/resetPasswordShopper', serviceRecoverPassword.doRecoverPasswordShopper)
 Router.post('/resetPasswordSeller', serviceRecoverPassword.doRecoverPasswordSeller)
 Router.post('/isUserAuth', serviceAuth.isUserAuth)

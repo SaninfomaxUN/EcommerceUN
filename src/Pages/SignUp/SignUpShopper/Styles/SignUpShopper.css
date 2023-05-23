@@ -1,7 +1,5 @@
 
-.barraColor{
-background-color: antiquewhite;
-}
+
 .submitButton{
     background-color: #000000;
     color: #ffff;
@@ -9,7 +7,7 @@ background-color: antiquewhite;
 
 .containerRegi{
     
-    padding: 5%;
+    height: 100vh;
 }
 
 .divCard{
@@ -19,9 +17,7 @@ background-color: antiquewhite;
     width: 70%;
 }
 
-.all{
-    background-color: #ee9c30;
-}
+
 
 .card-header{
     color: black;
@@ -31,7 +27,6 @@ background-color: antiquewhite;
     width: 50%;
     color:white;
 }
-
 
 .btnOjito{
     position: relative;

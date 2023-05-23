@@ -10,9 +10,9 @@ import belleza from "./Assets/Categories/belleza.jpg"
 import celular from "./Assets/Categories/cel.jfif"
 
 
-import img4 from './Assets/Carrousel/img4.jpg'
-import img5 from './Assets/Carrousel/img5.jpg'
-import img6 from './Assets/Carrousel/img6.jpg'
+import img4 from './Assets/Carrousel/img12.jpg'
+import img5 from './Assets/Carrousel/img11.jpg'
+import img6 from './Assets/Carrousel/img10.jpg'
 
 
 import Navbar from "../../Components/Commons/Navbar/Navbar.jsx"

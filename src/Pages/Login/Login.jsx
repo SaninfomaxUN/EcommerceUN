@@ -3,6 +3,9 @@ import {Link, useNavigate} from 'react-router-dom'
 import cohete from './Assets/cohete.jpg'
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { Switch, FormControlLabel } from '@mui/material';
+import {showAlertError, showAlertInfo, showAlertSuccess} from "../../Components/Commons/Alerts/AlertsModal";
+
 
 const Login = () => {
     const Navigate = useNavigate()
@@ -16,145 +19,148 @@ const Login = () => {
         setPassword(e.target.value)
     }
 
-//   const handleSubmit = async (e) => {
-//   e.preventDefault()
-//   try {
-//   const response = await fetch('http://localhost:5000/api/login', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ email, password }),
-//     })
-//   const responseData = await response.json()
-//     console.log(responseData)
-//     Cookies.set('token', responseData.token)
-//     // const token = Cookies.get('token');
-//     setTimeout(() => {
-//       userAuthenticated()
-//     }, 1000) // Esperar 1 segundo antes de llamar a userAuthenticated
-//   } catch (error) {
-//     setError(error.message)
-//   }
-// }
-
-//   const userAuthenticated = () => {
-//   axios.post("http://localhost:5000/api/isUserAuth", {}, {
-//     headers: {
-//       authorization: Cookies.get("token")
-//     }
-//   }).then((response) => {
-//     console.log(response)
-//     if (response.data) {
-//       Navigate('/DashShopper')
-//     }
-//   }) 
-// }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            const response = await fetch('http://localhost:5000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({email, password}),
-            })
-            const responseData = await response.json()
-            console.log(responseData)
-            Cookies.set('token', responseData.token)
-            Cookies.set("role", responseData.userType)
-            // const token = Cookies.get('token');
-            setTimeout(() => {
-                userAuthenticated()
-            }, 1000) // Esperar 1 segundo antes de llamar a userAuthenticated
-        } catch (error) {
-            setError(error.message)
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let endpoint = '';
+  
+      if (isSeller) {
+        endpoint = 'http://localhost:5000/api/loginSeller';
+      } else {
+        endpoint = 'http://localhost:5000/api/loginShopper';
+      }
+  
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      const responseData = await response.json();
+      console.log(responseData);
+  
+      Cookies.set('token', responseData.token);
+      Cookies.set('role', responseData.userType);
+  
+      userAuthenticated(responseData.userType);
+    } catch (error) {
+      setError(error.message);
     }
+  };
 
-    const userAuthenticated = () => {
-        axios.post("http://localhost:5000/api/isUserAuth", {}, {
-            headers: {
-                authorization: Cookies.get("token")
-            }
-        }).then((response) => {
-            console.log(response)
-            Navigate('/Home')
-        })
+
+  
+const userAuthenticated = async (userType) => {
+  try {
+    const response = await axios.post("http://localhost:5000/api/isUserAuth", {}, {
+      headers: {
+        authorization: Cookies.get("token")
+      }
+    });
+    console.log(response);
+    if (response.data && userType === 'comprador') {
+      Navigate('/DashShopper');
+    } else if (response.data && userType === 'vendedor') {
+      Navigate('/DashSeller');
     }
+  } catch (error) {
+    console.error(error);
+    // Mostrar SweetAlert con el mensaje de error
+    showAlertError("Correo y/o contraseña incorrectas :(");
+  }
+};
 
 
-    return (
-        <div>
-            <div className='container-fluid containerLog'>
-                <div className='card divcard'>
-                    <div className='row g-0'>
-                        <div>
-                            <div className='card-header'> Ingresa sesión</div>
-                            <div className='card-body'>
-                                <div className='divImg2'>
-                                    <img className='img-fluid rounded-start imgCohete' alt="Login" src={cohete}/>
-                                </div>
 
-                                <div className='contInput1'>
-                                    <form onSubmit={handleSubmit} className='formUser'>
-                                        <label htmlFor='email' className=''>
-                                            Usuario
-                                        </label>
-                                        <input
-                                            id='email'
-                                            type='email'
-                                            name='email'
-                                            placeholder='acá va tú correo :D'
-                                            className='form-control input1'
-                                            aria-label='email'
-                                            required
-                                            value={email}
-                                            autoComplete="email"
-                                            onChange={handleEmailChange}
-                                        />
-                                        <br/>
-                                        <label htmlFor='password' className='contraLabel'>
-                                            Contraseña
-                                        </label>
-                                        <input
-                                            value={password}
-                                            id='password'
-                                            type='password'
-                                            placeholder='Ingresa tú constraseña'
-                                            className='form-control input2'
-                                            aria-describedby='trash-desc'
-                                            name='password'
-                                            required
-                                            autoComplete="current-password"
-                                            onChange={handlePasswordChange}
-                                        />
-                                        <a href='/RecoverPassword' className='RecoverPassword'>
-                                            ¿Has olvidado tú contraseña?
-                                        </a>
-                                        <br/>
-                                        <button type='submit' className='btn btnLogin'>
-                                            Ingresa
-                                        </button>
-                                    </form>
-                                    <br/>
-                                    <br/>
-                                    ¿No tienes cuenta?,
-                                    <Link to='/SignUp' className='RecoverPassword'>
-                                        {' '}
-                                        registrate
-                                    </Link>
-                                </div>
+const [isSeller, setIsSeller] = useState(true);
+const handleSwitch = () => {
+  setIsSeller(!isSeller);
+};
 
-                            </div>
-                        </div>
-                    </div>
+  return (
+    <div  className="fullWidthBackground">
+     
+      <div className='container-fluid containerLog'>
+      <br />
+      <br />
+      <br />
+        <div className='card divcard'>
+          <div className='row g-0'>
+            <div>
+              <div className='card-header'> Ingresa sesión</div>
+              <div className='card-body'>
+                <div className='divImg2'>
+                  <img className='img-fluid rounded-start imgCohete' src={cohete} />
                 </div>
+
+                <div className='contInput1'>
+                  <form onSubmit={handleSubmit}  className='formUser'>
+                    <label htmlFor='email' className=''>
+                      Usuario
+                    </label>
+                    <input
+                      id='email'
+                      type='email'
+                      name='email'
+                      placeholder='acá va tú correo :D'
+                      className='form-control input1'
+                      aria-label='email'
+                      required
+                      value={email}
+                      autoComplete="email"
+                      onChange={handleEmailChange}
+                    />
+                    <br />
+                    <label htmlFor='password' className='contraLabel'>
+                      Contraseña
+                    </label>
+                    <input
+                      value={password}
+                      id='password'
+                      type='password'
+                      placeholder='Ingresa tú constraseña'
+                      className='form-control input2'
+                      aria-describedby='trash-desc'
+                      name='password'
+                      required
+                      autoComplete="current-password"
+                      onChange={handlePasswordChange}
+                    />
+                    <a href='/RecoverPassword' className='RecoverPassword'>
+                      ¿Has olvidado tú contraseña?
+                    </a>
+                    <br />
+                    <button type='submit' className='btn btnLogin'>
+                      Ingresa
+                    </button>
+                    <br />
+
+                    <FormControlLabel
+                       control={
+                         <Switch checked={isSeller} onChange={handleSwitch} color="primary" />
+                       }
+                       label={isSeller ? 'Soy Vendedor' : 'Soy Comprador'}
+                     />
+                  </form>
+
+
+                  <br />
+                  <br />
+                  ¿No tienes cuenta?,
+                  <Link to='/SignUp' className='RecoverPassword'>
+                    registrate
+                  </Link>
+                </div>
+               
+              </div>
             </div>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default Login

@@ -10,6 +10,9 @@ const SignUp = () => {
   return (
  
         <div className='container-fluid containerLog'>
+          <br />
+          <br />
+          <br />
         <div className='card divcard'>
         <div className='card-header'> Escoge tú opción de registro</div>
         <div className='row g-0'>

@@ -3,7 +3,7 @@ import React from "react";
 
 function SignUpSeller(props) {
     return (
-        <div className='container-fluid containerRegi'>
+        <div className='container-fluid containerRegi fullWidthBackground'>
             <div className='card divCard'>
                 <div className='row g-0'>
                     <div className='card-header '> Registrate</div>
