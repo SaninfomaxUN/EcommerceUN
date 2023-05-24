@@ -37,8 +37,8 @@ module.exports = {
             messageHtml: message2FAHtml(req.body)
         }
 
-
-        await serviceMailer.getMailTransporter().sendMail(
+        const transport = serviceMailer.getMailTransporter()
+        await transport.sendMail(
             serviceMailer.setMailTransporterOptions(mailOptions), (error) => {
             if (error) {
                 res.status(500).send(error.message);

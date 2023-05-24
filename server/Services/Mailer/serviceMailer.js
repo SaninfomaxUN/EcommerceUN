@@ -11,7 +11,7 @@ const mailTransporter = nodemailer.createTransport({
     }
 });
 
-mailTransporter.verify(function (error) {
+await mailTransporter.verify(function (error) {
     if (error) {
         console.log(error);
     } else {
@@ -30,7 +30,7 @@ module.exports = {
             html: mailOptions.messageHtml,
         };
     },
-    getMailTransporter: () => {
+    getMailTransporter: async () => {
         return mailTransporter;
     }
 }
