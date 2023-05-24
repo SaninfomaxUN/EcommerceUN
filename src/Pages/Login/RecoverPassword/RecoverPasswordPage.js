@@ -71,7 +71,7 @@ const RecoverPasswordPage = () => {
         if (!check) {
             return;
         }
-        doVerification2FA(credential);
+        doVerification2FA(credential).then(r => (null));
 
         setOpen2FA(true)
         setOpenRestore(false)
