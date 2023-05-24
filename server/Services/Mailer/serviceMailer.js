@@ -1,23 +1,23 @@
-const nodemailer = require("nodemailer");
 
 
-const mailTransporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-        user: "ecommerceunal@gmail.com",
-        pass: "pakonrivkffnzlxf"
-    }
-});
 
-mailTransporter.verify(function (error) {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log("Servicio de Mensajería listo!");
-    }
-});
+
+/*
+async function serviceMailer(req, res) {
+    await new Promise((resolve, reject) => {
+        // verify connection configuration
+        mailTransporter.verify(function (error, success) {
+            if (error) {
+                console.log(error);
+                reject(error);
+            } else {
+                console.log("Servicio de Mensajería listo!");
+                resolve(success);
+            }
+        });
+    });
+
+}*/
 
 
 module.exports = {
@@ -29,8 +29,5 @@ module.exports = {
             subject: mailOptions.subject,
             html: mailOptions.messageHtml,
         };
-    },
-    getMailTransporter: () => {
-        return mailTransporter;
     }
 }
