@@ -14,6 +14,7 @@ const secret = "your_secret_key"
 const time = 30
 const cookiexpires = 30
 const Cookies = require("js-cookie")
+const {getConnection} = require("../../Database/ConnectionDB");
 
   const verifyJWT = async (req, res, next) => {
     // Se obtiene el token del encabezado de autorización de la solicitud
@@ -41,12 +42,7 @@ const Cookies = require("js-cookie")
 module.exports = {
     serviceLoginSeller: async (req, res) => {
         try {
-          const connection = await mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'ecommerce'
-          });
+          const connection = await getConnection();
       
           function getJwtSecret() {
             return secret || 'your_secret_key';
@@ -119,12 +115,7 @@ module.exports = {
     
       serviceLoginShopper: async (req, res) => {
         try {
-          const connection = await mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'ecommerce'
-          });
+          const connection = await getConnection();
       
           function getJwtSecret() {
             return secret || 'your_secret_key';

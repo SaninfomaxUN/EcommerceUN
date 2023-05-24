@@ -1,10 +1,10 @@
 const mysql = require("mysql2/promise");
 
 const ConnectionDB = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'ecommerce'
+    host: 'db4free.net',
+    user: 'ecommerce_2023',
+    password: 'ecommerce_2023',
+    database: 'ecommerce_2023'
 });
 
 
