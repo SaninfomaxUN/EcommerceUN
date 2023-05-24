@@ -21,7 +21,7 @@ function TwoFA(props) {
     }
     const sendToCheckVerification2FA = (codeEntered) => {
         const codeDataToSend = {dataToSend: props.dataToSend, code: codeEntered}
-        axios.post('http://localhost:5000/api/check2FA', codeDataToSend)
+        axios.post(process.env.REACT_APP_API+'/check2FA', codeDataToSend)
             .then(
                 res => {
                     setIsCode2FACorrect(!res.data)

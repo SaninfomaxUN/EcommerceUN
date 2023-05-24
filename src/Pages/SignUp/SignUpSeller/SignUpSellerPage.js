@@ -13,7 +13,7 @@ let checkExisting = false
 export const checkExistingSeller = (formData, nav) => {
 
 
-    axios.post('http://localhost:5000/api/checkExistingSeller', formData)
+    axios.post(process.env.REACT_APP_API +'/checkExistingSeller', formData)
         .then(() => {
             checkExisting = true
         })
@@ -28,7 +28,7 @@ export const checkExistingSeller = (formData, nav) => {
 
 export const doSignUpSeller = (formData) => {
 
-    axios.post('http://localhost:5000/api/serviceSignUpSeller', formData)
+    axios.post(process.env.REACT_APP_API +'/serviceSignUpSeller', formData)
         .then(res => {
             console.log(res.data)
             showAlertSuccess("¡Has sido registrado correctamente!")

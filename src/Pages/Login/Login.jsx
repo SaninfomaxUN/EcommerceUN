@@ -25,9 +25,9 @@ const Login = () => {
       let endpoint;
   
       if (isSeller) {
-        endpoint = 'http://localhost:5000/api/loginSeller';
+        endpoint = process.env.REACT_APP_API +'/loginSeller';
       } else {
-        endpoint = 'http://localhost:5000/api/loginShopper';
+        endpoint = process.env.REACT_APP_API +'/loginShopper';
       }
   
       const response = await fetch(endpoint, {
@@ -54,7 +54,7 @@ const Login = () => {
   
 const userAuthenticated = async () => {
   try {
-    const response = await axios.post("http://localhost:5000/api/isUserAuth", {}, {
+    const response = await axios.post(process.env.REACT_APP_API +"/isUserAuth", {}, {
       headers: {
         authorization: Cookies.get("token")
       }

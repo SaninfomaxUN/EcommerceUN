@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 
 const getProduct = (idProducto, setProduct, setLoaded, navigate) => {
     let product
-    axios.post('http://localhost:5000/api/getProduct', {idProducto: idProducto})
+    axios.post(process.env.REACT_APP_API +'/getProduct', {idProducto: idProducto})
         .then(res => {
             setLoaded(true)
             setProduct(res.data[0])

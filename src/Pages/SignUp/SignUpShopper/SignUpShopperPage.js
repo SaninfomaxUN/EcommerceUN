@@ -14,7 +14,7 @@ import {passwordValidation} from "../../../Components/Commons/Validations/passwo
 let checkExisting = false
 export const checkExistingShopper = (formData, nav) => {
 
-    axios.post('http://localhost:5000/api/checkExistingShopper', formData)
+    axios.post(process.env.REACT_APP_API +'/checkExistingShopper', formData)
         .then(() => {
             checkExisting = true
         }
@@ -31,7 +31,7 @@ export const checkExistingShopper = (formData, nav) => {
 
 
 export const doSignUpShopper = (formData) => {
-    axios.post('http://localhost:5000/api/serviceSignUpShopper', formData)
+    axios.post(process.env.REACT_APP_API +'/serviceSignUpShopper', formData)
         .then(res => {
             console.log(res.data)
             showAlertSuccess("¡Has sido registrado correctamente!")

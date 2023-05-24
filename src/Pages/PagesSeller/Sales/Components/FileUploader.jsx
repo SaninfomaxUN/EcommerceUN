@@ -76,7 +76,7 @@ function FileUploader() {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://localhost:3000/upload', {
+      const response = await fetch(process.env.REACT_APP_API +'/upload', {
         method: 'POST',
         body: formData,
       });
@@ -201,7 +201,7 @@ export default FileUploader;
 //   event.preventDefault();
 
 //   try {
-//     const response = await fetch('http://localhost:3000/upload', {
+//     const response = await fetch(process.env.REACT_APP_API +'/upload', {
 //       method: "POST",
 //       body: formData,
 //     });

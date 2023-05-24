@@ -17,7 +17,7 @@ const ResultsPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const searchFirstTime = async () => {
-        await axios.post('http://localhost:5000/api/searchProduct', {toSearch: ImportedSearch})
+        await axios.post(process.env.REACT_APP_API +'/searchProduct', {toSearch: ImportedSearch})
             .then(res => {
                 setData(res.data)
                 setFilteredData(res.data)
@@ -37,7 +37,7 @@ const ResultsPage = () => {
 
 
     const searchProduct = (textToSearch) => {
-        axios.post('http://localhost:5000/api/searchProduct', {toSearch: textToSearch})
+        axios.post(process.env.REACT_APP_API +'/searchProduct', {toSearch: textToSearch})
             .then(res => {
                 setData(res.data)
                 setNotFoundAlert(false)

@@ -4,9 +4,9 @@ import {showAlertError, showAlertSuccess} from "../../../../Components/Commons/A
 export const doResetPassword = (credential, checked, navigate) => {
     let url = ""
     if (checked){
-        url="http://localhost:5000/api/ResetPasswordSeller"
+        url=process.env.REACT_APP_API +"/ResetPasswordSeller"
     }else{
-        url="http://localhost:5000/api/ResetPasswordShopper"
+        url=process.env.REACT_APP_API +"/ResetPasswordShopper"
     }
     axios.post(url, credential)
         .then(res => {

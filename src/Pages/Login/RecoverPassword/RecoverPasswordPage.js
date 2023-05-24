@@ -12,9 +12,9 @@ let checkExisting = false
 export const checkExistingUser = async (credential, checked, nav) => {
     let url
     if (checked) {
-        url = "http://localhost:5000/api/checkExistingSeller"
+        url = process.env.REACT_APP_API +"/checkExistingSeller"
     } else {
-        url = "http://localhost:5000/api/checkExistingShopper"
+        url = process.env.REACT_APP_API +"/checkExistingShopper"
     }
     await axios.post(url, credential)
         .then(() => {
