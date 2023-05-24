@@ -18,7 +18,9 @@ app.use(express.json());
 
 app.use('/api',  routes)
 
-app.get("/", (req, res)=>{})
+app.get('/', (req, res) => {
+  res.send('Hey this is my API running 🥳')
+})
 
 
 app.listen(port, () => {
