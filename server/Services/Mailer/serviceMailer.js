@@ -30,7 +30,7 @@ module.exports = {
             html: mailOptions.messageHtml,
         };
     },
-    getMailTransporter: async () => {
+    getMailTransporter: () => {
         return mailTransporter;
     }
 }
