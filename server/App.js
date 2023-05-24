@@ -1,5 +1,5 @@
-const routes = require('../Routes/Router.js')
-const ConnectionDB = require('../Database/ConnectionDB.js')
+const routes = require('./Routes/Router.js')
+const ConnectionDB = require('./Database/ConnectionDB.js')
 
 
 const express = require('express');
