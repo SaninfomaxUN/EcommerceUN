@@ -6,14 +6,21 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
+    { "source": "/(.*)", "destination": "App/App.js" }
+  ],
+  "headers": [
     {
-      "src": "/(.*)",
-      "dest": "App/App.js",
-      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*"
-      }
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    },
+    {
+      "source": "/ecommerce-un-server.vercel.app/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
     }
   ]
 }
