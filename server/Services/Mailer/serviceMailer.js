@@ -11,7 +11,7 @@ const mailTransporter = nodemailer.createTransport({
     }
 });
 
-await mailTransporter.verify(function (error) {
+mailTransporter.verify(function (error) {
     if (error) {
         console.log(error);
     } else {
