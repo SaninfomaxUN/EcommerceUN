@@ -15,12 +15,6 @@
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" }
       ]
-    },
-    {
-      "source": "/ecommerce-un-server.vercel.app/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
-      ]
     }
   ]
 }
