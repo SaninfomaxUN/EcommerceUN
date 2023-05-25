@@ -1,6 +1,5 @@
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 const serviceMailer = require("../Mailer/serviceMailer.js");
-const nodemailer = require("nodemailer");
 
 let dicCode2FA = new Map();
 function generate2FA(length) {
@@ -21,7 +20,6 @@ function reset2FACode(codeEmailToDelete){
 }
 
 
-
 module.exports = {
     send2FA: async (req, res) => {
         const code2FA = generate2FA(6)
@@ -30,30 +28,6 @@ module.exports = {
 
         dicCode2FA.set(req.body.email, code2FA)
 
-        const mailTransporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
-            auth: {
-                user: "ecommerceunal@gmail.com",
-                pass: "pakonrivkffnzlxf"
-            }
-
-        });
-
-        await new Promise((resolve, reject) => {
-            // verify connection configuration
-            mailTransporter.verify(function (error, success) {
-                if (error) {
-                    console.log(error);
-                    reject(error);
-                } else {
-                    console.log("Server is ready to take our messages");
-                    resolve(success);
-                }
-            });
-        });
-
         const mailOptions = {
             from: "EcommerceUN",
             subject: "Código de Verificación",
@@ -61,23 +35,7 @@ module.exports = {
             messageHtml: message2FAHtml(req.body)
         }
 
-
-        await new Promise((resolve, reject) => {
-            mailTransporter.sendMail(
-                serviceMailer.setMailTransporterOptions(mailOptions), (err, info) => {
-                if (err) {
-                    res.status(500).send(err.message);
-                    console.log("Email NO enviado!!!")
-                    console.error(err);
-                    reject(err);
-                } else {
-                    console.log("Email enviado!!!")
-                    //console.log(info);
-                    resolve(info);
-                    res.status(200);
-                }
-            });
-        });
+        serviceMailer.sendEmail(mailOptions)
 
         setTime2FACode(req.body.email)
     },
