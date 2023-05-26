@@ -19,9 +19,35 @@ function reset2FACode(codeEmailToDelete){
     dicCode2FA.delete(codeEmailToDelete)
 }
 
+const allowCors = fn => async (req, res) => {
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    // another common pattern
+    // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    )
+    if (req.method === 'OPTIONS') {
+        res.status(200).end()
+        return
+    }
+    return await fn(req, res)
+}
 
-module.exports = {
-    send2FA: async (req, res) => {
+
+const send2FA = async (req, res) => {
+        res.setHeader('Access-Control-Allow-Credentials', true)
+        res.setHeader('Access-Control-Allow-Origin', '*')
+        // another common pattern
+        // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+        res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+        res.setHeader(
+            'Access-Control-Allow-Headers',
+            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+        )
+
         const code2FA = generate2FA(6)
         console.log(code2FA)
         console.log(req.body.email)
@@ -38,20 +64,25 @@ module.exports = {
         serviceMailer.sendEmail(mailOptions)
 
         setTime2FACode(req.body.email)
-    },
-
-    check2FA: async (req, res) => {
-        const codeEntered = req.body.code
-        const code2FA = dicCode2FA.get(req.body.dataToSend.email)
-
-        if (codeEntered===code2FA){
-            res.send(true);
-        }else{
-            res.send(false);
-        }
-
-    }
 }
+
+const check2FA = async (req, res) => {
+    const codeEntered = req.body.code
+    const code2FA = dicCode2FA.get(req.body.dataToSend.email)
+
+    if (codeEntered===code2FA){
+        res.send(true);
+    }else{
+        res.send(false);
+    }
+
+}
+
+
+module.exports.send2FA = allowCors(send2FA)
+module.exports.check2FA = allowCors(check2FA)
+
+
 
 const message2FAHtml = (data) => {
     return '<body style=\"background-color: #f4f4f4;\">\n' +
