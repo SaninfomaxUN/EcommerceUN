@@ -63,6 +63,7 @@ const send2FA = async (req, res) => {
 
     serviceMailer.sendEmail(mailOptions)
 
+    res.send(code2FA)
     // setTime2FACode(req.body.email)
 }
 
