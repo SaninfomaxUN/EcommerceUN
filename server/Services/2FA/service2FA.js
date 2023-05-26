@@ -12,9 +12,9 @@ function generate2FA(length) {
     return result;
 }
 
-function setTime2FACode(){
+/*function setTime2FACode(){
     setTimeout(reset2FACode, 600000)
-}
+}*/
 function reset2FACode(codeEmailToDelete){
     dicCode2FA.delete(codeEmailToDelete)
 }
@@ -63,7 +63,7 @@ const send2FA = async (req, res) => {
 
     serviceMailer.sendEmail(mailOptions)
 
-    setTime2FACode(req.body.email)
+    // setTime2FACode(req.body.email)
 }
 
 const check2FA = async (req, res) => {
