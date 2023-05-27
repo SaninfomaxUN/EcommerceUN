@@ -67,7 +67,7 @@ const RecoverPasswordPage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const check = await checkExistingUser(credential, checked, navigate)
+        const check = checkExistingUser(credential, checked, navigate)
         if (check) {
             credential.nombre = "Usuario"
             doVerification2FA(credential).then(r => {
