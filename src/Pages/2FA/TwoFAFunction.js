@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const doVerification2FA = (formData) => {
+export const doVerification2FA = async (formData) => {
     console.log(process.env.REACT_APP_API)
-    axios.post(process.env.REACT_APP_API+'/send2FA', formData)
+    await axios.post(process.env.REACT_APP_API+'/send2FA', formData)
         .then(
             res => {
             console.log(res.data)
