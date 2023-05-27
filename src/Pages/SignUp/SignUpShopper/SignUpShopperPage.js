@@ -104,8 +104,10 @@ const SignUpShopperPage = () => {
 
         const check = checkExistingShopper(formData, navigate)
         if (check){
-            doVerification2FA(formData);
-            setOpen2FA(true)
+            doVerification2FA(formData).then(r => {
+                setOpen2FA(true)
+            });
+
         }
 
     };
