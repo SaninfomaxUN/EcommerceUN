@@ -64,18 +64,18 @@ const RecoverPasswordPage = () => {
         });
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         const check = checkExistingUser(credential, checked, navigate)
-        if (check) {
-            credential.nombre = "Usuario"
-            doVerification2FA(credential).then(r => {
-                setOpen2FA(true)
-                setOpenRestore(false)
-            })
+        if (!check) {
+            return;
         }
-
+        credential.nombre = "Usuario"
+        doVerification2FA(credential).then(r => {
+            setOpen2FA(true)
+            setOpenRestore(false)
+        })
 
 
     }
