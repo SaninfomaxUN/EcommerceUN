@@ -64,10 +64,10 @@ const RecoverPasswordPage = () => {
         });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const check = checkExistingUser(credential, checked, navigate)
+        const check = await checkExistingUser(credential, checked, navigate)
         if (!check) {
             return;
         }
