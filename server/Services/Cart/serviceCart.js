@@ -18,7 +18,7 @@ module.exports = {
 
                 const rowCart = resultId[0];
 
-                const listIDProducts = rowCart[0].LISTAPRODUCTOS.split("$#")
+                const listIDProducts = rowCart[0].LISTAPRODUCTOS.split("&&")
                 let listProducts = []
 
                 for (const idProduct of listIDProducts) {
