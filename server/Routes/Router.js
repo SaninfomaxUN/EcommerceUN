@@ -7,7 +7,10 @@ const serviceSignUpSeller = require("../Services/SignUp/SignUpSeller/serviceSign
 const serviceSignUpShopper = require("../Services/SignUp/SignUpShopper/serviceSignUpShopper.js")
 const serviceProduct = require("../Services/Product/serviceProduct")
 const serviceSearch = require("../Services/Search/serviceSearch");
+const serviceCart = require("../Services/Cart/serviceCart");
+
 const cors = require('cors');
+cors({ origin: true });
 const cookieParser = require("cookie-parser")
 
 
@@ -34,6 +37,9 @@ Router.post("/check2FA", service2FA.check2FA)
 Router.post('/searchAllProduct', serviceSearch.searchAllProduct)
 Router.post('/searchProduct', serviceSearch.searchProduct)
 Router.post('/getProduct', serviceProduct.getProduct)
+
+//Carrito
+Router.post('/getCart', serviceCart.getCart)
 
 module.exports = Router;
 
