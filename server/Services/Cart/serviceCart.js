@@ -1,38 +1,111 @@
 const ConnectionDB = require("../../Database/ConnectionDB");
 const serviceProduct = require("../Product/serviceProduct")
 
+const getQuantityByID = async (connection, idComprador) => {
+    const sqlGetCart = "SELECT * FROM carritocompras WHERE id_comprador = ?";
+    const resultId = await connection.execute(sqlGetCart, [idComprador] );
+
+    if (resultId[0].length < 1) {
+        return false;
+    } else {
+        const rowCart = resultId[0];
+        let dicQuantity = {}
+        const listIDQuantity = rowCart[0].LISTAPRODUCTOS.split(";;")
+        for (const arrayQuantityProduct of listIDQuantity) {
+            dicQuantity[arrayQuantityProduct.split("##")[0]] = arrayQuantityProduct.split("##")[1];
+        }
+        return [rowCart, dicQuantity];
+    }
+}
+
+const updateQuantityByID = async (connection, idComprador, updatedListStr) => {
+    const sqlUpdateCart = "UPDATE carritocompras SET listaproductos = ? WHERE id_comprador = ?";
+    await connection.execute(sqlUpdateCart, [updatedListStr, idComprador] , (err, result) => {
+        if (err) {
+            console.error(err);
+            return false;
+        }
+
+        const affectedRows = result.affectedRows;
+        console.log(`Se actualizaron ${affectedRows} filas.`);
+        return true
+    });
+    return true
+}
+
+const updateList = async (connection, idComprador, idProducto, newQuantity) => {
+    let [, dicQuantity] = await getQuantityByID(connection, idComprador)
+    dicQuantity[idProducto] = newQuantity
+    return joinDicQuantity(dicQuantity)
+}
+
+const joinDicQuantity = (dicQuantity) => {
+    let updatedListStr = '';
+
+    for (let idProducto in dicQuantity) {
+        updatedListStr += idProducto + '##' + dicQuantity[idProducto] + ';;';
+    }
+    return updatedListStr.slice(0, -2);
+}
+
 module.exports = {
     getCart: async (req, res) => {
-        const sqlVerifyId = "SELECT * FROM carritocompras WHERE id_comprador = ?";
+
         try {
             const connection = await ConnectionDB.getConnection();
-            const id = [req.body.idComprador]
+            const idComprador = req.body.idComprador
 
-            console.log(req.body.idComprador)
+            //console.log(req.body.idComprador)
 
             // Check if id is already registered
-            const resultId = await connection.execute(sqlVerifyId, id);
-            if (resultId[0].length < 1) {
-                return res.status(400).json({message: "No hay un carrito almacenado asociado a " + req.body.nit + " ."});
+            let [dataCart, dicQuantity] = await getQuantityByID(connection, idComprador)
+            if (![dataCart, dicQuantity]) {
+                return res.status(400).json({message: "No hay un carrito almacenado asociado a " + req.body.idComprador + " ."});
             } else {
 
-                const rowCart = resultId[0];
-
-                const listIDProducts = rowCart[0].LISTAPRODUCTOS.split("&&")
                 let listProducts = []
-
-                for (const idProduct of listIDProducts) {
-                    await serviceProduct.getProductSinceBack({idProducto: idProduct})
-                        .then(data => {
-                            listProducts.push(data)
-                        }).catch(error => {
-                            console.log(error)
-                        })
+                //console.log(dicQuantity)
+                for (let idProduct in dicQuantity) {
+                    if (dicQuantity.hasOwnProperty(idProduct)) {
+                        await serviceProduct.getProductSinceBack({idProducto: idProduct})
+                            .then(data => {
+                                data.CANTIDAD = dicQuantity[idProduct];
+                                listProducts.push(data);
+                            }).catch(error => {
+                                console.log(error)
+                            })
+                    }
                 }
 
                 //console.log(listProducts);
-                return res.status(200).send({Cart: rowCart, Products: listProducts});
+                return res.status(200).send({Cart: dataCart, Products: listProducts});
             }
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({message: 'Error al consultar carrito.'});
+        }
+
+    },
+    updateProductCart: async (req, res) => {
+
+        try {
+            const connection = await ConnectionDB.getConnection();
+            const idComprador = req.body.idComprador
+            const idProducto = req.body.idProducto
+
+            console.log(req.body.idComprador)
+
+            let updatedListStr = await updateList(connection, idComprador, idProducto, req.body.newQuantity)
+            if (!updatedListStr){
+                return res.status(400).json({message: "No se pudo actualizar el producto " + idProducto + " .\nDatos incorrectos."});
+            }
+
+            if (!await updateQuantityByID(connection, idComprador, updatedListStr)) {
+                return res.status(400).json({message: "No se pudo actualizar el producto " + idProducto + " ."});
+            } else {
+                return res.status(200).json({message: "Producto " + idProducto + " actualizado correctamente."});
+            }
+
         } catch (error) {
             console.error(error);
             return res.status(500).json({message: 'Error al consultar carrito.'});
@@ -40,4 +113,4 @@ module.exports = {
 
     }
 
-}
+}        // const sqlVerifyId = "DELETE FROM carritocompras WHERE id_comprador = ?";

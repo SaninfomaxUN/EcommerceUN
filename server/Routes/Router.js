@@ -40,6 +40,7 @@ Router.post('/getProduct', serviceProduct.getProduct)
 
 //Carrito
 Router.post('/getCart', serviceCart.getCart)
+Router.post('/updateCart', serviceCart.updateProductCart)
 
 module.exports = Router;
 
