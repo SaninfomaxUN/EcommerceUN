@@ -37,7 +37,7 @@ module.exports = {
             const resultId = await connection.execute(sqlVerifyId, id);
             //console.log(resultId[0])
             if (resultId[0].length < 1) {
-                return  "El Producto " + data.idProducto + " no se encuentra registrado.";
+                return false;
             } else {
 
                 const row = resultId[0];

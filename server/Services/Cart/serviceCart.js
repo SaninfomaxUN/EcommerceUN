@@ -52,6 +52,15 @@ const updateList = async (connection, idComprador, idProducto, newQuantity) => {
 
 }
 
+const removeList = async (connection, idComprador, idProducto) => {
+    let [, dicQuantity] = await sqlGetQuantityByID(connection, idComprador)
+    if(!dicQuantity.hasOwnProperty(idProducto)){
+        return false
+    }
+    delete dicQuantity[idProducto]
+    return joinDicQuantity(dicQuantity)
+}
+
 const joinDicQuantity = (dicQuantity) => {
     let updatedListStr = '';
 
@@ -64,8 +73,9 @@ const joinDicQuantity = (dicQuantity) => {
 const checkExistingProduct = async (idProducto) => {
     let existingProduct = false
     await serviceProduct.getProductSinceBack({idProducto: idProducto})
-        .then(() => {
-            existingProduct = true
+        .then(res => {
+            existingProduct = res;
+
         }).catch(error => {
             console.log(error)
         })
@@ -129,6 +139,33 @@ module.exports = {
                 return res.status(400).json({message: "No se pudo actualizar el producto " + idProducto + " ."});
             } else {
                 return res.status(200).json({message: "Producto " + idProducto + " actualizado correctamente."});
+            }
+
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({message: 'Error al consultar carrito.'});
+        }
+
+    },
+    removeProductCart: async (req, res) => {
+
+        try {
+            const connection = await ConnectionDB.getConnection();
+            const idComprador = req.body.idComprador
+            const idProducto = req.body.idProducto
+
+            console.log(req.body.idComprador)
+
+            let updatedListStr = await removeList(connection, idComprador, idProducto)
+
+            if (!updatedListStr && updatedListStr !== "") {
+                return res.status(400).json({message: "No se pudo remover el producto " + idProducto + " .\n Datos incorrectos."});
+            }
+
+            if (!await sqlUpdateQuantityByID(connection, idComprador, updatedListStr)) {
+                return res.status(400).json({message: "No se pudo remover el producto " + idProducto + " ."});
+            } else {
+                return res.status(200).json({message: "Producto " + idProducto + " removido correctamente."});
             }
 
         } catch (error) {
