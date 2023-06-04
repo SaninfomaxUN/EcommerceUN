@@ -13,7 +13,11 @@ const sqlGetQuantityByID = async (connection, idComprador) => {
         const listIDQuantity = rowCart[0].LISTAPRODUCTOS.split(";;")
         if (listIDQuantity[0] !== "") {
             for (const arrayQuantityProduct of listIDQuantity) {
-                dicQuantity[arrayQuantityProduct.split("##")[0]] = arrayQuantityProduct.split("##")[1];
+                let quantity = arrayQuantityProduct.split("##")[1]
+                if ( quantity > 0){
+                    dicQuantity[arrayQuantityProduct.split("##")[0]] = quantity;
+                }
+
             }
 
         }
@@ -38,8 +42,14 @@ const sqlUpdateQuantityByID = async (connection, idComprador, updatedListStr) =>
 
 const updateList = async (connection, idComprador, idProducto, newQuantity) => {
     let [, dicQuantity] = await sqlGetQuantityByID(connection, idComprador)
-    dicQuantity[idProducto] = newQuantity
-    return joinDicQuantity(dicQuantity)
+    const existingProduct = await checkExistingProduct(idProducto)
+    if (existingProduct){
+        dicQuantity[idProducto] = newQuantity
+        return joinDicQuantity(dicQuantity)
+    }else{
+        return false
+    }
+
 }
 
 const joinDicQuantity = (dicQuantity) => {
@@ -49,6 +59,17 @@ const joinDicQuantity = (dicQuantity) => {
         updatedListStr += idProducto + '##' + dicQuantity[idProducto] + ';;';
     }
     return updatedListStr.slice(0, -2);
+}
+
+const checkExistingProduct = async (idProducto) => {
+    let existingProduct = false
+    await serviceProduct.getProductSinceBack({idProducto: idProducto})
+        .then(() => {
+            existingProduct = true
+        }).catch(error => {
+            console.log(error)
+        })
+    return existingProduct
 }
 
 module.exports = {
@@ -101,7 +122,7 @@ module.exports = {
 
             let updatedListStr = await updateList(connection, idComprador, idProducto, newQuantity)
             if (!updatedListStr) {
-                return res.status(400).json({message: "No se pudo actualizar el producto " + idProducto + " .\nDatos incorrectos."});
+                return res.status(400).json({message: "No se pudo actualizar el producto " + idProducto + " .\n Datos incorrectos."});
             }
 
             if (!await sqlUpdateQuantityByID(connection, idComprador, updatedListStr)) {
