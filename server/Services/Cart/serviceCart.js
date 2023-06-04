@@ -11,7 +11,7 @@ const sqlGetQuantityByID = async (connection, idComprador) => {
         const rowCart = resultId[0];
         let dicQuantity = {}
         const listIDQuantity = rowCart[0].LISTAPRODUCTOS.split(";;")
-        if (listIDQuantity.length !== 1 && listIDQuantity[0] !== "") {
+        if (listIDQuantity[0] !== "") {
             for (const arrayQuantityProduct of listIDQuantity) {
                 dicQuantity[arrayQuantityProduct.split("##")[0]] = arrayQuantityProduct.split("##")[1];
             }
