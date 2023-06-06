@@ -87,7 +87,7 @@ module.exports = {
             });
           }
       
-          const id = rows[0].ID_COMPRADOR;
+          const id = rows[0].ID_VENDEDOR;
           const token = jwt.sign({ id }, getJwtSecret(), { expiresIn: '30s' });
       
           const cookieExpires = 30; // Expires in 30 seconds

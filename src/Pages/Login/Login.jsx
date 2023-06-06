@@ -43,6 +43,8 @@ const Login = () => {
   
       Cookies.set('token', responseData.token);
       Cookies.set('role', responseData.userType);
+      Cookies.set("id", responseData.id)
+      
   
       userAuthenticated();
     } catch (error) {
@@ -102,7 +104,7 @@ const handleSwitch = () => {
                       type='email'
                       name='email'
                       placeholder='acá va tú correo :D'
-                      className='form-control input1'
+                      className='form-control  input2'
                       aria-label='email'
                       required
                       value={email}

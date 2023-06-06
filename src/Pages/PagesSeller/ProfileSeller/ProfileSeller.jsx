@@ -11,7 +11,6 @@ const ProfileSeller = () => {
 <div>
 <NavbarSeller/>
 <br />
-    SELLER
 <br />
 <br />
 

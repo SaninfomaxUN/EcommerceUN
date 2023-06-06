@@ -62,15 +62,12 @@ export default function NavbarSeller() {
                 </a>
               </li>
 
-
-
-              {/*}
               <li className="nav-link">
-                <a href="/Notification">
+                <a href="/SellerProducts">
                   <i className="bx bx-bell icon"></i>
-                  <span className="text nav-text">Notificaciones</span>
+                  <span className="text nav-text">Mis productos</span>
                 </a>
-              </li>*/}
+              </li>
 
               <li className="nav-link">
                 <a href="/Sales">

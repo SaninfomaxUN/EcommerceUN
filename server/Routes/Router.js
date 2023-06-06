@@ -34,6 +34,10 @@ Router.post("/check2FA", service2FA.check2FA)
 Router.post('/searchAllProduct', serviceSearch.searchAllProduct)
 Router.post('/searchProduct', serviceSearch.searchProduct)
 Router.post('/getProduct', serviceProduct.getProduct)
+Router.post('/getSellerProducts', serviceProduct.getSellerProducts)
+Router.post('/insertProduct', serviceProduct.insertProduct)
+Router.put('/updateProduct',serviceProduct.updateProduct)
+Router.delete('/deleteProduct', serviceProduct.deleteProduct)
 
 module.exports = Router;
 

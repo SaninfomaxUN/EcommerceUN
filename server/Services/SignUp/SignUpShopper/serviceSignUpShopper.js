@@ -2,14 +2,10 @@ const ConnectionDB = require('../../../Database/ConnectionDB.js')
 const bcrypt = require('bcrypt');
 
 
-
 module.exports = {
     checkExistingShopper: async (req, res) => {
-
         const sqlVerifyId = "SELECT * FROM credencialcomprador WHERE id_comprador = ?";
         const sqlVerifyEmail = "SELECT * FROM credencialcomprador WHERE email = ?";
-
-
         try {
             const connection = await ConnectionDB.getConnection();
             const id = [req.body.idComprador]

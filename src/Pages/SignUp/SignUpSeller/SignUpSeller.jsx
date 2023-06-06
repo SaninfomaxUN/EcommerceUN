@@ -1,6 +1,7 @@
 import countries from "../Data/countries";
 import React from "react";
 
+
 function SignUpSeller(props) {
     return (
         <div className='container-fluid containerRegi'>
@@ -33,22 +34,37 @@ function SignUpSeller(props) {
                                 name="email" value={props.data.email} onChange={props.handleChange}
                             />
 
-                            <label className='labelCampos'>NIT o número de cedúla</label>
-                            <input
-                                type="text"
-                                placeholder='Ingresa el Nit o número de cédula.'
-                                className='form-control input1'
-                                name="nit" value={props.data.nit} onChange={props.handleChange}
-                            />
+                                <label className='labelCampos'>NIT o número de cédula</label>
+                                <input
+                                  type="text"
+                                  placeholder='Ingresa el Nit o número de cédula.'
+                                  className='form-control input1'
+                                  name="nit"
+                                  value={props.data.nit}
+                                  onChange={e => {
+                                    const input = e.target.value;
+                                    if (!isNaN(input)) {
+                                      props.handleChange(e);
+                                    }
+                                  }}
+                                />
 
+                                <label htmlFor="" className='labelCampos'>Número de celular</label>
+                                <input
+                                  placeholder='Ingresa tú número de celular.'
+                                  className='form-control input1'
+                                  required
+                                  type="tel"
+                                  name="telefono"
+                                  value={props.data.telefono}
+                                  onChange={e => {
+                                    const input = e.target.value;
+                                    if (!isNaN(input)) {
+                                      props.handleChange(e);
+                                    }
+                                  }}
+                                />
 
-                            <label htmlFor="" className='labelCampos'>Número de celular</label>
-                            <input
-                                placeholder='Ingresa tú número de celular.'
-                                className='form-control input1'
-                                required
-                                type="tel" name="telefono" value={props.data.telefono} onChange={props.handleChange}
-                            />
 
                             <label htmlFor="" className='labelCampos'>Selecciona tu país: </label>
                             <br/>

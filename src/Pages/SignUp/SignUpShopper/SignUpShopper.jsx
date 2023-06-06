@@ -28,12 +28,20 @@ function SignUpShopper(props) {
                             />
                             <label htmlFor="" className='labelCampos'>Cédula</label>
                             <input
-                                type="text"
-                                placeholder='Ingresa tu número de identificación.'
-                                className='form-control input1'
-                                required
-                                name="idComprador" value={props.data.idComprador} onChange={props.handleChange}
+                              type="text"
+                              placeholder='Ingresa tu número de identificación.'
+                              className='form-control input1'
+                              required
+                              name="idComprador"
+                              value={props.data.idComprador}
+                              onChange={e => {
+                                const input = e.target.value;
+                                if (!isNaN(input)) {
+                                  props.handleChange(e);
+                                }
+                              }}
                             />
+
                             <label htmlFor="" className='labelCampos'>Email</label>
                             <input
                                 type="email"
@@ -43,13 +51,20 @@ function SignUpShopper(props) {
                                 name="email" value={props.data.email} onChange={props.handleChange}
                             />
 
-
                             <label htmlFor="" className='labelCampos'>Número de celular</label>
                             <input
-                                placeholder='Ingresa tú número de celular'
-                                className='form-control input1'
-                                required
-                                type="text" name="telefono" value={props.data.telefono} onChange={props.handleChange}
+                              placeholder='Ingresa tu número de celular'
+                              className='form-control input1'
+                              required
+                              type="text"
+                              name="telefono"
+                              value={props.data.telefono}
+                              onChange={e => {
+                                const input = e.target.value;
+                                if (!isNaN(input)) {
+                                  props.handleChange(e);
+                                }
+                              }}
                             />
                             <label htmlFor="#" className='labelCampos'>Selecciona tu país: </label>
                             <br/>
