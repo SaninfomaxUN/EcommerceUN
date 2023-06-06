@@ -74,7 +74,7 @@ const handleClose = () => {
 const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put('http://localhost:5000/api/updateProduct', formData);
+      const response = await axios.put(process.env.REACT_APP_API+'/updateProduct', formData);
       console.log(response.data);
       showAlertSuccess("¡El producto ha sido editado correctamente!")
       handleClose()

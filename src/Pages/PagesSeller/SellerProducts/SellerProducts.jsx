@@ -52,7 +52,7 @@ const SellerProducts = () => {
         if (result.isConfirmed) {
           console.log("El id del vendedor es", userId)
           console.log("El id del producto es", productId)
-          await axios.delete("http://localhost:5000/api/deleteProduct", { data: { id_vendedor: userId, id_producto: productId } });
+          await axios.delete(process.env.REACT_APP_API+"/deleteProduct", { data: { id_vendedor: userId, id_producto: productId } });
   
           fetchProductos();
         }
@@ -64,7 +64,7 @@ const SellerProducts = () => {
 const fetchProductos = async () => {
       if (userId) {
         try {
-          const response = await axios.post("http://localhost:5000/api/getSellerProducts", { id_vendedor: userId });
+          const response = await axios.post(process.env.REACT_APP_API+"/getSellerProducts", { id_vendedor: userId });
           setProductos(response.data);
           setLoading(false);
         } catch (error) {

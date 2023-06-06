@@ -59,7 +59,7 @@ const Sales = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/insertProduct', formData);
+      const response = await axios.post(process.env.REACT_APP_API+'/insertProduct', formData);
       console.log(response.data);
       showAlertSuccess("¡El producto ha sido registrado correctamente!")
     } catch (error) {
@@ -149,7 +149,7 @@ const Sales = () => {
         <br />
         <div className='card container DivImg'>
           <h3>Información completa del producto</h3>
-          <FileUploader />
+          {/*<FileUploader /> */}
 
           <label htmlFor="">Añade el enlace de una imagen del producto</label>
           <input
