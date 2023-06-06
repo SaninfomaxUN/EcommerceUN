@@ -158,7 +158,7 @@ module.exports = {
             const idProducto = req.body.idProducto
             const newQuantity = req.body.newQuantity
 
-            console.log(req.body.idComprador)
+            console.log(req.body.idProduct + "$" + newQuantity )
 
             let [updatedListStr,dicQuantity] = await updateList(connection, idComprador, idProducto, newQuantity)
             if (!updatedListStr) {

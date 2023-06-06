@@ -4,15 +4,7 @@ import './Styles/Card.css';
 import { useLocation,useNavigate } from 'react-router';
 
 function Card({ id,nombre, precio, foto, descripcion }) {
-  // const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  // const handleCardClick = () => {
-  //   setIsPopupOpen(true);
-  // };
-
-  // const handlePopupClose = () => {
-  //   setIsPopupOpen(false);
-  // };
   const navigate = useNavigate();
   const toOpen = ()=>{
     navigate(`/Product/${nombre+"$$"+id}`/*,{state:{toString:search}}*/)
@@ -20,22 +12,14 @@ function Card({ id,nombre, precio, foto, descripcion }) {
 
   return (
     <div className="CardProduct" onClick={toOpen} >
-      <div className='product-image'> {/* onClick={handleCardClick}*/} 
+      <div className='product-image'> 
         <img src={foto} alt={nombre} />
       </div>
       <div className='product-info'>
         <h3>{nombre}</h3>
         <p>Precio: ${precio}</p>
       </div>
-      {/* {isPopupOpen && (
-        <ProductPopup
-          nombre={nombre}
-          precio={precio}
-          foto={foto}
-          descripcion={descripcion}
-          onClose={handlePopupClose}
-        />
-      )} */}
+
     </div>
   );
 }

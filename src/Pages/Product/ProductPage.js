@@ -8,12 +8,29 @@ import {CircularProgress} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 
+const getCart = (idComprador,idProducto, setQuantity,setLoaded)  => {
+    let quantity = 0
+    axios.post(process.env.REACT_APP_API +'/getCart', {idComprador: idComprador})
+        .then(res => {
+            let  productsCart = res.data.Products
+            let product = productsCart.find(product => product.ID_PRODUCTO === parseInt(idProducto));
+            setQuantity(product.CANTIDAD)
+            quantity=product.cantidad
+        })
+        .catch(err => {
+        });
+        return quantity
+}
+// const getQuantity = (listaproductos) => {
+
+// }
 const getProduct = (idProducto, setProduct, setLoaded, navigate) => {
-    let product
+    let product 
     axios.post(process.env.REACT_APP_API +'/getProduct', {idProducto: idProducto})
         .then(res => {
             setLoaded(true)
-            setProduct(res.data[0])
+            product = res.data[0]
+            setProduct(product)
         })
         .catch(err => {
             navigate("/*")
@@ -21,15 +38,20 @@ const getProduct = (idProducto, setProduct, setLoaded, navigate) => {
     return product
 };
 
-const ProductPage = () => {
+const ProductPage = ({carrito,setCarrito}) => {
+    const [quantity,setQuantity] = useState(0)
     const [product, setProduct] = useState({
-        id_producto: '',
+        ID_PRODUCTO: '',
         N_PRODUCTO: '',
         DESCRIPCION: '',
         PRECIOFINAL: '',
-        IMAGEN: ''
-
+        IMAGEN: '',
+        QUANTITY: 0 
     })
+    const agregarAlCarrito = () => {
+        setCarrito([...carrito, product]);
+    };
+
     const [loaded, setLoaded] = useState(false);
     const {id} = useParams();
     let [nombre, idProducto] = id.split("$$")
@@ -37,6 +59,7 @@ const ProductPage = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
+        getCart(65465488,idProducto,setQuantity)
         getProduct(idProducto, setProduct, setLoaded, navigate)
     }, [idProducto]);
 
@@ -56,11 +79,13 @@ const ProductPage = () => {
                     </header>
                     <div className='main-container'>
                         <CardProduct
-                            id={product.id_producto}
+                            id={product.ID_PRODUCTO}
                             nombre={product.N_PRODUCTO}
                             precio={product.PRECIOFINAL}
                             foto={product.IMAGEN}
                             descripcion={product.DESCRIPCION}
+                            quantity = {quantity}
+                            agregarProducto={agregarAlCarrito}
                         />
                     </div>
                     <Footer/>
