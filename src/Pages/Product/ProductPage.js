@@ -77,7 +77,7 @@ const ProductPage = ({carrito,setCarrito}) => {
                             <div className='navbar-links'>
                                 <a href='/'>Inicio</a>
                                 <a href='/'>Seguir buscando</a>
-                                <a href='/'>Mi Carrito</a>
+                                <a href='/Cart'>Mi Carrito</a>
                             </div>
                         </nav>
                     </header>

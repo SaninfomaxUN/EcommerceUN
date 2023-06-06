@@ -1,10 +1,15 @@
 import Swal from "sweetalert2";
 
-export const showAlertSuccess = (Title) => {
+export const showAlertSuccess = (Title, callback) => {
     Swal.fire(
         Title,
         '',
-        'success')
+        'success'
+    ).then((result) => {
+        if (result.isConfirmed && typeof callback === 'function') {
+            callback();
+        }
+    });
 }
 export const showAlertError = (Title) => {
     Swal.fire(
