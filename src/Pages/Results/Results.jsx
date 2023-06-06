@@ -18,7 +18,7 @@ const Results = (props) => {
                     <button>Home</button>
                 </Link>
                 <SearchBar onSearch={props.handleSearch} inicialState={props.ImportedSearch}/>
-                <Link to='/'>
+                <Link to='/Cart'>
                     <button>Carrito</button>
                 </Link>
                 <Link to='/'>

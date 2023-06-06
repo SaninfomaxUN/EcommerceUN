@@ -7,7 +7,10 @@ const serviceSignUpSeller = require("../Services/SignUp/SignUpSeller/serviceSign
 const serviceSignUpShopper = require("../Services/SignUp/SignUpShopper/serviceSignUpShopper.js")
 const serviceProduct = require("../Services/Product/serviceProduct")
 const serviceSearch = require("../Services/Search/serviceSearch");
+const serviceCart = require("../Services/Cart/serviceCart");
+
 const cors = require('cors');
+cors({ origin: true });
 const cookieParser = require("cookie-parser")
 
 
@@ -38,6 +41,12 @@ Router.post('/getSellerProducts', serviceProduct.getSellerProducts)
 Router.post('/insertProduct', serviceProduct.insertProduct)
 Router.put('/updateProduct',serviceProduct.updateProduct)
 Router.delete('/deleteProduct', serviceProduct.deleteProduct)
+
+//Carrito
+Router.post('/getCart', serviceCart.getCart)
+Router.post('/updateCart', serviceCart.updateProductCart)
+Router.post('/removeCart', serviceCart.removeProductCart)
+Router.post('/cleanCart', serviceCart.cleanCart)
 
 module.exports = Router;
 
