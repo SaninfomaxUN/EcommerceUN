@@ -92,6 +92,9 @@ function CartPage() {
                     <div className="grilla-container">
                         {cart.map((producto) => (
                             <div key={producto.ID_PRODUCTO}>
+                                <div>
+                                    <h4>Cantidad: {producto.CANTIDAD}</h4>
+                                </div>
                                 <CardProduct
                                     key={producto.ID_PRODUCTO}
                                     id={producto.ID_PRODUCTO}
@@ -106,6 +109,7 @@ function CartPage() {
                                 </button>
                             </div>
                         ))}
+
                     </div>
                 </div>}
         </div>
