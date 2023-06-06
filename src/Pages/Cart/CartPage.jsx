@@ -7,6 +7,8 @@ import CardProduct from "../Product/Components/CardProduct";
 import Card from "../../Components/Commons/Card/Card"
 import {showAlertInfo, showAlertSuccess} from "../../Components/Commons/Alerts/AlertsModal";
 import {CircularProgress} from "@mui/material";
+import NavbarShopper from "../../Components/Commons/NavbarShopper/NavbarShopper";
+import NavbarSeller from "../../Components/Commons/NavbarSeller/NavbarSeller";
 
 const removeProductToCart = async (idProducto, idComprador) => {
     console.log(idComprador, idProducto)
@@ -63,8 +65,20 @@ function CartPage() {
 
     };
 
+    const token = Cookies.get('token');
+    const role = Cookies.get('role');
+    let shopperConnected = false
+    let sellerConnected = false
+    if (token && role === 'comprador') {
+        shopperConnected = true
+    } else if (token && role === 'vendedor') {
+        sellerConnected = true
+    }
+
     return (
         <div>
+            {shopperConnected && <NavbarShopper/>}
+            {sellerConnected && <NavbarSeller/>}
             {!loaded && <CircularProgress color="success"/>}
             {loaded &&
                 <div className="carrito-page-container">

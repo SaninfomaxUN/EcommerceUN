@@ -7,6 +7,8 @@ import axios from "axios";
 import {CircularProgress} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import Cookies from 'js-cookie';
+import NavbarShopper from "../../Components/Commons/NavbarShopper/NavbarShopper";
+import NavbarSeller from "../../Components/Commons/NavbarSeller/NavbarSeller";
 
 
 
@@ -67,8 +69,21 @@ const ProductPage = ({carrito,setCarrito}) => {
         getProduct(idProducto, setProduct, setLoaded, navigate)
     }, [idProducto]);
 
+
+    const token = Cookies.get('token');
+    const role = Cookies.get('role');
+    let shopperConnected = false
+    let sellerConnected = false
+    if (token && role === 'comprador') {
+        shopperConnected = true
+    } else if (token && role === 'vendedor') {
+        sellerConnected = true
+    }
+
     return (
         <div>
+            {shopperConnected && <NavbarShopper/>}
+            {sellerConnected && <NavbarSeller/>}
             {!loaded && <CircularProgress color="success"/>}
             {loaded &&
                 <div className='container-body'>
