@@ -1,0 +1,41 @@
+
+.product-cards{
+    /* display: flex; */
+    margin: auto auto;
+    text-align: center;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap:16px;
+    margin: 5%;
+    cursor: pointer;
+}
+.product-card{
+    display: flex;
+    margin: auto auto;
+}
+.image{
+    width: 150px;
+    height: 150px;
+}
+.titulo-completo{
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    width: 200px;
+}
+.precio{
+    font-size: 10px;
+    font-weight: 400;
+}
+.edit{
+    background-color: orange;
+}
+.delete{
+    background-color: red;
+}
+
+
+.input5{
+    width: 300px;
+}
