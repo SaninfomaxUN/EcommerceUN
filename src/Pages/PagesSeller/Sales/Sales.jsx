@@ -7,10 +7,12 @@ import axios from 'axios';
 import categories from "../Sales/Data/categories.jsx"
 import {showAlertError, showAlertSuccess} from "../../../Components/Commons/Alerts/AlertsModal.js"
 import Cookies from 'js-cookie';
+import {useNavigate} from "react-router-dom";
 
 const userId= Cookies.get("id")
 
 const Sales = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     id_vendedor:userId,
     n_producto: '',
@@ -61,7 +63,9 @@ const Sales = () => {
     try {
       const response = await axios.post(process.env.REACT_APP_API+'/insertProduct', formData);
       console.log(response.data);
-      showAlertSuccess("¡El producto ha sido registrado correctamente!")
+      showAlertSuccess("¡El producto ha sido registrado correctamente!", () => {
+        navigate("/SellerProducts")
+      })
     } catch (error) {
       showAlertError("El producto no ha sido registrado correctamente :(")
       console.error(error);

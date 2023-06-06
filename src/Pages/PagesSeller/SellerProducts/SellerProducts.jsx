@@ -118,7 +118,7 @@ const fetchProductos = async () => {
         </div>
       )}
    <Dialog maxWidth ={"lg"} open={open} onClose={handleClose}>
-          {id_product && <Edit id_product={id_product} />}
+          {id_product && <Edit id_product={id_product} onClose={handleClose} />}
     </Dialog>
       <div>
       
