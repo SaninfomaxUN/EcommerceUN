@@ -6,6 +6,7 @@ import {showAlertSuccess ,showAlertError } from '../../../Components/Commons/Ale
 
 
 const addProductToCart = (idComprador, idProducto, newQuantity) =>{
+  console.log(idComprador + "SIMBOLO")
   axios.post(process.env.REACT_APP_API +'/updateCart', {idProducto: idProducto, idComprador:idComprador,newQuantity:newQuantity})
   .then(res => {
       showAlertSuccess("Producto agregado correctamente.")
@@ -16,16 +17,16 @@ const addProductToCart = (idComprador, idProducto, newQuantity) =>{
 }
 
 
-function CardProduct({ id, nombre, precio, foto, descripcion,quantity, agregarProducto, mostrarBotonCompra = true }) {
+function CardProduct({ id, nombre, precio, foto, descripcion,quantity, agregarProducto, mostrarBotonCompra = true,idComprador }) {
   const [agregadoCarrito, setAgregadoCarrito] = useState(false);
   const navigate = useNavigate();
 
     const handleClick = () => {
       if (agregadoCarrito) {
-        navigate('/carrito'); // Redirige a la página del carrito
+        navigate('/Cart'); // Redirige a la página del carrito
       } else {
         setAgregadoCarrito(true);
-        addProductToCart("65465488",id,parseInt(quantity)+1) //api
+        addProductToCart(idComprador,id,parseInt(quantity)+1) //api
 
       }
 
@@ -44,7 +45,6 @@ function CardProduct({ id, nombre, precio, foto, descripcion,quantity, agregarPr
         <button onClick={handleClick}>
           {agregadoCarrito ? 'En el carrito' : 'Comprar'}
         </button>
-        <h1>cantidad:{quantity}</h1>
       </div>
     </div>
   );

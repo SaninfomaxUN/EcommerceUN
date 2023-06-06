@@ -6,9 +6,11 @@ import {useParams} from 'react-router';
 import axios from "axios";
 import {CircularProgress} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import Cookies from 'js-cookie';
 
 
-const getCart = (idComprador,idProducto, setQuantity,setLoaded)  => {
+
+const getCart = (idComprador,idProducto, setQuantity)  => {
     let quantity = 0
     axios.post(process.env.REACT_APP_API +'/getCart', {idComprador: idComprador})
         .then(res => {
@@ -39,6 +41,8 @@ const getProduct = (idProducto, setProduct, setLoaded, navigate) => {
 };
 
 const ProductPage = ({carrito,setCarrito}) => {
+    const idComprador = Cookies.get("id")
+    console.log(idComprador+" ID COMNPRADOR EN PRODUCTPAGE")
     const [quantity,setQuantity] = useState(0)
     const [product, setProduct] = useState({
         ID_PRODUCTO: '',
@@ -57,9 +61,9 @@ const ProductPage = ({carrito,setCarrito}) => {
     let [nombre, idProducto] = id.split("$$")
 
     const navigate = useNavigate()
-
+    
     useEffect(() => {
-        getCart(65465488,idProducto,setQuantity)
+        getCart(idComprador,idProducto,setQuantity)
         getProduct(idProducto, setProduct, setLoaded, navigate)
     }, [idProducto]);
 
@@ -86,6 +90,7 @@ const ProductPage = ({carrito,setCarrito}) => {
                             descripcion={product.DESCRIPCION}
                             quantity = {quantity}
                             agregarProducto={agregarAlCarrito}
+                            idComprador={idComprador}
                         />
                     </div>
                     <Footer/>

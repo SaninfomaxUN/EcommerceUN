@@ -20,6 +20,7 @@ import ResultsPage from '../Pages/Results/ResultsPage';
 import ProductPage from '../Pages/Product/ProductPage';
 import PrivateRoutesShopper from '../Components/Security/PrivateRoutesShopper'
 import PrivateRoutesSeller from '../Components/Security/PrivateRoutesSeller'
+import CartPage from '../Pages/Cart/CartPage';
 
 
 export default function App(){
@@ -50,6 +51,7 @@ return(
                     <Route path="/MyPurchases" element ={<MyPurchasesPage/>} />
                     <Route path="/PaymentMethods" element ={<PaymentMethodsPage/>} />
                     <Route path="/Notification" element ={<NotificationPage/>} /> 
+                    <Route path="/Cart" element ={<CartPage/>} /> 
             </Route>
     
             {/* rutas a protegervendedor */}

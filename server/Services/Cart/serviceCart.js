@@ -10,16 +10,17 @@ const sqlGetQuantityByID = async (connection, idComprador) => {
     } else {
         const rowCart = resultId[0];
         let dicQuantity = {}
-        const listIDQuantity = rowCart[0].LISTAPRODUCTOS.split(";;")
-        if (listIDQuantity[0] !== "") {
-            for (const arrayQuantityProduct of listIDQuantity) {
-                let quantity = arrayQuantityProduct.split("##")[1]
-                if ( quantity > 0){
-                    dicQuantity[arrayQuantityProduct.split("##")[0]] = quantity;
+        if(rowCart[0]["LISTAPRODUCTOS"] != null){
+            const listIDQuantity = rowCart[0]["LISTAPRODUCTOS"].split(";;")
+            if (listIDQuantity[0] !== "") {
+                for (const arrayQuantityProduct of listIDQuantity) {
+                    let quantity = arrayQuantityProduct.split("##")[1]
+                    if ( quantity > 0){
+                        dicQuantity[arrayQuantityProduct.split("##")[0]] = quantity;
+                    }
+
                 }
-
             }
-
         }
         return [rowCart, dicQuantity];
     }
@@ -158,7 +159,7 @@ module.exports = {
             const idProducto = req.body.idProducto
             const newQuantity = req.body.newQuantity
 
-            console.log(req.body.idProduct + "$" + newQuantity )
+            console.log(req.body.idProducto + "$" + newQuantity + idComprador )
 
             let [updatedListStr,dicQuantity] = await updateList(connection, idComprador, idProducto, newQuantity)
             if (!updatedListStr) {

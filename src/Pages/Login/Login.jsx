@@ -43,7 +43,7 @@ const Login = () => {
   
       Cookies.set('token', responseData.token);
       Cookies.set('role', responseData.userType);
-  
+      Cookies.set('id', responseData.id)
       userAuthenticated();
     } catch (error) {
       setError(error.message);
