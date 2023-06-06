@@ -1,0 +1,64 @@
+/* CarritoPage.css */
+
+.carrito-page-container {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.precio-total-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.precio-total-container button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.precio-total-container button:hover {
+  background-color: #45a049;
+}
+
+.grilla-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.grilla-container .product-container {
+  width: inherit;
+  height: auto;
+  box-shadow: none;
+}
+
+.grilla-container > div {
+  padding: 20px;
+}
+
+.grilla-container > div > button {
+  margin-top: 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.grilla-container > div > button:hover {
+  background-color: #d32f2f;
+}
