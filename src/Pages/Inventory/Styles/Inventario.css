@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+  html,
+  body {
+    font-size: 18px;    
+    background-color:#ee9c30;
+  }
+
+h1 { 
+  font-size: 1.7em;
+  font-family: sans-serif;
+  font-weight: 600;
+  line-height: 1.3;
+  background-color: #cfcfcf;
+  width: 1200px;
+  
+  text-align: center;
+}
+  .head_line{
+    flex-grow: 1;
+    border: none;
+    border-top: 1px solid #000;
+    margin-left: 10px;
+  }
+
+  .App{
+    min-height: 80vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .contenedor-principal{
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 1200px;
+    margin: 10px 40px 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    opacity: 0.9;
+    box-shadow: 0 3px 13px 1px #0f0f0f;
+  }
