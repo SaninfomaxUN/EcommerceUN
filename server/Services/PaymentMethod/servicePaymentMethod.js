@@ -4,14 +4,17 @@ module.exports = {
     getPaymentMethod: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const idComprador = req.body.idComprador
+            const getPaymentMethodSQL = "SELECT * FROM metodopago WHERE ID_COMPRADOR = ? AND ID_METODO_PAGO = ?"
 
-            const resultSQL = await connection.execute("SQL", "Parameters");
+            const idComprador = req.body["idComprador"]
+            const idMetodoPago = req.body["idMetodoPago"]
+
+            const resultSQL = await connection.execute(getPaymentMethodSQL, [idComprador,idMetodoPago]);
             console.log(resultSQL[0])
 
 
             if (resultSQL[0].length < 1) {
-                return res.status(400).json({message: "No hay un Metodo de Pago asociado a " + ""+ " ."});
+                return res.status(400).json({message: "El Método de Pago asociado NO se encontró."});
             } else {
                 const dataPaymentMethod = resultSQL[0];
                 console.log(dataPaymentMethod)
@@ -27,9 +30,11 @@ module.exports = {
     getPaymentMethods: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const idComprador = req.body.idComprador
+            const getPaymentMethodsSQL = "SELECT * FROM metodopago WHERE ID_COMPRADOR = ?"
 
-            const resultSQL = await connection.execute("SQL", [idComprador]);
+            const idComprador = req.body["idComprador"]
+
+            const resultSQL = await connection.execute(getPaymentMethodsSQL, [idComprador]);
             console.log(resultSQL[0])
 
 
@@ -51,9 +56,11 @@ module.exports = {
     insertPaymentMethod: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
+            const insertPaymentMethodSQL = "INSERT INTO metodopago VALUES (NULL, ?,...)"
+
             const idComprador = req.body.idComprador
 
-            await connection.execute("SQL", [idComprador]);
+            await connection.execute(insertPaymentMethodSQL, [idComprador,"..."]);
             return res.status(200).json({message: "Método de Pago ingresado con éxito."});
 
 
@@ -66,9 +73,12 @@ module.exports = {
     updatePaymentMethod: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
+            const updatePaymentSQL = "UPDATE metodopago SET ... WHERE ID_COMPRADOR = ? AND ID_METODO_PAGO = ?"
 
+            const idComprador = req.body["idComprador"]
+            const idMetodoPago = req.body["idMetodoPago"]
 
-            await connection.execute("SQL", "Parameters");
+            await connection.execute(updatePaymentSQL, ["...",idComprador,idMetodoPago]);
             return res.status(200).json({message: "Método de Pago actualizado con éxito."});
 
 
@@ -81,9 +91,12 @@ module.exports = {
     removePaymentMethod: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
+            const removePaymentMethodSQL = "DELETE FROM metodopago WHERE ID_COMPRADOR = ? AND ID_METODO_PAGO = ?"
 
+            const idComprador = req.body["idComprador"]
+            const idMetodoPago = req.body["idMetodoPago"]
 
-            await connection.execute("SQL", "Parameters");
+            await connection.execute(removePaymentMethodSQL, [idComprador,idMetodoPago]);
             return res.status(200).json({message: "Método de Pago eliminado con éxito."});
 
 
@@ -96,9 +109,11 @@ module.exports = {
     cleanPaymentMethods: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const idComprador = req.body.idComprador
+            const removePaymentMethodSQL = "DELETE FROM metodopago WHERE ID_COMPRADOR = ?"
 
-            await connection.execute("SQL", [idComprador]);
+            const idComprador = req.body["idComprador"]
+
+            await connection.execute(removePaymentMethodSQL, [idComprador]);
             return res.status(200).json({message: "Métodos de Pago eliminados con éxito."});
 
 

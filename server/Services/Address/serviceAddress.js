@@ -4,14 +4,17 @@ module.exports = {
     getAddress: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const idComprador = req.body.idComprador
+            const getAddressSQL = "SELECT * FROM direccion WHERE ID_COMPRADOR = ? AND ID_DIRECCION = ?"
 
-            const resultSQL = await connection.execute("SQL", "Parameters");
+            const idComprador = req.body["idComprador"]
+            const idDireccion = req.body["idDireccion"]
+
+            const resultSQL = await connection.execute(getAddressSQL, [idComprador,idDireccion]);
             console.log(resultSQL[0])
 
 
             if (resultSQL[0].length < 1) {
-                return res.status(400).json({message: "No hay una dirección asociado a " + ""+ " ."});
+                return res.status(400).json({message: "La dirección asociada NO se encontró."});
             } else {
                 const dataAddress = resultSQL[0];
                 console.log(dataAddress)
@@ -27,9 +30,11 @@ module.exports = {
     getAddresses: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
+            const getAddressesSQL = "SELECT * FROM direccion WHERE ID_COMPRADOR = ?"
+
             const idComprador = req.body.idComprador
 
-            const resultSQL = await connection.execute("SQL", [idComprador]);
+            const resultSQL = await connection.execute(getAddressesSQL, [idComprador]);
             console.log(resultSQL[0])
 
 
@@ -51,9 +56,11 @@ module.exports = {
     insertAddress: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
+            const insertAddressSQL = "INSERT INTO direccion VALUES (NULL, ?,...)"
+
             const idComprador = req.body.idComprador
 
-            await connection.execute("SQL", [idComprador]);
+            await connection.execute(insertAddressSQL, [idComprador,"..."]);
             return res.status(200).json({message: "Dirección ingresada con éxito."});
 
 
@@ -66,9 +73,12 @@ module.exports = {
     updateAddress: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
+            const updateAddressSQL = "UPDATE direccion SET ... WHERE ID_COMPRADOR = ? AND ID_DIRECCION = ?"
 
+            const idComprador = req.body["idComprador"]
+            const idDireccion = req.body["idDireccion"]
 
-            await connection.execute("SQL", "Parameters");
+            await connection.execute(updateAddressSQL, ["...",idComprador,idDireccion]);
             return res.status(200).json({message: "Dirección actualizada con éxito."});
 
 
@@ -81,9 +91,12 @@ module.exports = {
     removeAddress: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
+            const removeAddressSQL = "DELETE FROM direccion WHERE ID_COMPRADOR = ? AND ID_DIRECCION = ?"
 
+            const idComprador = req.body["idComprador"]
+            const idDireccion = req.body["idDireccion"]
 
-            await connection.execute("SQL", "Parameters");
+            await connection.execute(removeAddressSQL, [idComprador,idDireccion]);
             return res.status(200).json({message: "Dirección eliminada con éxito."});
 
 
@@ -96,9 +109,11 @@ module.exports = {
     cleanAddresses: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const idComprador = req.body.idComprador
+            const removeAddressesSQL = "DELETE FROM direccion WHERE ID_COMPRADOR = ?"
 
-            await connection.execute("SQL", [idComprador]);
+            const idComprador = req.body["idComprador"]
+
+            await connection.execute(removeAddressesSQL, [idComprador]);
             return res.status(200).json({message: "Direcciones eliminadas con éxito."});
 
 
