@@ -39,7 +39,7 @@ module.exports = {
 
 
             if (resultSQL[0].length < 1) {
-                return res.status(400).json({message: "No hay Métodos de Pago asociados a " + ""+ " ."});
+                return res.status(400).json({message: "No se encontraron Métodos de Pago asociados a " + idComprador + " ."});
             } else {
                 const dataPaymentMethods = resultSQL[0];
                 console.log(dataPaymentMethods)

@@ -32,14 +32,14 @@ module.exports = {
             const connection = await ConnectionDB.getConnection();
             const getAddressesSQL = "SELECT * FROM direccion WHERE ID_COMPRADOR = ?"
 
-            const idComprador = req.body.idComprador
+            const idComprador = req.body["idComprador"]
 
             const resultSQL = await connection.execute(getAddressesSQL, [idComprador]);
             console.log(resultSQL[0])
 
 
             if (resultSQL[0].length < 1) {
-                return res.status(400).json({message: "No hay direcciones asociadas a " + ""+ " ."});
+                return res.status(400).json({message: "No se encontraron direcciones asociadas a " + idComprador + " ."});
             } else {
                 const dataAddresses = resultSQL[0];
                 console.log(dataAddresses)
@@ -58,7 +58,7 @@ module.exports = {
             const connection = await ConnectionDB.getConnection();
             const insertAddressSQL = "INSERT INTO direccion VALUES (NULL, ?,...)"
 
-            const idComprador = req.body.idComprador
+            const idComprador = req.body["idComprador"]
 
             await connection.execute(insertAddressSQL, [idComprador,"..."]);
             return res.status(200).json({message: "Dirección ingresada con éxito."});
