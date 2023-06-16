@@ -23,8 +23,8 @@ module.exports = {
                 const dataOrder = resultSQL[0];
 
                 dataOrder[0]["ListadoProductos"] = await serviceListOrder.getListAllOrders(idPedido)
-                dataOrder[0]["ID_DIRECCION"] = (await serviceAddress.getAddressSinceBack(dataOrder[0]["ID_COMPRADOR"],dataOrder[0]["ID_DIRECCION"]))[0]
-                dataOrder[0]["ID_METODOPAGO"] = (await servicePaymentMethod.getPaymentMethodSinceBack(dataOrder[0]["ID_COMPRADOR"],dataOrder[0]["ID_METODOPAGO"]))[0]
+                dataOrder[0]["ID_DIRECCION"] = await serviceAddress.getAddressSinceBack(dataOrder[0]["ID_COMPRADOR"],dataOrder[0]["ID_DIRECCION"])
+                dataOrder[0]["ID_METODOPAGO"] = await servicePaymentMethod.getPaymentMethodSinceBack(dataOrder[0]["ID_COMPRADOR"],dataOrder[0]["ID_METODOPAGO"])
 
                 return res.status(200).send({Order: dataOrder});
             }

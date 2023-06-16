@@ -154,16 +154,16 @@ module.exports = {
             console.log(resultSQL[0])
 
             if (resultSQL[0].length < 1) {
-                return false;
+                return null;
             } else {
                 const dataAddress = resultSQL[0];
                 console.log(dataAddress)
 
-                return dataAddress;
+                return dataAddress[0];
             }
         } catch (error) {
             console.error(error);
-            return false;
+            return null;
         }
 
     }

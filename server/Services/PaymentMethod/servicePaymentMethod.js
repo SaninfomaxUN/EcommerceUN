@@ -153,16 +153,16 @@ module.exports = {
             console.log(resultSQL[0])
 
             if (resultSQL[0].length < 1) {
-                return false;
+                return null;
             } else {
                 const dataPaymentMethod = resultSQL[0];
                 console.log(dataPaymentMethod)
 
-                return dataPaymentMethod;
+                return dataPaymentMethod[0];
             }
         } catch (error) {
             console.error(error);
-            return false;
+            return null;
         }
 
     }
