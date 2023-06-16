@@ -3,19 +3,19 @@ const serviceProduct = require("../Product/serviceProduct")
 
 const sqlGetQuantityByID = async (connection, idComprador) => {
     const sqlGetCart = "SELECT * FROM carritocompras WHERE id_comprador = ?";
-    const resultId = await connection.execute(sqlGetCart, [idComprador] );
+    const resultId = await connection.execute(sqlGetCart, [idComprador]);
 
     if (resultId[0].length < 1) {
-        return [false,false];
+        return [false, false];
     } else {
         const rowCart = resultId[0];
         let dicQuantity = {}
-        if(rowCart[0]["LISTAPRODUCTOS"] != null){
+        if (rowCart[0]["LISTAPRODUCTOS"] != null) {
             const listIDQuantity = rowCart[0]["LISTAPRODUCTOS"].split(";;")
             if (listIDQuantity[0] !== "") {
                 for (const arrayQuantityProduct of listIDQuantity) {
                     let quantity = arrayQuantityProduct.split("##")[1]
-                    if ( quantity > 0){
+                    if (quantity > 0) {
                         dicQuantity[arrayQuantityProduct.split("##")[0]] = quantity;
                     }
 
@@ -67,7 +67,7 @@ const sqlUpdateQuantityByID = async (connection, idComprador, updatedListStr, di
 
 const calculateTotal = async (dicQuantity) => {
     let total = 0
-    if(Object.keys(dicQuantity).length === 0){
+    if (Object.keys(dicQuantity).length === 0) {
         return total;
     }
 
@@ -79,13 +79,21 @@ const calculateTotal = async (dicQuantity) => {
     return total
 }
 
+const getTotalQuantity = (dicQuantity) => {
+    let totalQuantity = 0
+    for (let idProduct in dicQuantity){
+        totalQuantity += parseInt(dicQuantity[idProduct]);
+    }
+    return totalQuantity
+}
+
 const updateList = async (connection, idComprador, idProducto, newQuantity) => {
     let [, dicQuantity] = await sqlGetQuantityByID(connection, idComprador)
     const existingProduct = await checkExistingProduct(idProducto)
-    if (existingProduct){
+    if (existingProduct) {
         dicQuantity[idProducto] = newQuantity
-        return [joinDicQuantity(dicQuantity),dicQuantity]
-    }else{
+        return [joinDicQuantity(dicQuantity), dicQuantity]
+    } else {
         return false
     }
 
@@ -115,11 +123,11 @@ const joinDicQuantity = (dicQuantity) => {
 
 const removeList = async (connection, idComprador, idProducto) => {
     let [, dicQuantity] = await sqlGetQuantityByID(connection, idComprador)
-    if(!dicQuantity.hasOwnProperty(idProducto)){
-        return [false,false]
+    if (!dicQuantity.hasOwnProperty(idProducto)) {
+        return [false, false]
     }
     delete dicQuantity[idProducto]
-    return [joinDicQuantity(dicQuantity),dicQuantity]
+    return [joinDicQuantity(dicQuantity), dicQuantity]
 }
 
 
@@ -141,6 +149,7 @@ module.exports = {
                 let listProducts = await sqlGetListByID(dicQuantity)
                 //console.log(dicQuantity)
 
+                dataCart[0]["CANTIDADTOTAL"] = getTotalQuantity(dicQuantity)
 
                 //console.log(listProducts);
                 return res.status(200).send({Cart: dataCart, Products: listProducts});
@@ -159,9 +168,9 @@ module.exports = {
             const idProducto = req.body.idProducto
             const newQuantity = req.body.newQuantity
 
-            console.log(req.body.idProducto + "$" + newQuantity + idComprador )
+            console.log(req.body.idProducto + "$" + newQuantity)
 
-            let [updatedListStr,dicQuantity] = await updateList(connection, idComprador, idProducto, newQuantity)
+            let [updatedListStr, dicQuantity] = await updateList(connection, idComprador, idProducto, newQuantity)
             if (!updatedListStr) {
                 return res.status(400).json({message: "No se pudo actualizar el producto " + idProducto + " .\n Datos incorrectos."});
             }
@@ -187,7 +196,7 @@ module.exports = {
 
             console.log(req.body.idComprador)
 
-            let [updatedListStr,dicQuantity] = await removeList(connection, idComprador, idProducto)
+            let [updatedListStr, dicQuantity] = await removeList(connection, idComprador, idProducto)
 
             if (!updatedListStr && updatedListStr !== "") {
                 return res.status(400).json({message: "No se pudo remover el producto " + idProducto + " .\n Datos incorrectos."});
@@ -222,6 +231,26 @@ module.exports = {
         } catch (error) {
             console.error(error);
             return res.status(500).json({message: 'Error al consultar carrito.'});
+        }
+
+    },
+    getCartSinceBack: async (idComprador) => {
+        try {
+            const connection = await ConnectionDB.getConnection();
+
+            // Check if id is already registered
+            let [dataCart, dicQuantity] = await sqlGetQuantityByID(connection, idComprador)
+            if (!dataCart) {
+                return false
+            } else {
+
+                let listProducts = await sqlGetListByID(dicQuantity)
+                dataCart[0]["CANTIDADTOTAL"] = getTotalQuantity(dicQuantity)
+                return {Cart: dataCart, Products: listProducts};
+            }
+        } catch (error) {
+            console.error(error);
+            return false;
         }
 
     }

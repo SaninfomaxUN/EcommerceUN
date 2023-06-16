@@ -144,6 +144,28 @@ module.exports = {
             return res.status(500).json({message: "Error al eliminar direcciones."});
         }
 
+    },
+    getAddressSinceBack: async (idComprador,idDireccion) => {
+        try {
+            const connection = await ConnectionDB.getConnection();
+            const getAddressSQL = "SELECT * FROM direccion WHERE ID_COMPRADOR = ? AND ID_DIRECCION = ?"
+
+            const resultSQL = await connection.execute(getAddressSQL, [idComprador,idDireccion]);
+            console.log(resultSQL[0])
+
+            if (resultSQL[0].length < 1) {
+                return false;
+            } else {
+                const dataAddress = resultSQL[0];
+                console.log(dataAddress)
+
+                return dataAddress;
+            }
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+
     }
 
 }

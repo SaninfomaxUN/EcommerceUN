@@ -143,6 +143,28 @@ module.exports = {
             return res.status(500).json({message: "Error al eliminar Métodos de Pago."});
         }
 
+    },
+    getPaymentMethodSinceBack: async (idComprador,idMetodoPago) => {
+        try {
+            const connection = await ConnectionDB.getConnection();
+            const getPaymentMethodSQL = "SELECT * FROM metodopago WHERE ID_COMPRADOR = ? AND ID_METODOPAGO = ?"
+
+            const resultSQL = await connection.execute(getPaymentMethodSQL, [idComprador,idMetodoPago]);
+            console.log(resultSQL[0])
+
+            if (resultSQL[0].length < 1) {
+                return false;
+            } else {
+                const dataPaymentMethod = resultSQL[0];
+                console.log(dataPaymentMethod)
+
+                return dataPaymentMethod;
+            }
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+
     }
 
 }
