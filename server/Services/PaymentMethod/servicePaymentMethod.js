@@ -150,7 +150,6 @@ module.exports = {
             const getPaymentMethodSQL = "SELECT * FROM metodopago WHERE ID_COMPRADOR = ? AND ID_METODOPAGO = ?"
 
             const resultSQL = await connection.execute(getPaymentMethodSQL, [idComprador,idMetodoPago]);
-            console.log(resultSQL[0])
 
             if (resultSQL[0].length < 1) {
                 return null;

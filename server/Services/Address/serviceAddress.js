@@ -151,7 +151,6 @@ module.exports = {
             const getAddressSQL = "SELECT * FROM direccion WHERE ID_COMPRADOR = ? AND ID_DIRECCION = ?"
 
             const resultSQL = await connection.execute(getAddressSQL, [idComprador,idDireccion]);
-            console.log(resultSQL[0])
 
             if (resultSQL[0].length < 1) {
                 return null;
