@@ -56,11 +56,17 @@ module.exports = {
     insertAddress: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const insertAddressSQL = "INSERT INTO direccion VALUES (NULL, ?,...)"
+            const insertAddressSQL = "INSERT INTO direccion VALUES (NULL,?,?,?,?,?,?,?)"
 
             const idComprador = req.body["idComprador"]
+            const pais = req.body["pais"]
+            const ciudad = req.body["ciudad"]
+            const direccion = req.body["direccion"]
+            const codigopostal = req.body["codigopostal"]
+            const descripcion = req.body["descripcion"]
+            const telefono = req.body["telefono"]
 
-            await connection.execute(insertAddressSQL, [idComprador,"..."]);
+            await connection.execute(insertAddressSQL, [idComprador,pais,ciudad,direccion,codigopostal,descripcion,telefono]);
             return res.status(200).json({message: "Dirección ingresada con éxito."});
 
 
@@ -73,13 +79,24 @@ module.exports = {
     updateAddress: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const updateAddressSQL = "UPDATE direccion SET ... WHERE ID_COMPRADOR = ? AND ID_DIRECCION = ?"
+            const updateAddressSQL = "UPDATE direccion SET PAIS = ?, CIUDAD = ?, DIRECCION = ?, CODIGOPOSTAL = ?, DESCRIPCION = ?, TELEFONO = ? WHERE ID_DIRECCION = ? AND ID_COMPRADOR = ?"
 
-            const idComprador = req.body["idComprador"]
             const idDireccion = req.body["idDireccion"]
+            const idComprador = req.body["idComprador"]
+            const pais = req.body["pais"]
+            const ciudad = req.body["ciudad"]
+            const direccion = req.body["direccion"]
+            const codigopostal = req.body["codigopostal"]
+            const descripcion = req.body["descripcion"]
+            const telefono = req.body["telefono"]
 
-            await connection.execute(updateAddressSQL, ["...",idComprador,idDireccion]);
-            return res.status(200).json({message: "Dirección actualizada con éxito."});
+            const resultSQL = await connection.execute(updateAddressSQL, [pais,ciudad,direccion,codigopostal,descripcion,telefono,idDireccion,idComprador]);
+
+            if(resultSQL[0].affectedRows>0){
+                return res.status(200).json({message: "Dirección actualizada con éxito."});
+            }else{
+                return res.status(400).json({message: "Dirección NO actualizada. Datos inconsistentes."});
+            }
 
 
         } catch (error) {
@@ -96,8 +113,13 @@ module.exports = {
             const idComprador = req.body["idComprador"]
             const idDireccion = req.body["idDireccion"]
 
-            await connection.execute(removeAddressSQL, [idComprador,idDireccion]);
-            return res.status(200).json({message: "Dirección eliminada con éxito."});
+            const resultSQL = await connection.execute(removeAddressSQL, [idComprador,idDireccion]);
+
+            if(resultSQL[0].affectedRows>0){
+                return res.status(200).json({message: "Dirección eliminada con éxito."});
+            }else{
+                return res.status(400).json({message: "Dirección NO eliminada. Datos inconsistentes."});
+            }
 
 
         } catch (error) {
