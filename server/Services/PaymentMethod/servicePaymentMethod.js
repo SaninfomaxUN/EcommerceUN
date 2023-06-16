@@ -4,7 +4,7 @@ module.exports = {
     getPaymentMethod: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const getPaymentMethodSQL = "SELECT * FROM metodopago WHERE ID_COMPRADOR = ? AND ID_METODO_PAGO = ?"
+            const getPaymentMethodSQL = "SELECT * FROM metodopago WHERE ID_COMPRADOR = ? AND ID_METODOPAGO = ?"
 
             const idComprador = req.body["idComprador"]
             const idMetodoPago = req.body["idMetodoPago"]
@@ -56,11 +56,16 @@ module.exports = {
     insertPaymentMethod: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const insertPaymentMethodSQL = "INSERT INTO metodopago VALUES (NULL, ?,...)"
+            const insertPaymentMethodSQL = "INSERT INTO metodopago VALUES (NULL, ?,?,?,?,?,?)"
 
-            const idComprador = req.body.idComprador
+            const idComprador = req.body["idComprador"]
+            const tipoMetodo = req.body["tipoMetodo"]
+            const nombreTitular = req.body["nombreTitular"]
+            const numeroTarjeta = req.body["numeroTarjeta"]
+            const fechaVencimiento = req.body["fechaVencimiento"]
+            const ccv = req.body["ccv"]
 
-            await connection.execute(insertPaymentMethodSQL, [idComprador,"..."]);
+            await connection.execute(insertPaymentMethodSQL, [idComprador,tipoMetodo,nombreTitular,numeroTarjeta,fechaVencimiento,ccv]);
             return res.status(200).json({message: "Método de Pago ingresado con éxito."});
 
 
@@ -73,13 +78,24 @@ module.exports = {
     updatePaymentMethod: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const updatePaymentSQL = "UPDATE metodopago SET ... WHERE ID_COMPRADOR = ? AND ID_METODO_PAGO = ?"
+            const updatePaymentMethodSQL = "UPDATE metodopago SET TIPOMETODO = ?,NOMBRETITULAR = ?,NUMEROTARJETA = ?,FECHAVENCIMIENTO = ?,CCV = ? WHERE ID_METODOPAGO = ? AND ID_COMPRADOR = ?"
 
-            const idComprador = req.body["idComprador"]
             const idMetodoPago = req.body["idMetodoPago"]
+            const idComprador = req.body["idComprador"]
+            const tipoMetodo = req.body["tipoMetodo"]
+            const nombreTitular = req.body["nombreTitular"]
+            const numeroTarjeta = req.body["numeroTarjeta"]
+            const fechaVencimiento = req.body["fechaVencimiento"]
+            const ccv = req.body["ccv"]
 
-            await connection.execute(updatePaymentSQL, ["...",idComprador,idMetodoPago]);
-            return res.status(200).json({message: "Método de Pago actualizado con éxito."});
+            const resultSQL = await connection.execute(updatePaymentMethodSQL, [tipoMetodo,nombreTitular,numeroTarjeta,fechaVencimiento,ccv,idMetodoPago,idComprador]);
+
+            if(resultSQL[0].affectedRows>0){
+                return res.status(200).json({message: "Método de Pago actualizado con éxito."});
+            }else{
+                return res.status(400).json({message: "Método de Pago NO actualizado. Datos inconsistentes."});
+            }
+
 
 
         } catch (error) {
@@ -91,13 +107,18 @@ module.exports = {
     removePaymentMethod: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const removePaymentMethodSQL = "DELETE FROM metodopago WHERE ID_COMPRADOR = ? AND ID_METODO_PAGO = ?"
+            const removePaymentMethodSQL = "DELETE FROM metodopago WHERE ID_COMPRADOR = ? AND ID_METODOPAGO = ?"
 
             const idComprador = req.body["idComprador"]
             const idMetodoPago = req.body["idMetodoPago"]
 
-            await connection.execute(removePaymentMethodSQL, [idComprador,idMetodoPago]);
-            return res.status(200).json({message: "Método de Pago eliminado con éxito."});
+            const resultSQL = await connection.execute(removePaymentMethodSQL, [idComprador,idMetodoPago]);
+
+            if(resultSQL[0].affectedRows>0){
+                return res.status(200).json({message: "Método de Pago eliminado con éxito."});
+            }else{
+                return res.status(400).json({message: "Método de Pago NO eliminado. Datos inconsistentes."});
+            }
 
 
         } catch (error) {
