@@ -1,0 +1,36 @@
+.purchase-cards{
+    /* display: flex; */
+    margin: auto auto;
+    text-align: center;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap:16px;
+    margin: 5%;
+        cursor: pointer;
+}
+
+.purchase-card{
+    margin: auto auto;
+    text-align: center;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap:16px;
+    margin: 5%;
+        cursor: pointer;
+}
+
+.product-show{
+    margin: auto auto;
+    text-align: center;
+    justify-content: center;
+    display: grid;
+}
+
+.ID{
+   margin: auto;
+   display: inline;
+   justify-content: center;
+   color: red;
+}
