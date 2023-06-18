@@ -8,6 +8,9 @@ const serviceSignUpShopper = require("../Services/SignUp/SignUpShopper/serviceSi
 const serviceProduct = require("../Services/Product/serviceProduct")
 const serviceSearch = require("../Services/Search/serviceSearch");
 const serviceCart = require("../Services/Cart/serviceCart");
+const serviceAddress = require("../Services/Address/serviceAddress");
+const servicePaymentMethod = require("../Services/PaymentMethod/servicePaymentMethod");
+const serviceOrder = require("../Services/Order/serviceOrder");
 
 const cors = require('cors');
 cors({ origin: true });
@@ -47,6 +50,28 @@ Router.post('/getCart', serviceCart.getCart)
 Router.post('/updateCart', serviceCart.updateProductCart)
 Router.post('/removeCart', serviceCart.removeProductCart)
 Router.post('/cleanCart', serviceCart.cleanCart)
+
+//Direcciones
+Router.post('/getAddress',serviceAddress.getAddress)
+Router.post('/getAllAddresses',serviceAddress.getAddresses)
+Router.post('/insertAddress',serviceAddress.insertAddress)
+Router.post('/updateAddress',serviceAddress.updateAddress)
+Router.post('/removeAddress',serviceAddress.removeAddress)
+Router.post('/cleanAddress',serviceAddress.cleanAddresses)
+
+//Métodos de Pago
+Router.post('/getPaymentMethod',servicePaymentMethod.getPaymentMethod)
+Router.post('/getAllPaymentMethods',servicePaymentMethod.getPaymentMethods)
+Router.post('/insertPaymentMethod',servicePaymentMethod.insertPaymentMethod)
+Router.post('/updatePaymentMethod',servicePaymentMethod.updatePaymentMethod)
+Router.post('/removePaymentMethod',servicePaymentMethod.removePaymentMethod)
+Router.post('/cleanPaymentMethods',servicePaymentMethod.cleanPaymentMethods)
+
+//Pedidos
+Router.post('/getOrder',serviceOrder.getOrder)
+Router.post('/getAllOrders',serviceOrder.getOrders)
+Router.post('/insertOrder',serviceOrder.insertOrder)
+Router.post('/removeOrder',serviceOrder.removeOrder)
 
 module.exports = Router;
 
