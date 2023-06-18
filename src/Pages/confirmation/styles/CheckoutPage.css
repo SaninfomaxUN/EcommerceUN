@@ -1,0 +1,116 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .CarritoPage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .checkout-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  
+  .selectors-column {
+    width: 30%;
+    padding: 20px;
+    background-color: #ccffcc;
+    border: 1px solid #009900;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .select-box {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-size: 16px;
+    color: #333333;
+  }
+  
+  .address-selection,
+  .credit-card-selection {
+    margin-bottom: 20px;
+  }
+  
+  .summary-column {
+    width: 30%;
+    padding: 20px;
+    background-color: #ccffcc;
+    border: 1px solid #009900;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cart-summary {
+    padding: 20px;
+  }
+  
+  .confirm-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #7ef60e;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .product-list {
+    width: 30%;
+    padding: 20px;
+    background-color: #ccffcc;
+    border: 1px solid #009900;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 400px; /* Ajusta la altura máxima según tus necesidades */
+  }
+  
+  .product-item {
+    margin-bottom: 10px;
+    background-color: #f2fff2;
+    border: 1px solid #009900;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .product-item h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .product-item p {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .CarritoPage header {
+    padding-bottom: 20px;
+  }
+  
+  .checkout-page footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+  }
+  
