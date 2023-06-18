@@ -84,10 +84,14 @@ module.exports = {
 
             const result2SQL = await serviceListOrder.insertListOrder(idPedido, idComprador, cart)
             if (result2SQL){
+                let sent = await serviceOrderMailer.sendOrder(idPedido, idComprador, idDireccion, idMetodoPago, cart["Products"], fechaPedido, cantidadTotal, totalSinIva, total, cart)
 
-                let messageHTML = await serviceOrderMailer.sendOrder(idPedido, idComprador, idDireccion, idMetodoPago, cart["Products"], fechaPedido, cantidadTotal, totalSinIva, total, cart)
+                if(sent){
+                    return res.status(200).json({message: "Pedido ingresado con éxito."});
+                }else{
+                    return res.status(200).json({message: "Pedido ingresado con éxito, pero estamos presentando inconvenientes con el envío de tu factura!"});
+                }
 
-                return res.status(200).json({message: "Pedido ingresado con éxito."});
             }else {
                 return res.status(500).json({message: "Error al ingresar productos del pedido."});
             }

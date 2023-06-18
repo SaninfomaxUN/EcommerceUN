@@ -6,7 +6,7 @@ const servicePaymentMethod = require("../PaymentMethod/servicePaymentMethod");
 const porcentajeComision = 0.05;
 module.exports = {
     sendOrder: async (idPedido, idComprador, idDireccion, idMetodoPago, products, fechaPedido, cantidadTotal, totalSinIva, total, cart) => {
-
+        let sent = false;
         let dataShopper;
         let dataAddress = await serviceAddress.getAddressSinceBack(idComprador, idDireccion);
         let dataPaymentMethod = await servicePaymentMethod.getPaymentMethodSinceBack(idComprador, idMetodoPago);
@@ -14,11 +14,23 @@ module.exports = {
         fechaPedido = parseISO(fechaPedido);
         fechaPedido = format(fechaPedido, 'dd-MM-yyyy');
         const porcenDescuento = cart["Cart"][0]["DESCUENTO"]
-        let messageHTML = orderHTML(dataShopper, dataAddress, dataPaymentMethod, products, fechaPedido, cantidadTotal, totalSinIva, porcenDescuento, total);
+        let messageHTML = orderHTML(idPedido, dataShopper, dataAddress, dataPaymentMethod, products, fechaPedido, cantidadTotal, totalSinIva, porcenDescuento, total);
 
-        return messageHTML
+        const mailOptions = {
+            from: "EcommerceUN",
+            subject: "Confirmación del Pedido #" + idPedido,
+            destinationEmail: "santy.happy79@gmail.com",
+            messageHtml: messageHTML
+        }
+
+        serviceMailer.sendEmail(mailOptions)
+
+        sent = true
+        return sent
     }
 }
+
+
 
 const formatToCurrency = (strNum) => {
     return strNum.toLocaleString('es-CO', {
@@ -49,7 +61,7 @@ const getProductsHTML = (products) => {
     return str
 }
 
-const orderHTML = (dataShopper, dataAddress, dataPaymentMethod, products, fechaPedido, cantidadTotal, totalSinIva, porcenDescuento, total) => {
+const orderHTML = (idPedido, dataShopper, dataAddress, dataPaymentMethod, products, fechaPedido, cantidadTotal, totalSinIva, porcenDescuento, total) => {
 
     let valorIva = (total - totalSinIva);
     let descuento = (total - total * (1 - (porcenDescuento !== 0 ? (porcenDescuento / 100) : 0)));
@@ -137,14 +149,14 @@ const orderHTML = (dataShopper, dataAddress, dataPaymentMethod, products, fechaP
         '    <img src="https://iili.io/H6sBhQf.png" alt="H6sBhQf.th.png" class="logo">\n' +
         '    <hr class="line-divisor">\n' +
         '       <p><strong> Hola, ..</strong></p>\n' +
-        '       <p> Te enviamos el comprobante de compra del <strong>pedido # ...</strong> . Si tienes alguna duda o inconveniente con tu pedido, puedes comunicarte al correo <em>ecommerceunal@gmail.com</em>, donde uno de nuestros agentes de servicio al cliente atenderá tu solicitud.</p>\n' +
+        '       <p> Te enviamos el comprobante de compra del <strong>pedido #' + idPedido +'</strong> . Si tienes alguna duda o inconveniente con tu pedido, puedes comunicarte al correo <em>ecommerceunal@gmail.com</em>, donde uno de nuestros agentes de servicio al cliente atenderá tu solicitud.</p>\n' +
         '       <p>Te deseamos una feliz compra!</p>\n' +
         '       <br>\n' +
         '       <p>Att: Equipo de Facturación de EcommerceUN 😉</p>\n' +
         '    </div>\n' +
         '    <div class="bodyMsgOrder">\n' +
         '      <div class="containerMsgOrder">\n' +
-        '        <h1 class="colorGreen">Pedido # ... </h1>\n' +
+        '        <h1 class="colorGreen">Pedido #' + idPedido +'</h1>\n' +
         '        <div class="cardMsgOrder">\n' +
         '          <h2 class="colorDark">Datos del Cliente</h2>\n' +
         '          <p>\n' +
