@@ -45,23 +45,28 @@ const MyPurchases = () => {
     <div>
     <br/>
     <NavbarShopper />
-
-      AQUI VA EL LOADING
+    
+      {/*{loading ? (
+        <p>Cargando compras...</p>
+      ) : (*/}
         
       <div>
           <h2>Tus compras</h2>
-          aqui va el sin compras
-
+          {/*{compras.length === 0 ? (
+            <p>No has realizado compras. ¡Aprovecha las ofertas!</p>
+          ) : (*/}
             <div className="purchase-cards">
               {compras.map((pedido) => (
                 <div key={pedido["ID_PEDIDO"]} className="purchase-card">
+                  
                   <div><h3 className='Date-time'>{pedido["FECHAPEDIDO"]}</h3></div>
                   {pedido["ListadoProductos"].map((producto) => (
                     <div key={producto["ID_LISTPEDIDO"]} className="product-show">
                       <div>
-                        <div><h3 className=''/></div>
+                        <h2 className='product-name'> dasd{producto["N_PRODUCTO"]}</h2>
+                        <h3 className=''></h3>
                       </div>
-
+                        <div></div>
 
                     </div>
                   
@@ -69,18 +74,18 @@ const MyPurchases = () => {
                   
                   ))}
                   <div>
-                    <h3 className='ID'>id: {pedido["ID_COMPRADOR"]}</h3>
+                    <h3 className='ID'>id:adadas {pedido["ID_COMPRADOR"]}</h3>
                   </div>
 
-                  <div><img className='image' src={pedido["IMAGEN"]} /></div>
+                  <div><img className='image' src={pedido["IMAGEN"]} />sdadsasda</div>
                   
                              
                 </div>
               ))}
             </div>
-           parentesis corchete sin compras    
+           {/*)}*/} 
       </div>
-     AQUI VA PARENTESIS CORCHETE PARA EL LOADING
+     {/*)}*/}
     </div>
   );
 }
