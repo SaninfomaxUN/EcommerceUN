@@ -70,7 +70,7 @@ const MyPurchases = () => {
                       <br/>
                     </Stack>
 
-                    <Stack className='stack-2' direction='row'>
+                    <Stack className='stack-2' direction='row' spacing={16} >
                       <h2 className='sub-titles-quantity'>Cantidad</h2>
                       <h2 className='sub-titles-image'>Imagen</h2>
                       <h2 className='sub-titles-product'>Producto</h2>
@@ -82,10 +82,10 @@ const MyPurchases = () => {
                     <div key={producto["ID_LISTPEDIDO"]} className="product-show">
 
                       <div>
-                        <Stack mt={2} className='stack-3' direction='row' spacing={16} justifyContent="space-between" sx={{ maxWidth: 300 }}>
+                        <Stack mt={2} mb={2} className='stack-3' direction='row' width="1000px" align-conten="center" spacing={16} justifyContent="space-evenly"  >
                           <h3 className='quantity'>{producto["CANTIDAD"]}</h3>
                           <img className='image' src={producto["Producto"]["IMAGEN"]} alt="Producto" />
-                          <h3 className='product-name'>{producto["Producto"]["N_PRODUCTO"]}</h3>
+                          <h3 className='product-name'>{producto["Producto"]["N_PRODUCTO"].substring(0,25)}</h3>
                           <h3 className='base-price'>${producto["Producto"]["PRECIOBASE"].toLocaleString()}</h3>
                           <h3 className='final-price'>${producto["Producto"]["PRECIOFINAL"].toLocaleString()}</h3>
                         </Stack>               
