@@ -34,7 +34,7 @@ const Results = (props) => {
                             key={item.ID_PRODUCTO}
                             id={item.ID_PRODUCTO}
                             nombre={item.N_PRODUCTO}
-                            precio={item.PRECIOBASE}
+                            precio={item.PRECIOFINAL}
                             foto={item.IMAGEN}
                         />
                     ))}

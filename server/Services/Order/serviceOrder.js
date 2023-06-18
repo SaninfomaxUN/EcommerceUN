@@ -3,6 +3,7 @@ const serviceCart = require("../Cart/serviceCart")
 const serviceListOrder = require("../Order/serviceListOrder")
 const serviceAddress = require("../Address/serviceAddress")
 const servicePaymentMethod = require("../PaymentMethod/servicePaymentMethod");
+const serviceOrderMailer = require("../Order/serviceOrderMailer")
 
 
 module.exports = {
@@ -75,23 +76,21 @@ module.exports = {
             const fechaPedido = req.body["fechaPedido"]
             const cantidadTotal = cart["Cart"][0]["CANTIDADTOTAL"]
             const total = cart["Cart"][0]["COSTOFINAL"]
-            const totalSinIva = total * (1 - 0.19)
-
-
+            const totalSinIva =  Math.round(total * (1 - 0.19))
 
             const resultSQL = await connection.execute(insertOrderSQL, [idComprador, idDireccion, idMetodoPago, fechaPedido, cantidadTotal, totalSinIva, total]);
 
             const idPedido = resultSQL[0]["insertId"]
 
-
             const result2SQL = await serviceListOrder.insertListOrder(idPedido, idComprador, cart)
             if (result2SQL){
+
+                let messageHTML = await serviceOrderMailer.sendOrder(idPedido, idComprador, idDireccion, idMetodoPago, cart["Products"], fechaPedido, cantidadTotal, totalSinIva, total, cart)
+
                 return res.status(200).json({message: "Pedido ingresado con éxito."});
             }else {
                 return res.status(500).json({message: "Error al ingresar productos del pedido."});
             }
-
-
 
 
 
