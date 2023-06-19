@@ -88,7 +88,7 @@ const CheckoutPage = () => {
         await axios.post(process.env.REACT_APP_API + '/insertOrder', {idComprador: idComprador, idDireccion: selectedAddress, idMetodoPago: selectedPaymentMehtod})
             .then(res => {
                 console.log(res)
-                showAlertSuccessImage(res.data["message"], navigate("/"), "Revisa tu Correo Electrónico. Alli enviaremos el Comprobante de Pago!",
+                showAlertSuccessImage(res.data["message"], navigate("/"), "Revisa tu Correo Electrónico.\n Alli enviaremos el Comprobante de Pago!",
                     "https://cdn.pixabay.com/photo/2021/02/11/11/30/computer-6005017_1280.png", 350,200, "")
             })
             .catch(err => {

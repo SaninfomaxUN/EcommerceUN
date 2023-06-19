@@ -1,7 +1,9 @@
 const serviceMailer = require("../Mailer/serviceMailer.js");
 const serviceAddress = require("../Address/serviceAddress");
 const servicePaymentMethod = require("../PaymentMethod/servicePaymentMethod");
+const serviceProfileShopper = require("../Profile/ProfileShopper/serviceProfileShopper");
 const {getDateFromResultSQL, getTimeFromResultSQL} = require("../../Commons/formatterDateTime");
+
 
 const formatToCurrency = (strNum) => {
     return strNum.toLocaleString('es-CO', {
@@ -17,7 +19,7 @@ const porcentajeComision = 0.05;
 module.exports = {
     sendOrder: async (idPedido, idComprador, idDireccion, idMetodoPago, products, fechaPedido, cantidadTotal, totalSinIva, total, cart) => {
         let sent;
-        let dataShopper;
+        let dataShopper = await serviceProfileShopper.getShopperSinceBack(idComprador);
         let dataAddress = await serviceAddress.getAddressSinceBack(idComprador, idDireccion);
         let dataPaymentMethod = await servicePaymentMethod.getPaymentMethodSinceBack(idComprador, idMetodoPago);
 
@@ -27,7 +29,7 @@ module.exports = {
         const mailOptions = {
             from: "EcommerceUN",
             subject: "Confirmación del Pedido #" + idPedido,
-            destinationEmail: "santy.happy79@gmail.com",
+            destinationEmail: dataShopper["EMAIL"],
             messageHtml: messageHTML
         }
 
@@ -148,7 +150,7 @@ const orderHTML = (idPedido, dataShopper, dataAddress, dataPaymentMethod, produc
         '    <div>\n' +
         '    <img src="https://iili.io/H6sBhQf.png" alt="H6sBhQf.th.png" class="logo">\n' +
         '    <hr class="line-divisor">\n' +
-        '       <p><strong> Hola, ..</strong></p>\n' +
+        '       <p><strong> Hola, ' + dataShopper["NOMBRE"] + '</strong></p>\n' +
         '       <p> Te enviamos el comprobante de compra del <strong>pedido #' + idPedido +'</strong> . Si tienes alguna duda o inconveniente con tu pedido, puedes comunicarte al correo <em>ecommerceunal@gmail.com</em>, donde uno de nuestros agentes de servicio al cliente atenderá tu solicitud.</p>\n' +
         '       <p>Te deseamos una feliz compra!</p>\n' +
         '       <br>\n' +
@@ -160,16 +162,16 @@ const orderHTML = (idPedido, dataShopper, dataAddress, dataPaymentMethod, produc
         '        <div class="cardMsgOrder">\n' +
         '          <h2 class="colorDark">Datos del Cliente</h2>\n' +
         '          <p>\n' +
-        '            <strong>Nombre:</strong> Juan Pérez ...\n' +
+        '            <strong>Nombre:</strong> ' + dataShopper["NOMBRE"] + ' ' + dataShopper["APELLIDO"] + '\n' +
         '          </p>\n' +
         '          <p>\n' +
-        '            <strong>No. Identificación:</strong> ...\n' +
+        '            <strong>No. Identificación:</strong> ' + dataShopper["ID_COMPRADOR"] + ' \n' +
         '          </p>\n' +
         '          <p>\n' +
-        '            <strong>Email:</strong> juan@example.com ...\n' +
+        '            <strong>Email:</strong> ' + dataShopper["EMAIL"] + '\n' +
         '          </p>\n' +
         '          <p>\n' +
-        '            <strong>Teléfono:</strong> 555-123456 ...\n' +
+        '            <strong>Teléfono:</strong> ' + dataShopper["TELEFONO"] + '\n' +
         '          </p>\n' +
         '        </div>\n' +
         '        <div class="cardMsgOrder">\n' +

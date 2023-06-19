@@ -11,10 +11,13 @@ const serviceCart = require("../Services/Cart/serviceCart");
 const serviceAddress = require("../Services/Address/serviceAddress");
 const servicePaymentMethod = require("../Services/PaymentMethod/servicePaymentMethod");
 const serviceOrder = require("../Services/Order/serviceOrder");
+const serviceProfileShopper = require("../Services/Profile/ProfileShopper/serviceProfileShopper");
 
 const cors = require('cors');
 cors({ origin: true });
 const cookieParser = require("cookie-parser")
+const serviceProfileSeller = require("../Services/Profile/ProfileSeller/serviceProfileSeller");
+
 
 
 // rutas de Autenticación
@@ -73,5 +76,12 @@ Router.post('/getAllOrders',serviceOrder.getOrders)
 Router.post('/insertOrder',serviceOrder.insertOrder)
 Router.post('/removeOrder',serviceOrder.removeOrder)
 
+//Compradores
+Router.post('/getShopper', serviceProfileShopper.getShopper)
+Router.post('/updateShopper', serviceProfileShopper.updateShopper)
+
+//Vendedores
+Router.post('/getSeller', serviceProfileSeller.getSeller)
+Router.post('/updateSeller', serviceProfileSeller.updateSeller)
 module.exports = Router;
 
