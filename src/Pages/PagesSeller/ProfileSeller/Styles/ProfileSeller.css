@@ -4,13 +4,15 @@
     width: 100%;
     list-style: none;
     text-decoration: none;
-
+    list-style-type: none;
 }
 
-
+.material-symbols-outlined{
+    position: relative;
+    top: 10px;
+}
 
 .cardUser{
-  
     width: 60%;
     margin: auto auto ;
 }
@@ -19,4 +21,28 @@
     width: 60%;
     margin: auto auto;
     padding: initial;
+}
+
+.updateUser{
+    font-size: 15px;
+    background-color: orange;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.deleteUser{
+    position: relative;
+    top: 7px;
+    font-size: 15px;
+    color: white;
+    background-color: red;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.inputBox{
+    font-size: 25px;
+    padding: 1%;
+    color: gray;
 }
