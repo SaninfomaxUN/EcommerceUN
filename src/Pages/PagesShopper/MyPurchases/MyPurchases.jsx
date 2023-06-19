@@ -6,6 +6,7 @@ import "./Styles/Mypurchases.css"
 import {CircularProgress} from "@mui/material";
 import Stack from '@mui/material/Stack';
 
+
 const MyPurchases = () => {
   const [compras, setCompras] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,6 +45,14 @@ const MyPurchases = () => {
     }
   };
 
+  const columns = [
+  <h2 className='sub-titles-quantity'>Cantidad</h2>,
+  <h2 className='sub-titles-image'>Imagen</h2>,
+  <h2 className='sub-titles-product'>Producto</h2>,
+  <h2 className='sub-titles-basePrice'>Precio Base</h2>,
+  <h2 className='sub-titles-Final'>Precio Final</h2>
+  ]
+
   return (
     <div>
     <br/>
@@ -62,36 +71,33 @@ const MyPurchases = () => {
               {compras["Orders"].map((pedido) => (
                 <div key={pedido["ID_PEDIDO"]} className="purchase-card">
                   <div>
-                    <Stack className='stack-1' direction="row" spacing={35}>
+                    <Stack className='stack-1' direction="row">
                       <h1 className='ID-purchase'>Pedido #{pedido["ID_PEDIDO"]}</h1>
                       <h1 className='date-time'>Fecha: {pedido["FECHAPEDIDO"].substring(0,10)}</h1>
                       <h1 className='total-value'>Total: ${pedido["TOTAL"].toLocaleString()}</h1>
-                      <br/>
-                      <br/>
                     </Stack>
-
-                    <Stack className='stack-2' direction='row' spacing={16} >
+                  </div>
+                  <Stack className='stack-2' direction='row'>
                       <h2 className='sub-titles-quantity'>Cantidad</h2>
                       <h2 className='sub-titles-image'>Imagen</h2>
                       <h2 className='sub-titles-product'>Producto</h2>
                       <h2 className='sub-titles-basePrice'>Precio Base</h2>
                       <h2 className='sub-titles-Final'>Precio Final</h2>
                     </Stack>
-                  </div>
-                  {pedido["ListadoProductos"].map((producto) => (
-                    <div key={producto["ID_LISTPEDIDO"]} className="product-show">
-
-                      <div>
-                        <Stack mt={2} mb={2} className='stack-3' direction='row' width="1000px" align-conten="center" spacing={16} justifyContent="space-evenly"  >
-                          <h3 className='quantity'>{producto["CANTIDAD"]}</h3>
-                          <img className='image' src={producto["Producto"]["IMAGEN"]} alt="Producto" />
-                          <h3 className='product-name'>{producto["Producto"]["N_PRODUCTO"].substring(0,25)}</h3>
-                          <h3 className='base-price'>${producto["Producto"]["PRECIOBASE"].toLocaleString()}</h3>
-                          <h3 className='final-price'>${producto["Producto"]["PRECIOFINAL"].toLocaleString()}</h3>
-                        </Stack>               
-                      </div>
-                    </div>
-                  ))}                        
+                  <table className='product-table' >
+                    <tbody>
+                      {pedido["ListadoProductos"].map((producto) => (
+                        <tr key={producto["ID_LISTPEDIDO"]} className="product-show">
+                          <td className='quantity'>{producto["CANTIDAD"]}</td>
+                          <td><img className='image' src={producto["Producto"]["IMAGEN"]} alt="Producto" /></td>
+                          <td className='product-name'>{producto["Producto"]["N_PRODUCTO"].substring(0,30)}</td>
+                          <td className='base-price'>${producto["Producto"]["PRECIOBASE"].toLocaleString()}</td>
+                          <td className='final-price'>${producto["Producto"]["PRECIOFINAL"].toLocaleString()}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                                      
                 </div>
               ))}
             </div>
