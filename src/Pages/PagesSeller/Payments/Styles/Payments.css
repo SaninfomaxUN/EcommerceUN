@@ -1,0 +1,98 @@
+.sells-cards{
+    border-color:rgb(136, 128, 128);
+    border-radius: 5px;
+    border-width: 3px;
+    border-style: outset;
+    margin: auto auto;
+    text-align: center;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap:1px;
+    margin: 5%;
+    margin-left: 150px;
+    cursor:default;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+    .subtitle-stack{
+        color:rgb(99, 99, 99);
+        font-size:10px;
+        padding: 2em;
+    }
+
+        .sub-titles-product-sell{
+            font-size:20px;
+            font-style: italic;
+            margin-inline-start: 80px;
+        }
+
+        .sub-titles-image-sell{
+            font-size:20px;
+            font-style: italic;
+            margin-inline-start: 180px;
+        }
+
+        .sub-titles-quantity-sell{
+            font-size:20px;
+            font-style: italic;
+            margin-inline-start: 100px;
+        }
+    
+        .sub-titles-total-sell{
+            font-size:20px;
+            font-style: italic;
+            margin-inline-start: 100px;
+        }
+
+        .sub-titles-profit{
+            font-size:20px;
+            font-style: italic;
+            margin-inline-start: 100px;
+        }
+
+            .sells-table{
+                display: center;
+                margin-top:5px;
+                margin-left:40px;
+                margin-bottom: 25px;
+                width:90%;
+                border-spacing: 30px;
+                padding:5em;
+            }
+
+                .product-name-seller{
+                    font-size: 20px;
+                    margin-left: 0px;
+                    align-self: center;
+                    width: 38%;  
+                }
+
+                .image-p-seller{
+                    max-width: 80px; 
+                    max-height: 80px;
+                    align-self: center;
+                    margin-left: -20px;
+                    margin-bottom: 7px; 
+                }
+                
+                .quantity-seller{
+                    font-size: 19px;
+                    justify-content: center;
+                    align-self: center;
+                    width: 0;
+                }
+
+                .total-sell-seller{
+                    font-size: 19px;
+                    justify-content: center;
+                    align-self: center;
+                    width:0;
+                }
+
+                .profit-seller{
+                    font-size: 19px;
+                    justify-content: center;
+                    align-self: center;
+                    width: 0;
+                }

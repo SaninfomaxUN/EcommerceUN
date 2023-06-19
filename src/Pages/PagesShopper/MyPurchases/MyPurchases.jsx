@@ -12,7 +12,6 @@ const MyPurchases = () => {
   const [compras, setCompras] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
-  const [id_product, setIdProduct] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +31,7 @@ const MyPurchases = () => {
 
   useEffect(() => {
     fetchCompras();
-  }, [userId, id_product]); 
+  }, [userId]); 
 
   const fetchCompras = async () => {
     if (userId) {
@@ -47,20 +46,13 @@ const MyPurchases = () => {
     }
   };
 
-  const columns = [
-  <h2 className='sub-titles-quantity'>Cantidad</h2>,
-  <h2 className='sub-titles-image'>Imagen</h2>,
-  <h2 className='sub-titles-product'>Producto</h2>,
-  <h2 className='sub-titles-basePrice'>Precio Base</h2>,
-  <h2 className='sub-titles-Final'>Precio Final</h2>
-  ]
-
   const handleClick = (name, id) => {
     navigate(`/Product/${name+"$$"+id}`)
   }
 
   return (
     <div>
+    <br/>
     <br/>
     <NavbarShopper />
 
