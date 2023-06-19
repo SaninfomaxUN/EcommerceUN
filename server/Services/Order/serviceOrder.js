@@ -4,6 +4,7 @@ const serviceListOrder = require("../Order/serviceListOrder")
 const serviceAddress = require("../Address/serviceAddress")
 const servicePaymentMethod = require("../PaymentMethod/servicePaymentMethod");
 const serviceOrderMailer = require("../Order/serviceOrderMailer")
+const {getCurrentDateTimeToSend} = require("../../Commons/formatterDateTime");
 
 
 module.exports = {
@@ -73,7 +74,7 @@ module.exports = {
             const cart = await serviceCart.getCartSinceBack(idComprador)
             const idDireccion = req.body["idDireccion"]
             const idMetodoPago = req.body["idMetodoPago"]
-            const fechaPedido = req.body["fechaPedido"]
+            const fechaPedido = getCurrentDateTimeToSend()
             const cantidadTotal = cart["Cart"][0]["CANTIDADTOTAL"]
             const total = cart["Cart"][0]["COSTOFINAL"]
             const totalSinIva =  Math.round(total * (1 - 0.19))
@@ -84,10 +85,11 @@ module.exports = {
 
             const result2SQL = await serviceListOrder.insertListOrder(idPedido, idComprador, cart)
             if (result2SQL){
+                console.log(fechaPedido)
                 let sent = await serviceOrderMailer.sendOrder(idPedido, idComprador, idDireccion, idMetodoPago, cart["Products"], fechaPedido, cantidadTotal, totalSinIva, total, cart)
 
                 if(sent){
-                    return res.status(200).json({message: "Pedido ingresado con éxito."});
+                    return res.status(200).json({message: "El Pedido #" + idPedido + " ha sido creado con éxito!"});
                 }else{
                     return res.status(200).json({message: "Pedido ingresado con éxito, pero estamos presentando inconvenientes con el envío de tu factura!"});
                 }

@@ -1,18 +1,26 @@
-const {format, parseISO} = require('date-fns');
 const serviceMailer = require("../Mailer/serviceMailer.js");
 const serviceAddress = require("../Address/serviceAddress");
 const servicePaymentMethod = require("../PaymentMethod/servicePaymentMethod");
+const {getDateFromResultSQL, getTimeFromResultSQL} = require("../../Commons/formatterDateTime");
+
+const formatToCurrency = (strNum) => {
+    return strNum.toLocaleString('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+
+}
 
 const porcentajeComision = 0.05;
 module.exports = {
     sendOrder: async (idPedido, idComprador, idDireccion, idMetodoPago, products, fechaPedido, cantidadTotal, totalSinIva, total, cart) => {
-        let sent = false;
+        let sent;
         let dataShopper;
         let dataAddress = await serviceAddress.getAddressSinceBack(idComprador, idDireccion);
         let dataPaymentMethod = await servicePaymentMethod.getPaymentMethodSinceBack(idComprador, idMetodoPago);
 
-        fechaPedido = parseISO(fechaPedido);
-        fechaPedido = format(fechaPedido, 'dd-MM-yyyy');
         const porcenDescuento = cart["Cart"][0]["DESCUENTO"]
         let messageHTML = orderHTML(idPedido, dataShopper, dataAddress, dataPaymentMethod, products, fechaPedido, cantidadTotal, totalSinIva, porcenDescuento, total);
 
@@ -32,15 +40,7 @@ module.exports = {
 
 
 
-const formatToCurrency = (strNum) => {
-    return strNum.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-    });
 
-}
 
 const getProductsHTML = (products) => {
     let str = ""
@@ -205,7 +205,10 @@ const orderHTML = (idPedido, dataShopper, dataAddress, dataPaymentMethod, produc
         '        <div class="cardMsgOrder">\n' +
         '          <h2 class="colorDark">Detalles:</h2>\n' +
         '          <p>\n' +
-        '            <strong>Fecha de compra: </strong>' + fechaPedido + ' \n' +
+        '            <strong>Fecha: </strong>' + getDateFromResultSQL(fechaPedido) + ' \n' +
+        '          </p>\n' +
+        '          <p>\n' +
+        '            <strong>Hora: </strong>' + getTimeFromResultSQL(fechaPedido) + ' \n' +
         '          </p>\n' +
         '          <p>\n' +
         '            <strong>Cantidad de Productos: </strong>' + cantidadTotal + ' \n' +

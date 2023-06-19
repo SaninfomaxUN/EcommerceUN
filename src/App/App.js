@@ -23,6 +23,7 @@ import PrivateRoutesSeller from '../Components/Security/PrivateRoutesSeller'
 import CartPage from '../Pages/Cart/CartPage';
 
 import SellerProductsPage from '../Pages/PagesSeller/SellerProducts/SellerProductsPage';
+import CheckoutPage from "../Pages/Checkout/CheckoutPage";
 
 export default function App(){
 
@@ -53,6 +54,7 @@ return(
                     <Route path="/PaymentMethods" element ={<PaymentMethodsPage/>} />
                     <Route path="/Notification" element ={<NotificationPage/>} /> 
                     <Route path="/Cart" element ={<CartPage/>} />
+                    <Route path="/Checkout" element ={<CheckoutPage/>} />
             </Route>
     
             {/* rutas a protegervendedor */}
