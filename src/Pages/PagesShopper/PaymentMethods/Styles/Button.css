@@ -1,0 +1,45 @@
+.blue-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .blue-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .red-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .red-button:hover {
+    background-color: #c82333;
+  }
+
+  .green-button {
+    padding: 13px 22px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4caf50;;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .green-button:hover{
+    background-color: #45a049;
+  }
+  
