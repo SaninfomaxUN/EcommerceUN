@@ -5,6 +5,7 @@ import NavbarShopper from "../../../Components/Commons/NavbarShopper/NavbarShopp
 import "./Styles/Mypurchases.css"
 import {CircularProgress} from "@mui/material";
 import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router';
 
 
 const MyPurchases = () => {
@@ -12,6 +13,7 @@ const MyPurchases = () => {
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
   const [id_product, setIdProduct] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Lógica para obtener el ID del usuario autenticado y establecerlo en el estado
@@ -53,6 +55,10 @@ const MyPurchases = () => {
   <h2 className='sub-titles-Final'>Precio Final</h2>
   ]
 
+  const handleClick = (name, id) => {
+    navigate(`/Product/${name+"$$"+id}`)
+  }
+
   return (
     <div>
     <br/>
@@ -89,8 +95,8 @@ const MyPurchases = () => {
                       {pedido["ListadoProductos"].map((producto) => (
                         <tr key={producto["ID_LISTPEDIDO"]} className="product-show">
                           <td className='quantity'>{producto["CANTIDAD"]}</td>
-                          <td><img className='image' src={producto["Producto"]["IMAGEN"]} alt="Producto" /></td>
-                          <td className='product-name'>{producto["Producto"]["N_PRODUCTO"].substring(0,30)}</td>
+                          <td><img className='image' src={producto["Producto"]["IMAGEN"]} alt="Producto" onClick={()=>handleClick(producto["Producto"]["N_PRODUCTO"],producto["Producto"]["ID_PRODUCTO"])}/></td>
+                          <td className='product-name-1' onClick={()=>handleClick(producto["Producto"]["N_PRODUCTO"],producto["Producto"]["ID_PRODUCTO"])}>{producto["Producto"]["N_PRODUCTO"].substring(0,30)}</td>
                           <td className='base-price'>${producto["Producto"]["PRECIOBASE"].toLocaleString()}</td>
                           <td className='final-price'>${producto["Producto"]["PRECIOFINAL"].toLocaleString()}</td>
                         </tr>

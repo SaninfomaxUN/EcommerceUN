@@ -112,13 +112,20 @@
                         margin-left: 80px;
                         margin-bottom: 7px;  
                     }
+                    .image:hover{
+                        cursor:pointer;
+                    }
 
-                    .product-name{
+                    .product-name-1{
                         font-size: 20px;
                         margin-left: 0px;
                         align-self: center;
                         width: 55%;  
-                        
+                    }
+
+                    .product-name-1:hover{
+                        cursor:pointer;
+                        color: blue;
                     }
 
                     .base-price{           
