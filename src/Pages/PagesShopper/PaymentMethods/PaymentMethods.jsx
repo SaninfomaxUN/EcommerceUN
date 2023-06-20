@@ -1,30 +1,25 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import NavbarShopper from "../../../Components/Commons/NavbarShopper/NavbarShopper.jsx"
 import {Modal, ModalHeader, ModalFooter, ModalBody, FormGroup} from 'reactstrap';
 import './Styles/Tabla.css';
 import './Styles/Button.css';
 import './Styles/ModalStyles.css';
 import './Styles/Header.css';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import {showAlertSuccess} from "../../../Components/Commons/Alerts/AlertsModal.js"
+import {Alert} from "@mui/material";
 
 
 
 const PaymentMethods = () => {
 
+  const idComprador = Cookies.get("id");
 
-  //tabla de ejemplo para la vista
-  const Tarjetas = [
-    {ID_METODOPAGO:1, ID_COMPRADOR: 1,TIPOMETODO:"Credito",FRANQUICIA: "Visa",NOMBRETITULAR:"Esteban Gutierrez",NUMEROTARJETA:"5252 7656 5678",  FECHAVENCIMIENTO: "07/23", CCV:927},
-    {ID_METODOPAGO:2, ID_COMPRADOR: 2, TIPOMETODO:"Credito" ,FRANQUICIA: "Visa",NOMBRETITULAR:"Esteban Gutierrez",NUMEROTARJETA:"5252 7656 5678",  FECHAVENCIMIENTO: "07/23", CCV:927 },
-    {ID_METODOPAGO:3, ID_COMPRADOR: 3, TIPOMETODO:"Credito" ,FRANQUICIA: "Visa",NOMBRETITULAR:"Esteban Gutierrez",NUMEROTARJETA:"5252 7656 5678",  FECHAVENCIMIENTO: "07/23", CCV:927},
-    {ID_METODOPAGO:4, ID_COMPRADOR: 4, TIPOMETODO:"Credito" ,FRANQUICIA: "Visa",NOMBRETITULAR:"Esteban Gutierrez",NUMEROTARJETA:"5252 7656 5678",  FECHAVENCIMIENTO: "07/23", CCV:927},
-    {ID_METODOPAGO:5, ID_COMPRADOR: 5,TIPOMETODO:"Debito",FRANQUICIA: "MasterCard",NOMBRETITULAR:"Esteban Gutierrez",NUMEROTARJETA:"5252 7656 5678",  FECHAVENCIMIENTO: "07/23", CCV:927},
-    {ID_METODOPAGO:6, ID_COMPRADOR: 6,TIPOMETODO:"Debito", FRANQUICIA: "MasterCard",NOMBRETITULAR:"Esteban Gutierrez",NUMEROTARJETA:"5252 7656 5678", FECHAVENCIMIENTO: "07/23", CCV:927},
-    {ID_METODOPAGO:7, ID_COMPRADOR: 7,TIPOMETODO:"Debito",FRANQUICIA: "MasterCard",NOMBRETITULAR:"Esteban Gutierrez",NUMEROTARJETA:"5252 7656 5678",  FECHAVENCIMIENTO: "07/23", CCV:927},
-
-  ];
+  const [validation, setValidation] = useState(false);
 
   //en está constante se guarda el array 
-  const [data, setData]= useState(Tarjetas);
+  const [data, setData]= useState([]);
   //Esta constante hace que el modal no se ejecute
   const[modalEditar, setModalEditar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
@@ -44,6 +39,37 @@ const PaymentMethods = () => {
     CCV : "",
   })
   
+  useEffect(()=>{
+    const getPaymentMethods = ()=>{
+      axios.post(process.env.REACT_APP_API +'/getAllPaymentMethods', {idComprador: idComprador})
+        .then(res => {
+          setData(res.data["PaymentMethods"])
+
+
+        })
+        .catch(err => {
+        });
+    }
+    getPaymentMethods();
+  },[])
+
+  const validateForm = ()=>{
+    if (tarjetaSeleccionada === null){
+      setValidation(true)
+      return false
+
+    }
+    for (let campo in tarjetaSeleccionada ){
+      if (tarjetaSeleccionada[campo].toString().trim() === ""){
+        setValidation(true)
+        return false
+      }
+    }
+    setValidation(false);
+    return true 
+  }
+
+
   const selecionarTarjeta = (elemento,caso)=>{
     setTarjetaSeleccionada(elemento);
     (caso=== 'editar')?setModalEditar(true) : setModalEliminar(true)
@@ -60,25 +86,45 @@ const PaymentMethods = () => {
 
   //esta funcion cambia los estados en en array
   const editar=()=>{
-    var dataNueva=data;
-    dataNueva.map(tarjeta=>{
-      if(tarjeta.ID_METODOPAGO === tarjetaSeleccionada.ID_METODOPAGO){
-        tarjeta.NUMEROTARJETA= tarjetaSeleccionada.NUMEROTARJETA;
-        tarjeta.CCV =tarjetaSeleccionada.CCV;
-        tarjeta.TIPOMETODO = tarjetaSeleccionada.TIPOMETODO;
-        tarjeta.FRANQUICIA = tarjetaSeleccionada.FRANQUICIA;
-        tarjeta.NOMBRETITULAR = tarjetaSeleccionada.NOMBRETITULAR;
-        tarjeta.FECHAVENCIMIENTO = tarjetaSeleccionada.FECHAVENCIMIENTO;
-      }
-    });
-    setData(dataNueva);
-    setModalEditar(false)     
+    if (!validateForm()){
+      return  
+    }
+    const updatePaymentMethod = ()=>{
+      axios.post(process.env.REACT_APP_API +'/updatePaymentMethod', {idComprador: idComprador,idMetodoPago:tarjetaSeleccionada.ID_METODOPAGO, tipoMetodo: tarjetaSeleccionada.TIPOMETODO, franquicia: tarjetaSeleccionada.FRANQUICIA, nombreTitular: tarjetaSeleccionada.NOMBRETITULAR, numeroTarjeta: tarjetaSeleccionada.NUMEROTARJETA, fechaVencimiento: tarjetaSeleccionada.FECHAVENCIMIENTO, ccv: tarjetaSeleccionada.CCV })
+        .then(res => {
+          showAlertSuccess(
+            "Información actualizada con exito!",
+            ()=>{window.location.reload()}
+          )
+
+
+        })
+        .catch(err => {
+        });
+    }
+    updatePaymentMethod();
   }
 
+
+
+
+  
   //esta funcion elimina el modal
   const eliminar =()=>{
-    setData(data.filter(tarjeta=>tarjeta.ID_METODOPAGO!==tarjetaSeleccionada.ID_METODOPAGO));
-    setModalEliminar(false);
+    const removePaymentMethod = ()=>{
+      axios.post(process.env.REACT_APP_API +'/removePaymentMethod', {idComprador: idComprador,idMetodoPago:tarjetaSeleccionada.ID_METODOPAGO})
+        .then(res => {
+          showAlertSuccess(
+            "Método de pago eliminado con exito!",
+            ()=>{window.location.reload()}
+          )
+
+
+        })
+        .catch(err => {
+        });
+    }
+    removePaymentMethod();
   }
 
   //esta funcion abre el modal
@@ -89,12 +135,23 @@ const PaymentMethods = () => {
 
   //
   const insertar =()=>{
-    var valorInsertar=tarjetaSeleccionada;
-    valorInsertar.ID_METODOPAGO = data[data.length-1].ID_METODOPAGO+1
-    var dataNueva = data;
-    dataNueva.push(valorInsertar);
-    setData(dataNueva);
-    setModalInsertar(false);
+    if (!validateForm()){
+      return  
+    }
+    const insertPaymentMethod = ()=>{
+      axios.post(process.env.REACT_APP_API +'/insertPaymentMethod', {idComprador: idComprador, tipoMetodo: tarjetaSeleccionada.TIPOMETODO, franquicia: tarjetaSeleccionada.FRANQUICIA, nombreTitular: tarjetaSeleccionada.NOMBRETITULAR, numeroTarjeta: tarjetaSeleccionada.NUMEROTARJETA, fechaVencimiento: tarjetaSeleccionada.FECHAVENCIMIENTO, ccv: tarjetaSeleccionada.CCV })
+        .then(res => {
+          showAlertSuccess(
+            "Método de pago insertado con exito!",
+            ()=>{window.location.reload()}
+          )
+
+
+        })
+        .catch(err => {
+        });
+    }
+    insertPaymentMethod();
   }
 
   
@@ -132,7 +189,7 @@ const PaymentMethods = () => {
         </thead>
         <tbody>
           {data.map(elemento=>(
-            <tr>
+            <tr key={elemento["ID_METODOPAGO"]} > 
               <td>{elemento.TIPOMETODO}</td>
               <td>{elemento.FRANQUICIA}</td>
               <td>{elemento.NOMBRETITULAR}</td>
@@ -246,17 +303,18 @@ const PaymentMethods = () => {
 
           <button 
             className='red-button'
-            onClick={()=> setModalEditar(false)}
+            onClick={()=> {setModalEditar(false); setValidation(false)}}
           >
             Cancelar
           </button>
         </ModalFooter>
+        {validation && <Alert severity="error">Por favor completa todos los campos!!</Alert>}
       </Modal>
 
 
       <Modal className='modal-container' isOpen={modalEliminar}>
         <ModalBody>
-          Estás Seguro que deseas eliminar esta tarjeta
+          ¿Estás Seguro que deseas eliminar esta tarjeta?
         </ModalBody>
         <ModalFooter>
           <button className="btn btn-danger" onClick={()=>eliminar()}>
@@ -278,8 +336,9 @@ const PaymentMethods = () => {
           <h3>
             Insertar Tarjeta
           </h3>
-        </ModalHeader>
 
+        </ModalHeader>
+          
 
         <ModalBody>
           <FormGroup>
@@ -294,6 +353,7 @@ const PaymentMethods = () => {
                     name='TIPOMETODO'
                     value={tarjetaSeleccionada ? tarjetaSeleccionada.TIPOMETODO:""}
                     onChange={handleChange}
+                    required
                   />
                   </td>
                 </tr>
@@ -307,6 +367,7 @@ const PaymentMethods = () => {
                       name='FRANQUICIA'
                       value={tarjetaSeleccionada ? tarjetaSeleccionada.FRANQUICIA : ""}
                       onChange={handleChange}
+                      required
                     />
                   </td>
                 </tr>
@@ -321,6 +382,7 @@ const PaymentMethods = () => {
                       name='NOMBRETITULAR'
                       value={tarjetaSeleccionada ? tarjetaSeleccionada.NOMBRETITULAR : ""}
                       onChange={handleChange}
+                      required
                     />
                   </td>
                 </tr>
@@ -335,6 +397,7 @@ const PaymentMethods = () => {
                       name='NUMEROTARJETA'
                       value={tarjetaSeleccionada ? tarjetaSeleccionada.NUMEROTARJETA : ""}
                       onChange={handleChange}
+                      required
                     />
                   </td>
                 </tr>
@@ -349,6 +412,7 @@ const PaymentMethods = () => {
                       name='FECHAVENCIMIENTO'
                       value={tarjetaSeleccionada ? tarjetaSeleccionada.FECHAVENCIMIENTO : ""}
                       onChange={handleChange}
+                      required
                     />
                   </td>
                 </tr>
@@ -363,6 +427,8 @@ const PaymentMethods = () => {
                       name='CCV'
                       value={tarjetaSeleccionada ? tarjetaSeleccionada.CCV : ""}
                       onChange={handleChange}
+                      required
+                    
                     />
                   </td>
                 </tr>
@@ -378,18 +444,22 @@ const PaymentMethods = () => {
         
 
         <ModalFooter>
-          <button className='green-button'  onClick={()=>insertar()}>
+          
+          <button className='green-button' form='insert' onClick={()=>{insertar()}}>
             Insertar
           </button>
 
           <button 
             className='red-button'
-            onClick={()=> setModalInsertar(false)}
+            onClick={()=> {setModalInsertar(false); setValidation(false)}}
           >
             Cancelar
           </button>
         </ModalFooter>
+        {validation && <Alert severity="error">Por favor completa todos los campos!!</Alert>}
+        
       </Modal>
+      
 
     </div>
     
