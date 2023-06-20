@@ -4,7 +4,8 @@ import './Styles/Footer.css';
 function Footer() {
   return (
     <footer className="footer">
-      <p>Este es el pie de página</p>
+      <p>EcommerceUNAL®. Todos los derechos reservados.</p>
+        <p>Desarrollado por <em>Git for Dummies</em></p>
     </footer>
   );
 }

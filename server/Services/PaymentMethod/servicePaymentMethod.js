@@ -56,16 +56,17 @@ module.exports = {
     insertPaymentMethod: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const insertPaymentMethodSQL = "INSERT INTO metodopago VALUES (NULL, ?,?,?,?,?,?)"
+            const insertPaymentMethodSQL = "INSERT INTO metodopago VALUES (NULL, ?,?,?,?,?,?,?)"
 
             const idComprador = req.body["idComprador"]
             const tipoMetodo = req.body["tipoMetodo"]
+            const franquicia = req.body["franquicia"]
             const nombreTitular = req.body["nombreTitular"]
             const numeroTarjeta = req.body["numeroTarjeta"]
             const fechaVencimiento = req.body["fechaVencimiento"]
             const ccv = req.body["ccv"]
 
-            await connection.execute(insertPaymentMethodSQL, [idComprador,tipoMetodo,nombreTitular,numeroTarjeta,fechaVencimiento,ccv]);
+            await connection.execute(insertPaymentMethodSQL, [idComprador,tipoMetodo,franquicia,nombreTitular,numeroTarjeta,fechaVencimiento,ccv]);
             return res.status(200).json({message: "Método de Pago ingresado con éxito."});
 
 
@@ -78,17 +79,18 @@ module.exports = {
     updatePaymentMethod: async (req, res) => {
         try {
             const connection = await ConnectionDB.getConnection();
-            const updatePaymentMethodSQL = "UPDATE metodopago SET TIPOMETODO = ?,NOMBRETITULAR = ?,NUMEROTARJETA = ?,FECHAVENCIMIENTO = ?,CCV = ? WHERE ID_METODOPAGO = ? AND ID_COMPRADOR = ?"
+            const updatePaymentMethodSQL = "UPDATE metodopago SET TIPOMETODO = ?, FRANQUICIA = ?, NOMBRETITULAR = ?,NUMEROTARJETA = ?,FECHAVENCIMIENTO = ?,CCV = ? WHERE ID_METODOPAGO = ? AND ID_COMPRADOR = ?"
 
             const idMetodoPago = req.body["idMetodoPago"]
             const idComprador = req.body["idComprador"]
             const tipoMetodo = req.body["tipoMetodo"]
+            const franquicia = req.body["franquicia"]
             const nombreTitular = req.body["nombreTitular"]
             const numeroTarjeta = req.body["numeroTarjeta"]
             const fechaVencimiento = req.body["fechaVencimiento"]
             const ccv = req.body["ccv"]
 
-            const resultSQL = await connection.execute(updatePaymentMethodSQL, [tipoMetodo,nombreTitular,numeroTarjeta,fechaVencimiento,ccv,idMetodoPago,idComprador]);
+            const resultSQL = await connection.execute(updatePaymentMethodSQL, [tipoMetodo,franquicia, nombreTitular,numeroTarjeta,fechaVencimiento,ccv,idMetodoPago,idComprador]);
 
             if(resultSQL[0].affectedRows>0){
                 return res.status(200).json({message: "Método de Pago actualizado con éxito."});

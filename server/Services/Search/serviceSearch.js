@@ -3,7 +3,7 @@ const ConnectionDB = require("../../Database/ConnectionDB");
 
 module.exports = {
     searchProduct: async (req, res) => {
-        const sqlVerifyId = "SELECT * FROM producto WHERE n_producto LIKE CONCAT('%',?,'%') ";
+        const sqlVerifyId = "SELECT * FROM producto WHERE n_producto LIKE CONCAT('%',?,'%') AND estado = 'ACTIVO'";
         try {
             const connection = await ConnectionDB.getConnection();
             const toSearch = [req.body.toSearch]

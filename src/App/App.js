@@ -24,6 +24,7 @@ import CartPage from '../Pages/Cart/CartPage';
 
 import SellerProductsPage from '../Pages/PagesSeller/SellerProducts/SellerProductsPage';
 import CheckoutPage from "../Pages/Checkout/CheckoutPage";
+import AddressesPage from "../Pages/PagesShopper/Addresses/AddressesPage";
 
 export default function App(){
 
@@ -52,6 +53,7 @@ return(
                     <Route path="/WishList" element ={<WishListPage/>} />
                     <Route path="/MyPurchases" element ={<MyPurchasesPage/>} />
                     <Route path="/PaymentMethods" element ={<PaymentMethodsPage/>} />
+                    <Route path="/Addresses" element ={<AddressesPage/>} />
                     <Route path="/Notification" element ={<NotificationPage/>} /> 
                     <Route path="/Cart" element ={<CartPage/>} />
                     <Route path="/Checkout" element ={<CheckoutPage/>} />
