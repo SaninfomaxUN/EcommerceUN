@@ -9,6 +9,7 @@ import {showAlertInfo, showAlertSuccess} from "../../Components/Commons/Alerts/A
 import {CircularProgress} from "@mui/material";
 import NavbarShopper from "../../Components/Commons/NavbarShopper/NavbarShopper";
 import NavbarSeller from "../../Components/Commons/NavbarSeller/NavbarSeller";
+import {useNavigate} from "react-router";
 
 const removeProductToCart = async (idProducto, idComprador) => {
     console.log(idComprador, idProducto)
@@ -24,7 +25,8 @@ const removeProductToCart = async (idProducto, idComprador) => {
 }
 
 function CartPage() {
-    const idComprador = Cookies.get("id")
+    const navigate = useNavigate();
+    const idComprador = Cookies.get("id");
     const [cart, setCart] = useState([]);
     const [dataCart, setDataCart] = useState([]);
     const [loaded, setLoaded] = useState(false);
@@ -53,13 +55,14 @@ function CartPage() {
     const handleFinalizarCompra = () => {
         // Lógica para finalizar la compra
         console.log("Compra finalizada");
+        navigate("/Checkout")
     };
 
     const handleEliminarDelCarrito = (idProducto) => {
         removeProductToCart(idProducto, idComprador).then(r => {
             showAlertSuccess("Producto eliminado!", () => {
                 window.location.reload();
-            })
+            }, "")
 
         })
 
