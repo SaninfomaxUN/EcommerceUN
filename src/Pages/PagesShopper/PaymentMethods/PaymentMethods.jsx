@@ -59,6 +59,7 @@ const PaymentMethods = () => {
       return false
 
     }
+    console.log(tarjetaSeleccionada);
     for (let campo in tarjetaSeleccionada ){
       if (tarjetaSeleccionada[campo].toString().trim() === ""){
         setValidation(true)
@@ -223,13 +224,10 @@ const PaymentMethods = () => {
                 <tr>
                   <td>Tipo Metodo de Pago</td>
                   <td>
-                  <input
-                    className='from-control'
-                    type='text'
-                    name='TIPOMETODO'
-                    value={tarjetaSeleccionada && tarjetaSeleccionada.TIPOMETODO}
-                    onChange={handleChange}
-                  />
+                  <select id="TIPOMETODO" name='TIPOMETODO' value={tarjetaSeleccionada && tarjetaSeleccionada.TIPOMETODO} onChange={handleChange} required>
+                    <option value="Crédito">Crédito</option>
+                    <option value="Débito">Débito</option>
+                  </select>
                   </td>
                 </tr>
 
@@ -347,14 +345,11 @@ const PaymentMethods = () => {
                 <tr>
                   <td>Tipo Metodo de Pago</td>
                   <td>
-                  <input
-                    className='from-control'
-                    type='text'
-                    name='TIPOMETODO'
-                    value={tarjetaSeleccionada ? tarjetaSeleccionada.TIPOMETODO:""}
-                    onChange={handleChange}
-                    required
-                  />
+                  <select id="TIPOMETODO" name='TIPOMETODO' value={tarjetaSeleccionada ? tarjetaSeleccionada.TIPOMETODO:""} onChange={handleChange} required>
+                    <option value="">Seleccione...</option>
+                    <option value="Crédito">Crédito</option>
+                    <option value="Débito">Débito</option>
+                  </select>
                   </td>
                 </tr>
 
