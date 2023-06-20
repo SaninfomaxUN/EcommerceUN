@@ -7,6 +7,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {showAlertError, showAlertInfo, showAlertSuccessImage} from "../../Components/Commons/Alerts/AlertsModal";
 import {useNavigate} from "react-router";
+import NavbarShopper from "../../Components/Commons/NavbarShopper/NavbarShopper";
 const {formatToCurrency} = require("../../../src/Components/Commons/Formatters/Currency");
 
 
@@ -111,6 +112,7 @@ const CheckoutPage = () => {
 
     return (
         <div>
+            {<NavbarShopper/>}
             {!loaded && <CircularProgress color="success"/>}
             {loaded &&
             <div className="checkout-page">
