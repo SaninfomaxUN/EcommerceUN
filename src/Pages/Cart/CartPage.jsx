@@ -4,8 +4,7 @@ import {Link} from 'react-router-dom';
 import axios from "axios";
 import Cookies from "js-cookie";
 import CardProduct from "../Product/Components/CardProduct";
-import Card from "../../Components/Commons/Card/Card"
-import {showAlertInfo, showAlertSuccess} from "../../Components/Commons/Alerts/AlertsModal";
+import {showAlertSuccess} from "../../Components/Commons/Alerts/AlertsModal";
 import {CircularProgress} from "@mui/material";
 import NavbarShopper from "../../Components/Commons/NavbarShopper/NavbarShopper";
 import NavbarSeller from "../../Components/Commons/NavbarSeller/NavbarSeller";
@@ -38,9 +37,6 @@ function CartPage() {
                 setDataCart(res.data['Cart'][0])
                 setCart(res.data.Products)
                 setLoaded(true)
-                /*let product = productsCart.find(product => product.ID_PRODUCTO === parseInt(idProducto));
-                setQuantity(product.CANTIDAD)
-                quantity=product.cantidad*/
             })
             .catch(err => {
                 console.log("FFF")
@@ -105,7 +101,9 @@ function CartPage() {
                                     precio={producto.PRECIOFINAL}
                                     foto={producto.IMAGEN}
                                     descripcion={producto.DESCRIPCION}
+                                    estado={producto.ESTADO}
                                     mostrarBotonCompra={false}
+                                    idComprador={idComprador}
                                 />
                                 <button onClick={() => handleEliminarDelCarrito(producto.ID_PRODUCTO)}>Eliminar del
                                     Carrito

@@ -12,14 +12,13 @@ import NavbarSeller from "../../Components/Commons/NavbarSeller/NavbarSeller";
 
 
 
-const getCart = (idComprador,idProducto, setQuantity)  => {
+const getCart = (idComprador,idProducto)  => {
     let quantity = 0
     axios.post(process.env.REACT_APP_API +'/getCart', {idComprador: idComprador})
         .then(res => {
             let  productsCart = res.data.Products
             let product = productsCart.find(product => product.ID_PRODUCTO === parseInt(idProducto));
-            setQuantity(product.CANTIDAD)
-            quantity=product.cantidad
+            quantity=product["cantidad"]
         })
         .catch(err => {
         });
@@ -42,21 +41,16 @@ const getProduct = (idProducto, setProduct, setLoaded, navigate) => {
     return product
 };
 
-const ProductPage = ({carrito,setCarrito}) => {
+const ProductPage = () => {
     const idComprador = Cookies.get("id")
-    console.log(idComprador+" ID COMNPRADOR EN PRODUCTPAGE")
-    const [quantity,setQuantity] = useState(0)
     const [product, setProduct] = useState({
         ID_PRODUCTO: '',
         N_PRODUCTO: '',
         DESCRIPCION: '',
         PRECIOFINAL: '',
         IMAGEN: '',
-        QUANTITY: 0 
+        ESTADO: ''
     })
-    const agregarAlCarrito = () => {
-        setCarrito([...carrito, product]);
-    };
 
     const [loaded, setLoaded] = useState(false);
     const {id} = useParams();
@@ -65,7 +59,7 @@ const ProductPage = ({carrito,setCarrito}) => {
     const navigate = useNavigate()
     
     useEffect(() => {
-        getCart(idComprador,idProducto,setQuantity)
+        getCart(idComprador,idProducto)
         getProduct(idProducto, setProduct, setLoaded, navigate)
     }, [idProducto]);
 
@@ -103,8 +97,8 @@ const ProductPage = ({carrito,setCarrito}) => {
                             precio={product.PRECIOFINAL}
                             foto={product.IMAGEN}
                             descripcion={product.DESCRIPCION}
-                            quantity = {quantity}
-                            agregarProducto={agregarAlCarrito}
+                            estado={product.ESTADO}
+                            mostrarBotonCompra={true}
                             idComprador={idComprador}
                         />
                     </div>
