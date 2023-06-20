@@ -67,6 +67,7 @@ export default function NavbarShopper() {
               {/*  </a>*/}
               {/*</li>*/}
 
+
               <li className="nav-link">
                 <a href="/MyPurchases">
                   <i className="bx bx-bar-chart-alt-2 icon"></i>
