@@ -12,12 +12,15 @@ import NavbarSeller from "../../Components/Commons/NavbarSeller/NavbarSeller";
 
 
 
-const getCart = (idComprador,idProducto)  => {
+const getCart = (idComprador,idProducto, setQuantity)  => {
     let quantity = 0
     axios.post(process.env.REACT_APP_API +'/getCart', {idComprador: idComprador})
         .then(res => {
             let  productsCart = res.data.Products
+            console.log(productsCart,"---",idProducto)
             let product = productsCart.find(product => product.ID_PRODUCTO === parseInt(idProducto));
+            setQuantity(product.CANTIDAD)
+            console.log(product,"---")
             quantity=product["cantidad"]
         })
         .catch(err => {
@@ -43,14 +46,17 @@ const getProduct = (idProducto, setProduct, setLoaded, navigate) => {
 
 const ProductPage = () => {
     const idComprador = Cookies.get("id")
+    const [quantity,setQuantity] = useState(0)
     const [product, setProduct] = useState({
         ID_PRODUCTO: '',
         N_PRODUCTO: '',
         DESCRIPCION: '',
         PRECIOFINAL: '',
         IMAGEN: '',
-        ESTADO: ''
+        ESTADO: '',
+        QUANTITY:0
     })
+
 
     const [loaded, setLoaded] = useState(false);
     const {id} = useParams();
@@ -59,7 +65,7 @@ const ProductPage = () => {
     const navigate = useNavigate()
     
     useEffect(() => {
-        getCart(idComprador,idProducto)
+        getCart(idComprador,idProducto,setQuantity)
         getProduct(idProducto, setProduct, setLoaded, navigate)
     }, [idProducto]);
 
@@ -98,6 +104,7 @@ const ProductPage = () => {
                             foto={product.IMAGEN}
                             descripcion={product.DESCRIPCION}
                             estado={product.ESTADO}
+                            quantity = {quantity}
                             mostrarBotonCompra={true}
                             idComprador={idComprador}
                         />

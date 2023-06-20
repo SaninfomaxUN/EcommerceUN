@@ -22,7 +22,7 @@ const addProductToCart = (idComprador, idProducto, newQuantity) => {
 }
 
 
-function CardProduct({id, nombre, precio, foto, descripcion, estado, mostrarBotonCompra, idComprador}) {
+function CardProduct({id, nombre, precio, foto, descripcion, estado, quantity, mostrarBotonCompra, idComprador}) {
     const [agregadoCarrito, setAgregadoCarrito] = useState(false);
     const [openValidation] = React.useState(estado !== "ACTIVO");
     const navigate = useNavigate();
@@ -32,7 +32,8 @@ function CardProduct({id, nombre, precio, foto, descripcion, estado, mostrarBoto
             navigate('/Cart'); // Redirige a la página del carrito
         } else {
             setAgregadoCarrito(true);
-            addProductToCart(idComprador, id, 1) //api
+            console.log(quantity)
+            addProductToCart(idComprador, id, parseInt(quantity)+1) //api
 
         }
 
