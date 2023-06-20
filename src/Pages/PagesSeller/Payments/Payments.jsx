@@ -5,6 +5,8 @@ import NavbarSeller from "../../../Components/Commons/NavbarSeller/NavbarSeller.
 import {CircularProgress} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import "./Styles/Payments.css"
+import {showAlertInfo} from "../../../Components/Commons/Alerts/AlertsModal";
+import {useNavigate} from "react-router";
 
 
 
@@ -12,6 +14,7 @@ const Payments = () => {
   const [ventas, setVentas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Lógica para obtener el ID del usuario autenticado y establecerlo en el estado
@@ -41,6 +44,9 @@ const Payments = () => {
         setLoading(false);
         console.log(response.data);
       } catch (error) {
+        showAlertInfo("Aun no has vendido tu primer producto. Ten paciencia 😉",()=>{
+          navigate("/")
+        })
         console.error(error);
       }
     }

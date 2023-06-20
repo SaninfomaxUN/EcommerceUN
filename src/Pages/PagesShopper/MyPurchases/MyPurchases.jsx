@@ -6,6 +6,7 @@ import "./Styles/Mypurchases.css"
 import {CircularProgress} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import {useNavigate} from 'react-router';
+import {showAlertInfo} from "../../../Components/Commons/Alerts/AlertsModal";
 
 
 const MyPurchases = () => {
@@ -41,6 +42,8 @@ const MyPurchases = () => {
                 setLoading(false);
                 //console.log(response.data);
             } catch (error) {
+                showAlertInfo("No tienes compras. Aprovecha y haz tu primer pedido! 😉",()=>{
+                    navigate("/")})
                 console.error(error);
             }
         }
