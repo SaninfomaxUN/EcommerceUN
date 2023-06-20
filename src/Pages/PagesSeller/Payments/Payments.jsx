@@ -5,7 +5,6 @@ import NavbarSeller from "../../../Components/Commons/NavbarSeller/NavbarSeller.
 import {CircularProgress} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import "./Styles/Payments.css"
-import data from "./responseSales.json"
 
 
 
@@ -36,7 +35,6 @@ const Payments = () => {
   const fetchVentas = async () => {
     if (userId) {
       try {
-        console.log("aaaaaaaaaa");
         const response = await axios.post(process.env.REACT_APP_API+'/getSales', { idVendedor: userId });
         setVentas(response.data);
         console.log(response.data);
@@ -53,14 +51,14 @@ const Payments = () => {
        <br />
        <br />
        <NavbarSeller/>
-        {/*loading ? (
+        {loading ? (
           <CircularProgress color="success"/>
-        ) : ( */}
+        ) : ( 
           <div>
             <h2>Tus ventas</h2>
-            { /* ventas.length === 0 ? (
+            { ventas.length === 0 ? (
               <p>No has realizado ventas. ¡Esperamos que ocurra pronto! ¡Aprovecha</p>
-            ) : ( */}
+            ) : ( 
                 <div className = "sales-cards">
                   <Stack className='subtitle-stack' direction="row">
                     <h1 className='sub-titles-product-sell'>Nombre Producto</h1>
@@ -83,9 +81,9 @@ const Payments = () => {
                       </tbody>
                     </table>
                 </div>    
-            {/* )} */}
+              )}
           </div>
-        {/* )} */}
+        )}
     </div>
   );
 }

@@ -31,27 +31,29 @@
         .sub-titles-image-sell{
             font-size:20px;
             font-style: italic;
-            margin-inline-start: 200px;
+            margin-inline-start: 190px;
             margin-top:20px;
         }
 
         .sub-titles-quantity-sell{
             font-size:18px;            
             font-style: italic;
-            margin-inline-start: 60px;
+            margin-inline-start: 75px;
         }
     
         .sub-titles-total-sell{
             font-size:20px;
             font-style: italic;
-            margin-inline-start: 45px;
+            margin-inline-start: 40px;
+            font-weight: 900;
         }
 
         .sub-titles-profit{
             font-size:20px;
             font-style: italic;
-            margin-inline-start: 70px;
-            margin-top:20px;
+            margin-inline-start: 65px;
+            margin-top: 20px;
+            font-weight: 900;
         }
 
             .sells-table{
