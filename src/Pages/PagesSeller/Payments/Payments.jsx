@@ -14,9 +14,10 @@ const Payments = () => {
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);  
   const imagenUso = "https://pm1.aminoapps.com/6337/8df71229ab2e947c0ab6ddff9513944e1834503b_00.jpg"
-  setVentas(data);
+  
 
   useEffect(() => {
+    setVentas(data);
     // Lógica para obtener el ID del usuario autenticado y establecerlo en el estado
     const fetchUserId = async () => {
       try {
@@ -40,7 +41,6 @@ const Payments = () => {
       try {
         const response = await axios.post(process.env.REACT_APP_API+"/getSaless", { idVendedor: userId });
         setVentas(response.data);
-        
         setLoading(false);
         console.log(response.data);
       } catch (error) {
@@ -72,7 +72,7 @@ const Payments = () => {
                   </Stack>
                     <table className='sells-table'>
                       <tbody>
-                        {ventas["Sales"].map((venta) => ( 
+                        {ventas["Sales"]?.map((venta) => ( 
                           <tr key={venta["ID_PRODUCTO"]} className='sales-card'>
                             <td className='product-name-seller'>MOUSE GAMER XTZ abcdefghijk lmnñopqrs tuv wxy zzz</td>
                             <td><img className='image-p-seller' src={imagenUso} alt="Producto"/></td>
