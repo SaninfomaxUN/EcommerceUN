@@ -52,22 +52,26 @@ export const showAlertInfo = (Title, callback) => {
     });
 }
 
-export const showConfirmationAlert = (title, text, question, textYes, titleSuccess, textSuccess) => {
+export const showConfirmationAlert = (title, text,  textYes, titleSuccess, textSuccess, callback) => {
     Swal.fire({
         title: title,
-        text: "You won't be able to revert this!",
-        icon: question,
+        text: text,
+        icon: "question",
         showCancelButton: true,
         confirmButtonColor: '#4eb421',
         cancelButtonColor: '#d33',
         confirmButtonText: textYes
     }).then((result) => {
         if (result.isConfirmed) {
+            if (typeof callback === 'function') {
+                callback();
+            }
             Swal.fire(
                 titleSuccess,
                 textSuccess,
                 'success'
-            ).then(r => {})
+            ).then(r => {
+            })
         }
     })
 }
