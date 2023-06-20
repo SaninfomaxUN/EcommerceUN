@@ -5,7 +5,6 @@ const MyPurchasesPage = () => {
   return (
     <div>
       <MyPurchases/>
-        
     </div>
   )
 }
