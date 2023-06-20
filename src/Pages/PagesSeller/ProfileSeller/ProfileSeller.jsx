@@ -1,31 +1,71 @@
 import NavbarShopper from "../../../Components/Commons/NavbarShopper/NavbarShopper.jsx"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Styles/ProfileSeller.css"
 import Cookies from "js-cookie";
 import data from "./data/data.js";
+import axios from "axios";
+import {showAlertSuccess, showConfirmationAlert} from "../../../Components/Commons/Alerts/AlertsModal";
 
 function openPolicy(){
     window.open('https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=4276', 'popup', 'width=600, height=400');
 }
 
 const ProfileSeller = () => {
+
+    const idVendedor = Cookies.get("id")
+
     //Valores Reales
-    const [userNIT, setUserNIT] = useState(data[0].ID_VENDEDOR);
-    const [userName, setUserName] = useState(`${data[0].NOMBRE} ${data[0].APELLIDO}`);
-    const [userMail, setUserMail] = useState(data[0].EMAIL);
-    const [userNum, setUserNum] = useState(data[0].TELEFONO);
-    
-    const [userDir, setUserDir] = useState(data[0].DIRECCIONPERSONAL);
-    const [userRazon, setUserRazon] = useState(data[0].RAZONSOCIAL);
+    const [userNIT, setUserNIT] = useState('');
+    const [userName, setUserName] = useState('');
+    const [userLastName, setUserLastName] = useState('')
+    const [userMail, setUserMail] = useState('');
+    const [userNum, setUserNum] = useState('');
+    const [userDir, setUserDir] = useState('');
+    const [userRazon, setUserRazon] = useState('');
 
     //Valores llenables por el usuario
-    const [userNITVar, setUserNITVar] = useState('NIT actual');
-    const [userNameVar, setUserNameVar] = useState('Nombre');
-    const [userLastNameVar, setUserLastNameVar] = useState('Apellidos');
-    const [userMailVar, setUserMailVar] = useState('Correo Electronico');
-    const [userNumVar, setUserNumVar] = useState('Numero Celular');
-    const [userDirVar, setUserDirVar] = useState('Dirección');
-    const [userRazonVar, setUserRazonVar] = useState('Razón Social');
+    const [userNITVar, setUserNITVar] = useState('');
+    const [userNameVar, setUserNameVar] = useState('');
+    const [userLastNameVar, setUserLastNameVar] = useState('');
+    const [userMailVar, setUserMailVar] = useState('');
+    const [userNumVar, setUserNumVar] = useState('');
+    const [userDirVar, setUserDirVar] = useState('');
+    const [userRazonVar, setUserRazonVar] = useState('');
+
+    useEffect(() => {
+        getProfile();
+    },[]
+    )
+
+    //Cargar usuario
+    const getProfile = async() => {
+        console.log(idVendedor)
+        axios.post(process.env.REACT_APP_API +'/getSeller', {idVendedor: idVendedor})
+            
+            .then(res => {
+                //Update values to user values
+                console.log(res.data['DataSeller'])
+                let seller = res.data['DataSeller']
+                setUserNIT(seller['NIT'])
+                setUserName(seller['NOMBRE'])
+                setUserLastName(seller['APELLIDO'])
+                setUserMail(seller['EMAIL'])
+                setUserNum(seller['TELEFONO'])
+                setUserDir(seller['DIRECCIONPERSONAL'])
+                setUserRazon(seller['RAZONSOCIAL'])
+                //Var alts
+                setUserNITVar(seller['NIT'])
+                setUserNameVar(seller['NOMBRE'])
+                setUserLastNameVar(seller['APELLIDO'])
+                setUserMailVar(seller['EMAIL'])
+                setUserNumVar(seller['TELEFONO'])
+                setUserDirVar(seller['DIRECCIONPERSONAL'])
+                setUserRazonVar(seller['RAZONSOCIAL'])
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
 
     //Ventana de actulizar datos
     const [showUpdater, setShowUpdater] = useState(false);
@@ -54,32 +94,54 @@ const ProfileSeller = () => {
     //Enviar info nueva a back
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Do something with the input value, e.g., send it to an API
 
-        //Prueba Temporal.
-        setUserNIT(userNITVar);
-        setUserName(FullUserName => userNameVar+ ' '+userLastNameVar);
-        setUserMail(userMailVar);
-        setUserNum(userNumVar);
-        setUserDir(userDirVar);
-        setUserRazon(userRazonVar);
-
-        console.log('Input value:', userNameVar, userMailVar, userNumVar);
+        //Update Back end info.
+        const updateProfile = async() => {
+            console.log(idVendedor)
+            axios.post(process.env.REACT_APP_API +'/updateSeller',
+            {idVendedor: idVendedor, nombre: userNameVar, apellido: userLastNameVar, nit: userNITVar, telefono: userNumVar, direccionPersonal: userDirVar, razonSocial: userRazonVar, email: userMailVar})
+                .then(res => {
+                    showAlertSuccess(
+                        "Información actualizada con exito!",
+                        ()=>{window.location.reload()}
+                    )
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+        }
+        updateProfile();
 
         setShowUpdater(false);
-
-        //refrescar ventana con datos nuevos
-        //window.location.reload();
     };
 
     //Enviar orden de delete a back
     const handleDeleteAccount = () => {
-        //How on earth do you drop the acccount from back
+        //Contact with back for deletion
+        const deleteProfile = async() => {
+            console.log(idVendedor)
+            axios.post(process.env.REACT_APP_API +'/deleteSeller',{idVendedor: idVendedor})
+                .then(res => {      
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+        }
 
-        //Logout
-        Cookies.remove('token');
-        Cookies.remove('role');
-        window.location.href = '/';
+        showConfirmationAlert(
+            "¿Estas seguro que deseas borrar tu cuenta?",
+            "Esta acción no se puede revertir :(",
+            "Eliminar",
+            "Cuenta eliminada exitósamente!",
+            "Esperamos verte de nuevo!",
+            ()=>{
+                //Logout
+                Cookies.remove('token');
+                Cookies.remove('role');
+                deleteProfile();
+                window.location.href = '/';
+            }
+        )
     }
 
     return (
@@ -93,7 +155,7 @@ const ProfileSeller = () => {
 
                 <h3><span className="material-symbols-outlined">
                     account_circle
-                </span>{userName}</h3>
+                </span>{userName +' '+ userLastName}</h3>
             </div>
 
             <br/>

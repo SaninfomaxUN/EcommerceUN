@@ -70,6 +70,21 @@ module.exports = {
             console.error(error);
             return res.status(500).json({message: "Error al actualizar Vendedor."});
         }
-    }
+    },
+
+    deleteSeller: async (req, res) => {
+        const deleteShopperQuery = "DELETE FROM vendedor WHERE id_vendedor = ?";
+        const sellerId = req.body.idVendedor;
+    
+        console.log("el id vendedor en delete es:",sellerId)
+        try {
+          const connection = await ConnectionDB.getConnection();
+          await connection.execute(deleteShopperQuery, [sellerId]);
+          return res.status(200).json({ message: 'vendedor y credenciales eliminados exitosamente' });
+        } catch (error) {
+          console.error(error);
+          return res.status(500).json({ error: 'Error al eliminar el vendedor y las credenciales' });
+        }
+      },
 
 }

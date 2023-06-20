@@ -84,9 +84,12 @@ Router.post('/getSalesByProduct',serviceSales.getSalesByProduct)
 //Compradores
 Router.post('/getShopper', serviceProfileShopper.getShopper)
 Router.post('/updateShopper', serviceProfileShopper.updateShopper)
+Router.post('/deleteShopper', serviceProfileShopper.deleteShopper)
 
 //Vendedores
 Router.post('/getSeller', serviceProfileSeller.getSeller)
 Router.post('/updateSeller', serviceProfileSeller.updateSeller)
+Router.post('/deleteSeller', serviceProfileSeller.deleteSeller)
+
 module.exports = Router;
 

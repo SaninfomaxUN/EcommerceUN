@@ -1,29 +1,59 @@
 import NavbarShopper from "../../../Components/Commons/NavbarShopper/NavbarShopper.jsx"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Styles/Profile.css"
 import Cookies from "js-cookie";
-import data from "./data/data.js";
+import axios from "axios";
+import {showAlertSuccess, showConfirmationAlert} from "../../../Components/Commons/Alerts/AlertsModal";
 
 function openPolicy(){
     window.open('https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=4276', 'popup', 'width=600, height=400');
 }
 
 const Profile = () => {
-    //cargar usuario?
 
-
+    const idComprador = Cookies.get("id")
 
     //Valores Reales
-    const [userId, setUserId] = useState(data[0].ID_COMPRADOR);
-    const [userName, setUserName] = useState(`${data[0].NOMBRE} ${data[0].APELLIDO}`);
-    const [userMail, setUserMail] = useState(data[0].EMAIL);
-    const [userNum, setUserNum] = useState(data[0].TELEFONO);
+    const [userId, setUserId] = useState('');
+    const [userName, setUserName] = useState('');
+    const [userLastName, setUserLastName] = useState('')
+    const [userMail, setUserMail] = useState('');
+    const [userNum, setUserNum] = useState('');
 
     //Valores llenables por el usuario
-    const [userNameVar, setUserNameVar] = useState('Nombre');
-    const [userLastNameVar, setUserLastNameVar] = useState('Apellidos');
-    const [userMailVar, setUserMailVar] = useState('Correo Electronico');
-    const [userNumVar, setUserNumVar] = useState('Numero Celular');
+    const [userNameVar, setUserNameVar] = useState('');
+    const [userLastNameVar, setUserLastNameVar] = useState('');
+    const [userMailVar, setUserMailVar] = useState('');
+    const [userNumVar, setUserNumVar] = useState('');
+
+    useEffect(() => {
+        getProfile();
+    },[]
+    )
+
+    //Cargar usuario
+    const getProfile = async() => {
+        console.log(idComprador)
+        axios.post(process.env.REACT_APP_API +'/getShopper', {idComprador: idComprador})
+            
+            .then(res => {
+                //Update values to user values
+                let shopper = res.data['DataShopper']
+                setUserId(shopper['ID_COMPRADOR'])
+                setUserName(shopper['NOMBRE'])
+                setUserLastName(shopper['APELLIDO'])
+                setUserMail(shopper['EMAIL'])
+                setUserNum(shopper['TELEFONO'])
+                //Var alts
+                setUserNameVar(shopper['NOMBRE'])
+                setUserLastNameVar(shopper['APELLIDO'])
+                setUserMailVar(shopper['EMAIL'])
+                setUserNumVar(shopper['TELEFONO'])
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
 
     //Ventana de actulizar datos
     const [showUpdater, setShowUpdater] = useState(false);
@@ -49,29 +79,54 @@ const Profile = () => {
     //Enviar info nueva a back
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Do something with the input value, e.g., send it to an API
 
-        //Prueba Temporal.
-        setUserName(FullUserName => userNameVar+ ' '+userLastNameVar);
-        setUserMail(userMailVar);
-        setUserNum(userNumVar);
-
-        console.log('Input value:', userNameVar, userMailVar, userNumVar);
+        //Update Back end info.
+        const updateProfile = async() => {
+            console.log(idComprador)
+            axios.post(process.env.REACT_APP_API +'/updateShopper',
+            {idComprador: idComprador, nombre: userNameVar, apellido: userLastNameVar, telefono: userNumVar, email: userMailVar})
+                .then(res => {
+                    showAlertSuccess(
+                        "Información actualizada con exito!",
+                        ()=>{window.location.reload()}
+                    )
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+        }
+        updateProfile();
 
         setShowUpdater(false);
-
-        //refrescar ventana con datos nuevos
-        //window.location.reload();
     };
-
+    
     //Enviar orden de delete a back
     const handleDeleteAccount = () => {
-        //How on earth do you drop the acccount from back
+        //Contact with back for deletion
+        const deleteProfile = async() => {
+            console.log(idComprador)
+            axios.post(process.env.REACT_APP_API +'/deleteShopper',{idComprador: idComprador})
+                .then(res => {      
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+        }
 
-        //Logout
-        Cookies.remove('token');
-        Cookies.remove('role');
-        window.location.href = '/';
+        showConfirmationAlert(
+            "¿Estas seguro que deseas borrar tu cuenta?",
+            "Esta acción no se puede revertir :(",
+            "Eliminar",
+            "Cuenta eliminada exitósamente!",
+            "Esperamos verte de nuevo!",
+            ()=>{
+                //Logout
+                Cookies.remove('token');
+                Cookies.remove('role');
+                deleteProfile();
+                window.location.href = '/';
+            }
+        )
     }
 
     return (
@@ -85,7 +140,7 @@ const Profile = () => {
 
                 <h3><span className="material-symbols-outlined">
                     account_circle
-                </span>{userName}</h3>
+                </span>{userName +' '+ userLastName}</h3>
             </div>
 
             <br/>
