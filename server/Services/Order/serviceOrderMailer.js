@@ -198,6 +198,9 @@ const orderHTML = (idPedido, dataShopper, dataAddress, dataPaymentMethod, produc
         '            <strong>Tipo de Tarjeta: </strong>' + dataPaymentMethod["TIPOMETODO"] + '\n' +
         '          </p>\n' +
         '          <p>\n' +
+        '            <strong>Franquicia: </strong>' + dataPaymentMethod["FRANQUICIA"] + '\n' +
+        '          </p>\n' +
+        '          <p>\n' +
         '            <strong>Titular: </strong>' + dataPaymentMethod["NOMBRETITULAR"] + '\n' +
         '          </p>\n' +
         '          <p>\n' +
