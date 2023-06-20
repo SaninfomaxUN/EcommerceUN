@@ -29,11 +29,16 @@ export const showAlertSuccessImage = (Title, callback, message, imageUrl,imageWi
         }
     });
 }
-export const showAlertError = (Title) => {
-    Swal.fire(
-        Title,
-        '',
-        'error')
+export const showAlertError = (Title, callback, message) => {
+    Swal.fire({
+        title: Title,
+        text: message,
+        icon: 'error'
+    }).then((result) => {
+        if (result.isConfirmed && typeof callback === 'function') {
+            callback();
+        }
+    });
 }
 
 export const showAlertInfo = (Title, callback) => {

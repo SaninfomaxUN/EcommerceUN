@@ -5,7 +5,7 @@ import '../../Components/Commons/Footer/Styles/Footer.css'
 import {CircularProgress} from "@mui/material";
 import axios from "axios";
 import Cookies from "js-cookie";
-import {showAlertInfo, showAlertSuccessImage} from "../../Components/Commons/Alerts/AlertsModal";
+import {showAlertError, showAlertInfo, showAlertSuccessImage} from "../../Components/Commons/Alerts/AlertsModal";
 import {useNavigate} from "react-router";
 const {formatToCurrency} = require("../../../src/Components/Commons/Formatters/Currency");
 
@@ -88,11 +88,13 @@ const CheckoutPage = () => {
         await axios.post(process.env.REACT_APP_API + '/insertOrder', {idComprador: idComprador, idDireccion: selectedAddress, idMetodoPago: selectedPaymentMehtod})
             .then(res => {
                 console.log(res)
-                showAlertSuccessImage(res.data["message"], navigate("/"), "Revisa tu Correo Electrónico.\n Alli enviaremos el Comprobante de Pago!",
+                showAlertSuccessImage(res.data["message"], () => {navigate("/")}, "Revisa tu Correo Electrónico.\n Alli enviaremos el Comprobante de Pago!",
                     "https://cdn.pixabay.com/photo/2021/02/11/11/30/computer-6005017_1280.png", 350,200, "")
             })
             .catch(err => {
                 console.log(err)
+                showAlertError(err.response.data["message"], () => {window.location.reload()}, err.response.data["submessage"])
+
             });
 
     }

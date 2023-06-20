@@ -5,7 +5,23 @@ const serviceAddress = require("../Address/serviceAddress")
 const servicePaymentMethod = require("../PaymentMethod/servicePaymentMethod");
 const serviceOrderMailer = require("../Order/serviceOrderMailer")
 const {getCurrentDateTimeToSend} = require("../../Commons/formatterDateTime");
+const serviceProduct = require("../Product/serviceProduct");
 
+const checkAvailability = async (Cart) => {
+    const productsCart = Cart["Products"]
+    for (let productCart of productsCart) {
+        let product = await serviceProduct.getProductSinceBack({idProducto: productCart["ID_PRODUCTO"] })
+        if(product["ESTADO"]!=="ACTIVO"){
+            await serviceCart.removeProductCartSinceBack(Cart["Cart"][0]["ID_COMPRADOR"], productCart["ID_PRODUCTO"])
+            return [false, "Lo sentimos. El Producto: " + product["N_PRODUCTO"] + " NO se encuentra disponible :( ", "Hemos removido el artículo de tu carrito de compras. "]
+        }else if(productCart["CANTIDAD"] > product["STOCK"]){
+            await serviceCart.updateProductCartSinceBack(Cart["Cart"][0]["ID_COMPRADOR"], productCart["ID_PRODUCTO"], product["STOCK"])
+            return [false, "Lo sentimos. Solo puedes agregar máximo " + product["STOCK"] + " unidad/es del Producto: " + product["N_PRODUCTO"], "Hemos ajustado él número de unidades que puedes comprar. "]
+        }
+    }
+
+    return [true]
+}
 
 module.exports = {
     getOrder: async (req, res) => {
@@ -78,6 +94,12 @@ module.exports = {
             const cantidadTotal = cart["Cart"][0]["CANTIDADTOTAL"]
             const total = cart["Cart"][0]["COSTOFINAL"]
             const totalSinIva =  Math.round(total * (1 - 0.19))
+
+            const [Available, message, submessage] = await checkAvailability(cart)
+            if(!Available){
+                console.log(message)
+                return res.status(400).json({message: message, submessage:submessage});
+            }
 
             const resultSQL = await connection.execute(insertOrderSQL, [idComprador, idDireccion, idMetodoPago, fechaPedido, cantidadTotal, totalSinIva, total]);
 
