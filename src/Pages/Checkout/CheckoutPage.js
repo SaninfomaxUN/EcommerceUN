@@ -133,7 +133,7 @@ const CheckoutPage = () => {
                                     <option value="">Seleccionar tarjeta</option>
                                     {paymentMethods.map((creditCard) => (
                                         <option key={creditCard["ID_METODOPAGO"]} value={creditCard["ID_METODOPAGO"]}>
-                                            {creditCard["NOMBRETITULAR"]} - {creditCard["NUMEROTARJETA"].slice(-4)}
+                                            {creditCard["FRANQUICIA"]} - {creditCard["NUMEROTARJETA"].slice(-4)}
                                         </option>
                                     ))}
                                 </select>
