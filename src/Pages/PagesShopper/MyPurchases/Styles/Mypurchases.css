@@ -1,146 +1,145 @@
-.purchase-cards{
+.purchase-cards {
     text-align: center;
     justify-content: center;
     margin-left: 50px;
     margin-top: 10px;
     cursor: pointer;
-    
+
 }
 
-    .purchase-card{
-        border-color:rgb(136, 128, 128);
-        border-radius: 5px;
-        border-width: 3px;
-        border-style: outset;
-        margin: auto auto;
-        text-align: center;
-        grid-template-columns: repeat(2,1fr);
-        grid-gap:1px;
-        margin: 5%;
-        cursor:default;
-        align-items: center;
-    }
+.purchase-card {
+    border-color: rgb(136, 128, 128);
+    border-radius: 5px;
+    border-width: 3px;
+    border-style: outset;
+    margin: auto auto;
+    text-align: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1px;
+    margin: 5%;
+    cursor: default;
+    align-items: center;
+}
 
-        .stack-1{
-            color: rgb(0, 0, 0);
-            padding-top: 15px;
-            padding-left: 40px;
-            padding-right: 10px;
-            
-        }
+.stack-1 {
+    color: rgb(0, 0, 0);
+    padding-top: 15px;
+    padding-left: 40px;
+    padding-right: 10px;
 
-            .ID-purchase{
-                display: left;
-                font-size: 20px;
-            }
+}
 
-            .date-time{
-                display: flex;
-                font-size: 20px;
-                margin-left:60px;
-            }
+.ID-purchase {
+    font-size: 20px;
+}
 
-            .total-value{
-                color:red;
-                display: left;
-                font-size: 20px;
-                margin-left:500px;
-            }
-                .stack-2{
-                    color:rgb(90, 90, 90);
-                    font-size:20px;
-                    margin-top:20px;
-                }
+.date-time {
+    display: flex;
+    font-size: 20px;
+    margin-left: 60px;
+}
 
-                    .sub-titles-quantity{
-                        font-size:20px;
-                        font-style: italic;
-                        margin-inline-start: 38px;
-                    }
+.total-value {
+    color: red;
+    font-size: 20px;
+    margin-left: 500px;
+}
 
-                    .sub-titles-image{
-                        font-size:20px;
-                        font-style: italic;
-                        margin-inline-start: 80px;
-                    }
+.stack-2 {
+    color: rgb(90, 90, 90);
+    font-size: 20px;
+    margin-top: 20px;
+}
 
-                    .sub-titles-product{
-                        font-size:20px;
-                        font-style: italic;
-                        margin-inline-start: 170px;
-                    }
+.sub-titles-quantity {
+    font-size: 20px;
+    font-style: italic;
+    margin-inline-start: 38px;
+}
 
-                    .sub-titles-basePrice{
-                        font-size:20px;
-                        font-style: italic;
-                        margin-inline-start: 255px;
-                    }
+.sub-titles-image {
+    font-size: 20px;
+    font-style: italic;
+    margin-inline-start: 80px;
+}
 
-                    .sub-titles-Final{
-                        font-size:20px;
-                        font-style: italic;
-                        margin-inline-start: 55px;
-                    }
+.sub-titles-product {
+    font-size: 20px;
+    font-style: italic;
+    margin-inline-start: 170px;
+}
 
-                    .product-table{
-                        margin-top:5px;
-                        margin-left:40px;
-                        margin-bottom: 25px;
-                        width:90%;
-                        border-spacing: 30px;
-                        padding:5em;
-                    }
+.sub-titles-basePrice {
+    font-size: 20px;
+    font-style: italic;
+    margin-inline-start: 255px;
+}
 
-                        .product-show{
-                            display: center;
-                            font-size: 18px;
-                            margin-bottom: 80px; 
-                        }
+.sub-titles-Final {
+    font-size: 20px;
+    font-style: italic;
+    margin-inline-start: 55px;
+}
 
-                    .quantity{
-                        font-size: 20px;
-                        margin-left: 0px;
-                        align-self: center; 
-                        width: 10%;
-                                       
-                    }
+.product-table {
+    margin-top: 5px;
+    margin-left: 40px;
+    margin-bottom: 25px;
+    width: 90%;
+    border-spacing: 30px;
+    padding: 5em;
+}
 
-                    .image{
-                        max-width: 80px; 
-                        max-height: 80px;
-                        align-self: center;
-                        margin-left: 80px;
-                        margin-bottom: 7px;  
-                    }
-                    .image:hover{
-                        cursor:pointer;
-                    }
+.product-show {
+    font-size: 18px;
+    margin-bottom: 80px;
+}
 
-                    .product-name-1{
-                        font-size: 20px;
-                        margin-left: 0px;
-                        align-self: center;
-                        width: 55%;  
-                    }
+.quantity {
+    font-size: 20px;
+    margin-left: 0px;
+    align-self: center;
+    width: 10%;
 
-                    .product-name-1:hover{
-                        cursor:pointer;
-                        color: blue;
-                    }
+}
 
-                    .base-price{           
-                        font-size: 19px;
-                        justify-content: center;
-                        align-self: center;
-                        margin-left: 0px;
-                        width: 30%;  
-                    }
+.image {
+    max-width: 80px;
+    max-height: 80px;
+    align-self: center;
+    margin-left: 80px;
+    margin-bottom: 7px;
+}
 
-                    .final-price{
-                        font-size: 19px;
-                        justify-content: center;
-                        align-self: center;
-                        width: 0%;  
-                    }
+.image:hover {
+    cursor: pointer;
+}
+
+.product-name-1 {
+    font-size: 20px;
+    margin-left: 0px;
+    align-self: center;
+    width: 55%;
+}
+
+.product-name-1:hover {
+    cursor: pointer;
+    color: blue;
+}
+
+.base-price {
+    font-size: 19px;
+    justify-content: center;
+    align-self: center;
+    margin-left: 0px;
+    width: 30%;
+}
+
+.final-price {
+    font-size: 19px;
+    justify-content: center;
+    align-self: center;
+    width: 0%;
+}
 
     
