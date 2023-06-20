@@ -58,7 +58,6 @@ const SignUpShopperPage = () => {
         idComprador:'',
         telefono: '',
         pais: '',
-        rol: '',
         password: '',
         confirmPassword: '',
         fechaRegistro: new Date().toISOString().slice(0, 19).replace('T', ' ')

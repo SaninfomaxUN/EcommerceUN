@@ -30,29 +30,30 @@ const Sales = () => {
 
 
   useEffect(() => {
-    calcularPrecios(); // Calcular el precio final cuando el valor de precioBase cambie
-  }, [formData.precioBase]);
+    calcularPrecios(); // Calcular el precio Base cuando el valor de precio Final cambie
+  }, [formData.precioFinal]);
 
   // Función para calcular los campos precioFinal y porcentajeFinalImpuesto
+  const porcentajeImpuesto = 0.19; // 19% en decimal
+  const porcentajeComision = 0.05; // 5% en decimal
   const calcularPrecios = () => {
-    const precioBase = parseFloat(formData.precioBase);
-    const porcentajeImpuesto = 0.19; // 19% en decimal
-    const porcentajeComision = 0.05; // 5% en decimal
+    const precioFinal = parseFloat(formData.precioFinal);
 
-    const impuesto = precioBase * porcentajeImpuesto;
-    const precioConImpuesto = precioBase + impuesto;
-    const comision = precioConImpuesto * porcentajeComision;
-    const precioFinal = Math.round(precioConImpuesto + comision);
+    const precioConImpuestoDebitado = precioFinal*(1-porcentajeImpuesto);
 
-    setFormData({ ...formData, precioFinal: precioFinal.toString() });
+    const precioConComisionDebitado = precioConImpuestoDebitado*(1-porcentajeComision);
+
+    const precioBase = Math.round(precioConComisionDebitado);
+
+    setFormData({ ...formData, precioBase: precioBase.toString() });
   };
 
   // Función para manejar el cambio en el campo "precioBase"
   const handlePrecioBaseChange = (e) => {
     const input = e.target.value;
     if (!isNaN(input)) {
-      setFormData({ ...formData, precioBase: input });
-      calcularPrecios(); // Calcular los campos precioFinal y porcentajeFinalImpuesto
+      setFormData({ ...formData, precioFinal: input});
+      calcularPrecios(); // Calcular los campos precioBase y porcentajeBaseImpuesto
     }
   };
 
@@ -183,12 +184,12 @@ const Sales = () => {
     required
       className='inputEntry'
       type="text"
-      placeholder='Agrega el precio base del producto'
-      value={formData.precioBase}
+      placeholder='Agrega el precio final del producto'
+      value={formData.precioFinal}
       onChange={(e) => {
         const input = e.target.value;
         if (!isNaN(input)) {
-          setFormData({ ...formData, precioBase: input });
+          setFormData({ ...formData, precioFinal: input });
         }
       }}
     />

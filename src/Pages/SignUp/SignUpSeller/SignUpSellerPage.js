@@ -55,7 +55,6 @@ const SignUpSellerPage = () => {
         nit: '',
         telefono: '',
         pais: '',
-        rol: '',
         direccionPersonal: '',
         razonSocial: '',
         password: '',
