@@ -60,12 +60,12 @@ export default function NavbarShopper() {
                 </a>
               </li>
 
-              <li className="nav-link">
-                <a href="/WishList">
-                  <i className="bx bx-heart icon"></i>
-                  <span className="text nav-text">Mis Favoritos</span>
-                </a>
-              </li>
+              {/*<li className="nav-link">*/}
+              {/*  <a href="/WishList">*/}
+              {/*    <i className="bx bx-heart icon"></i>*/}
+              {/*    <span className="text nav-text">Mis Favoritos</span>*/}
+              {/*  </a>*/}
+              {/*</li>*/}
 
               <li className="nav-link">
                 <a href="/MyPurchases">
@@ -76,9 +76,9 @@ export default function NavbarShopper() {
 
 
               <li className="nav-link">
-                <a href="/Notification">
+                <a href="/Addresses">
                   <i className="bx bx-bell icon"></i>
-                  <span className="text nav-text">Notificaciones</span>
+                  <span className="text nav-text">Mis Direcciones</span>
                 </a>
               </li>
 
