@@ -5,7 +5,7 @@ import "../../../Pages/Login/Styles/Login.css";
 // import logo from "../../../Pages/Login/Assets/logoProp.png";
 
 
-export default function Navbar(props) {
+export default function NavbarUp(props) {
     const [search, setSearch] = useState('');
     const handleSearch = (event) => {
         setSearch(event.target.value);

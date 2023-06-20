@@ -8,14 +8,17 @@ const HomePage = () => {
   const role = Cookies.get('role');
   let shopperConnected = false
   let sellerConnected = false
+  let adminConnected = false
   if (token && role === 'comprador') {
     shopperConnected=true
   }else if (token && role === 'vendedor') {
     sellerConnected=true
-  }
+  }else if (token && role === 'admin') {
+    adminConnected=true
+}
   return (
     <>
-    <Home shopperConnected={shopperConnected} sellerConnected={sellerConnected}/>
+    <Home shopperConnected={shopperConnected} sellerConnected={sellerConnected} adminConnected={adminConnected}    />
     </>
   )
 }

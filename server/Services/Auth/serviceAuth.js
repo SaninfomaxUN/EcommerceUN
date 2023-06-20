@@ -40,79 +40,92 @@ const {getConnection} = require("../../Database/ConnectionDB");
 
 
 module.exports = {
-    serviceLoginSeller: async (req, res) => {
-        try {
-          const connection = await getConnection();
-      
-          function getJwtSecret() {
-            return secret || 'your_secret_key';
-          }
-      
-          function cookieOptions(expires) {
-            return {
-              httpOnly: true,
-              expires: new Date(Date.now() + expires * 1000),
-              sameSite: 'none',
-              secure: true,
-            };
-          }
-      
-          const email = req.body.email;
-          const plainTextPassword = req.body.password;
-      
-          if (!email || !plainTextPassword) {
-            return res.json({
-              success: false,
-              message: 'Ingrese un correo y contraseña',
-            });
-          }
-      
-          const [rows, fields] = await connection.query("SELECT * FROM credencialvendedor WHERE email = ?", [email]);
-      
-          if (rows.length === 0) {
-            return res.json({
-              success: false,
-              message: 'Correo y/o contraseña incorrectas',
-            });
-          }
-      
-          const userType = "vendedor";
-          const hashedPassword = rows[0]['PASSWORD'];
-          const isMatch = await bcrypt.compare(plainTextPassword, hashedPassword);
-      
-          if (!isMatch) {
-            return res.json({
-              success: false,
-              message: 'Correo y/o contraseña incorrectas',
-            });
-          }
-      
-          const id = rows[0].ID_VENDEDOR;
-          const token = jwt.sign({ id }, getJwtSecret(), { expiresIn: '30s' });
-      
-          const cookieExpires = 30; // Expires in 30 seconds
-          const cookieOption = cookieOptions(cookieExpires);
-        //   res.cookie('jwt', token, cookieOption);
-        //   res.cookie('role', userType, cookieOption);
-      
-          return res.json({
-            success: true,
-            message: 'Ingreso correcto',
-            id: id,
-            email: email,
-            token: token,
-            userType: userType,
-          });
-        } catch (error) {
-          console.log(error);
-          return res.json({
-            success: false,
-            message: 'Error en el servidor',
-          });
-        }
-      },
+  serviceLoginSeller: async (req, res) => {
+    try {
+      const connection = await getConnection();
+  
+      function getJwtSecret() {
+        return secret || 'your_secret_key';
+      }
+  
+      function cookieOptions(expires) {
+        return {
+          httpOnly: true,
+          expires: new Date(Date.now() + expires * 1000),
+          sameSite: 'none',
+          secure: true,
+        };
+      }
+  
+      const email = req.body.email;
+      const plainTextPassword = req.body.password;
+  
+      if (!email || !plainTextPassword) {
+        return res.json({
+          success: false,
+          message: 'Ingrese un correo y contraseña',
+        });
+      }
+  
+      const [rows, fields] = await connection.query("SELECT * FROM credencialvendedor WHERE email = ?", [email]);
+  
+      if (rows.length === 0) {
+        return res.json({
+          success: false,
+          message: 'Correo y/o contraseña incorrectas',
+          type:"incorrect"
+        });
+      }
+  
+      const userType = "vendedor";
+      const hashedPassword = rows[0]['PASSWORD'];
+      const isMatch = await bcrypt.compare(plainTextPassword, hashedPassword);
+  
+      if (!isMatch) {
+        return res.status(400).json({
+          success: false,
+          message: 'Correo y/o contraseña incorrectas',
+          type:"incorrect"
+        });
+      }
+  
+      const estado = rows[0]['ESTADO'];
+  
+      if (estado === 'suspendido') {
+        return res.status(400).json({
+          success: false,
+          message: 'Tu cuenta ha sido suspendida',
+          type:"suspended"
+        });
+      }
+  
+      const id = rows[0].ID_VENDEDOR;
+      const token = jwt.sign({ id }, getJwtSecret(), { expiresIn: '30s' });
+  
+      const cookieExpires = 30; // Expires in 30 seconds
+      const cookieOption = cookieOptions(cookieExpires);
+  
+      return res.json({
+        success: true,
+        message: 'Ingreso correcto',
+        id: id,
+        email: email,
+        token: token,
+        userType: userType,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.json({
+        success: false,
+        message: 'Error en el servidor',
+      });
+    }
+  },
+  
       
     
+
+
       serviceLoginShopper: async (req, res) => {
         try {
           const connection = await getConnection();
@@ -159,6 +172,16 @@ module.exports = {
               message: 'Correo y/o contraseña incorrectas',
             });
           }
+
+          const estado = rows[0]['ESTADO'];
+  
+          if (estado === 'suspendido') {
+            return res.json({
+              success: false,
+              message: 'Tu cuenta ha sido suspendida',
+            });
+          }
+          
       
           const userEmail = rows[0].EMAIL;
           const id = rows[0].ID_COMPRADOR;
@@ -166,8 +189,7 @@ module.exports = {
       
           const cookieExpires = 30; // Expires in 30 seconds
           const cookieOption = cookieOptions(cookieExpires);
-        //   res.cookie('jwt', token, cookieOption);
-        //   res.cookie('role', userType, cookieOption);
+      
       
           return res.json({
             success: true,
@@ -185,6 +207,94 @@ module.exports = {
           });
         }
       },
+
+
+
+
+
+
+
+
+
+      serviceLoginAdmin: async (req, res) => {
+        try {
+          const connection = await getConnection();
+      
+          function getJwtSecret() {
+            return secret || 'your_secret_key';
+          }
+      
+          function cookieOptions(expires) {
+            return {
+              httpOnly: true,
+              expires: new Date(Date.now() + expires * 1000),
+              sameSite: 'none',
+              secure: true,
+            };
+          }
+      
+          const email = req.body.email;
+          const plainTextPassword = req.body.password;
+      
+          if (!email || !plainTextPassword) {
+            return res.json({
+              success: false,
+              message: 'Ingrese un correo y contraseña',
+            });
+          }
+      
+          const [rows, fields] = await connection.query("SELECT * FROM credencialadmin WHERE email = ?", [email]);
+      
+          if (rows.length === 0) {
+            return res.json({
+              success: false,
+              message: 'Correo y/o contraseña incorrectas',
+            });
+          }
+      
+          let userType = "admin";
+          const hashedPassword = rows[0]['PASSWORD'];
+          // Omitir la verificación del hash de contraseña
+          if (plainTextPassword !== hashedPassword) {
+            return res.json({
+              success: false,
+              message: 'Correo y/o contraseña incorrectas',
+            });
+          }
+      
+          const userEmail = rows[0].EMAIL;
+          const id = rows[0].ID_ADMIN;
+          const token = jwt.sign({ id }, getJwtSecret(), { expiresIn: '30s' });
+      
+          const cookieExpires = 30; // Expires in 30 seconds
+          const cookieOption = cookieOptions(cookieExpires);
+        
+      
+          return res.json({
+            success: true,
+            message: 'Ingreso correcto',
+            id: id,
+            email: userEmail,
+            token: token,
+            userType: userType,
+          });
+        } catch (error) {
+          console.log(error);
+          return res.json({
+            success: false,
+            message: 'Error en el servidor',
+          });
+        }
+      },
+      
+      
+
+
+
+
+
+
+
       
 
 

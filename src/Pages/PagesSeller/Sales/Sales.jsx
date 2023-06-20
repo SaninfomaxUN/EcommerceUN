@@ -9,7 +9,7 @@ import {showAlertError, showAlertSuccess} from "../../../Components/Commons/Aler
 import Cookies from 'js-cookie';
 import {useNavigate} from "react-router-dom";
 
-const userId= Cookies.get("id")
+const userId = Cookies.get("id")
 
 const Sales = () => {
   const navigate = useNavigate();
@@ -28,12 +28,14 @@ const Sales = () => {
     fechaPublicacion: new Date().toISOString().slice(0, 19).replace('T', ' ')
   });
 
+ 
+
 
   useEffect(() => {
-    calcularPrecios(); // Calcular el precio final cuando el valor de precioBase cambie
+    calcularPrecios();
   }, [formData.precioBase]);
 
-  // Función para calcular los campos precioFinal y porcentajeFinalImpuesto
+
   const calcularPrecios = () => {
     const precioBase = parseFloat(formData.precioBase);
     const porcentajeImpuesto = 0.19; // 19% en decimal
@@ -47,14 +49,6 @@ const Sales = () => {
     setFormData({ ...formData, precioFinal: precioFinal.toString() });
   };
 
-  // Función para manejar el cambio en el campo "precioBase"
-  const handlePrecioBaseChange = (e) => {
-    const input = e.target.value;
-    if (!isNaN(input)) {
-      setFormData({ ...formData, precioBase: input });
-      calcularPrecios(); // Calcular los campos precioFinal y porcentajeFinalImpuesto
-    }
-  };
 
 
 
@@ -62,7 +56,6 @@ const Sales = () => {
     e.preventDefault();
     try {
       const response = await axios.post(process.env.REACT_APP_API+'/insertProduct', formData);
-      console.log(response.data);
       showAlertSuccess("¡El producto ha sido registrado correctamente!", () => {
         navigate("/SellerProducts")
       })
@@ -71,7 +64,15 @@ const Sales = () => {
       console.error(error);
     }
   };
-  // Función para calcular los campos precioFinal y porcentajeFinalImpuesto
+ 
+
+
+
+
+
+  
+
+
 
   return (
     <div className='background'>
@@ -146,8 +147,8 @@ const Sales = () => {
     onChange={(e) => setFormData({ ...formData, estado: e.target.value })}
   >
     <option value="">Selecciona un estado</option>
-    <option value="nuevo">Nuevo</option>
-    <option value="usado">Usado</option>
+    <option value="activo">activo</option>
+    <option value="suspendido">suspendido</option>
   </select>
 </div>
         <br />
