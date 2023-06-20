@@ -3,7 +3,25 @@ const serviceCart = require("../Cart/serviceCart")
 const serviceListOrder = require("../Order/serviceListOrder")
 const serviceAddress = require("../Address/serviceAddress")
 const servicePaymentMethod = require("../PaymentMethod/servicePaymentMethod");
+const serviceOrderMailer = require("../Order/serviceOrderMailer")
+const {getCurrentDateTimeToSend} = require("../../Commons/formatterDateTime");
+const serviceProduct = require("../Product/serviceProduct");
 
+const checkAvailability = async (Cart) => {
+    const productsCart = Cart["Products"]
+    for (let productCart of productsCart) {
+        let product = await serviceProduct.getProductSinceBack({idProducto: productCart["ID_PRODUCTO"] })
+        if(product["ESTADO"]!=="ACTIVO"){
+            await serviceCart.removeProductCartSinceBack(Cart["Cart"][0]["ID_COMPRADOR"], productCart["ID_PRODUCTO"])
+            return [false, "Lo sentimos. El Producto: " + product["N_PRODUCTO"] + " NO se encuentra disponible :( ", "Hemos removido el artículo de tu carrito de compras. "]
+        }else if(productCart["CANTIDAD"] > product["STOCK"]){
+            await serviceCart.updateProductCartSinceBack(Cart["Cart"][0]["ID_COMPRADOR"], productCart["ID_PRODUCTO"], product["STOCK"])
+            return [false, "Lo sentimos. Solo puedes agregar máximo " + product["STOCK"] + " unidad/es del Producto: " + product["N_PRODUCTO"], "Hemos ajustado él número de unidades que puedes comprar. "]
+        }
+    }
+
+    return [true]
+}
 
 module.exports = {
     getOrder: async (req, res) => {
@@ -72,26 +90,35 @@ module.exports = {
             const cart = await serviceCart.getCartSinceBack(idComprador)
             const idDireccion = req.body["idDireccion"]
             const idMetodoPago = req.body["idMetodoPago"]
-            const fechaPedido = req.body["fechaPedido"]
+            const fechaPedido = getCurrentDateTimeToSend()
             const cantidadTotal = cart["Cart"][0]["CANTIDADTOTAL"]
             const total = cart["Cart"][0]["COSTOFINAL"]
-            const totalSinIva = total * (1 - 0.19)
+            const totalSinIva =  Math.round(total * (1 - 0.19))
 
-
+            const [Available, message, submessage] = await checkAvailability(cart)
+            if(!Available){
+                console.log(message)
+                return res.status(400).json({message: message, submessage:submessage});
+            }
 
             const resultSQL = await connection.execute(insertOrderSQL, [idComprador, idDireccion, idMetodoPago, fechaPedido, cantidadTotal, totalSinIva, total]);
 
             const idPedido = resultSQL[0]["insertId"]
 
-
             const result2SQL = await serviceListOrder.insertListOrder(idPedido, idComprador, cart)
             if (result2SQL){
-                return res.status(200).json({message: "Pedido ingresado con éxito."});
+                console.log(fechaPedido)
+                let sent = await serviceOrderMailer.sendOrder(idPedido, idComprador, idDireccion, idMetodoPago, cart["Products"], fechaPedido, cantidadTotal, totalSinIva, total, cart)
+
+                if(sent){
+                    return res.status(200).json({message: "El Pedido #" + idPedido + " ha sido creado con éxito!"});
+                }else{
+                    return res.status(200).json({message: "Pedido ingresado con éxito, pero estamos presentando inconvenientes con el envío de tu factura!"});
+                }
+
             }else {
                 return res.status(500).json({message: "Error al ingresar productos del pedido."});
             }
-
-
 
 
 

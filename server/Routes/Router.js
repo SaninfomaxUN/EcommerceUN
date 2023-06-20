@@ -11,10 +11,14 @@ const serviceCart = require("../Services/Cart/serviceCart");
 const serviceAddress = require("../Services/Address/serviceAddress");
 const servicePaymentMethod = require("../Services/PaymentMethod/servicePaymentMethod");
 const serviceOrder = require("../Services/Order/serviceOrder");
+const serviceProfileShopper = require("../Services/Profile/ProfileShopper/serviceProfileShopper");
 
 const cors = require('cors');
 cors({ origin: true });
 const cookieParser = require("cookie-parser")
+const serviceProfileSeller = require("../Services/Profile/ProfileSeller/serviceProfileSeller");
+const serviceSales = require("../Services/Sales/serviceSales");
+
 
 
 // rutas de Autenticación
@@ -67,11 +71,22 @@ Router.post('/updatePaymentMethod',servicePaymentMethod.updatePaymentMethod)
 Router.post('/removePaymentMethod',servicePaymentMethod.removePaymentMethod)
 Router.post('/cleanPaymentMethods',servicePaymentMethod.cleanPaymentMethods)
 
-//Pedidos
+//Pedidos - Comprador
 Router.post('/getOrder',serviceOrder.getOrder)
 Router.post('/getAllOrders',serviceOrder.getOrders)
 Router.post('/insertOrder',serviceOrder.insertOrder)
 Router.post('/removeOrder',serviceOrder.removeOrder)
 
+//Ventas - Vendedor
+Router.post('/getSales',serviceSales.getSales)
+Router.post('/getSalesByProduct',serviceSales.getSalesByProduct)
+
+//Compradores
+Router.post('/getShopper', serviceProfileShopper.getShopper)
+Router.post('/updateShopper', serviceProfileShopper.updateShopper)
+
+//Vendedores
+Router.post('/getSeller', serviceProfileSeller.getSeller)
+Router.post('/updateSeller', serviceProfileSeller.updateSeller)
 module.exports = Router;
 

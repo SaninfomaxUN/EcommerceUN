@@ -253,6 +253,46 @@ module.exports = {
             return false;
         }
 
-    }
+    },
+    updateProductCartSinceBack: async (idComprador, idProducto, newQuantity) => {
+
+        try {
+            const connection = await ConnectionDB.getConnection();
+
+            console.log(idProducto + "$" + newQuantity)
+
+            let [updatedListStr, dicQuantity] = await updateList(connection, idComprador, idProducto, newQuantity)
+            if (!updatedListStr) {
+                return false;
+            }
+
+            return await sqlUpdateQuantityByID(connection, idComprador, updatedListStr, dicQuantity);
+
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+
+    },
+    removeProductCartSinceBack: async (idComprador, idProducto) => {
+        try {
+            const connection = await ConnectionDB.getConnection();
+
+            console.log(idComprador)
+
+            let [updatedListStr, dicQuantity] = await removeList(connection, idComprador, idProducto)
+
+            if (!updatedListStr && updatedListStr !== "") {
+                return false;
+            }
+
+            return await sqlUpdateQuantityByID(connection, idComprador, updatedListStr, dicQuantity);
+
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+
+    },
 
 }
