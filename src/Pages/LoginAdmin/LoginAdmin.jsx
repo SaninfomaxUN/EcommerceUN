@@ -3,11 +3,10 @@ import {Link, useNavigate} from 'react-router-dom'
 import cohete from './Assets/cohete.jpg'
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { Switch, FormControlLabel } from '@mui/material';
-import {showAlertError,showAlertInfo} from "../../Components/Commons/Alerts/AlertsModal";
-import Swal from 'sweetalert2';
+import {showAlertError} from "../../Components/Commons/Alerts/AlertsModal";
 
-const Login = () => {
+
+const LoginAdmin = () => {
     const Navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -21,38 +20,20 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = null
     try {
       let endpoint;
+      endpoint = process.env.REACT_APP_API +'/loginAdmin';
   
-      if (isSeller) {
-        endpoint = process.env.REACT_APP_API +'/loginSeller';
-      } else {
-        endpoint = process.env.REACT_APP_API +'/loginShopper';
-      }
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
   
-
-    await axios.post(endpoint,{email:email, password:password })
-   .then(res =>{
-   response = res.data
-        }).catch( err =>{
-           console.log("este es el error completo",err)
-           console.log("la data del error",err.response.data.type)
-           let data = err.response.data
-
-   					if(data.type === "suspended"){
-   					  Swal.fire({
-   					    title: 'Cuenta suspendida',
-   					    text: 'Tu cuenta ha sido suspendida. Comunicate al correo: ecommerceunal@gmail.com',
-   					    icon: 'info',
-   				});
-   		return
-    }
- }) 
-
-
-      const responseData = response;
-      console.log("ultimo",responseData.id);
+      const responseData = await response.json();
+      console.log(responseData);
   
       Cookies.set('token', responseData.token);
       Cookies.set('role', responseData.userType);
@@ -63,39 +44,21 @@ const Login = () => {
     }
   };
 
-
-  
 const userAuthenticated = async () => {
-  
-    let response  
-		await axios.post(process.env.REACT_APP_API +"/isUserAuth", {}, {
+  try {
+    const response = await axios.post(process.env.REACT_APP_API +"/isUserAuth", {}, {
       headers: {
         authorization: Cookies.get("token")
       }
-    }).then(res=>{
-      console.log("la respuesta",response);
-      Navigate('/Home');
+    });
+    console.log(response);
+    Navigate('/ShopperAdmin');
 
-    }).catch(err=>{
-      console.error(err);
-      showAlertError("Correo y/o contraseña incorrectas :(");
-    })
-   
- 
-};
-
-//  
-//  
-//  
-//  
-//  
-
-
-
-
-const [isSeller, setIsSeller] = useState(false);
-const handleSwitch = () => {
-  setIsSeller(!isSeller);
+  } catch (error) {
+    console.error(error);
+  
+    showAlertError("Correo y/o contraseña incorrectas :(");
+  }
 };
 
   return (
@@ -147,30 +110,12 @@ const handleSwitch = () => {
                       autoComplete="current-password"
                       onChange={handlePasswordChange}
                     />
-                    <a href='/RecoverPassword' className='RecoverPassword'>
-                      ¿Has olvidado tú contraseña?
-                    </a>
                     <br />
                     <button type='submit' className='btn btnLogin'>
                       Ingresa
                     </button>
-                    <br />
-
-                    <FormControlLabel
-                       control={
-                         <Switch checked={isSeller} onChange={handleSwitch} color="primary" />
-                       }
-                       label={isSeller ? 'Soy Vendedor' : 'Soy Comprador'}
-                     />
+                    
                   </form>
-
-
-                  <br />
-                  <br />
-                  ¿No tienes cuenta?,
-                  <Link to='/SignUp' className='RecoverPassword'>
-                    registrate
-                  </Link>
                 </div>
                
               </div>
@@ -182,4 +127,4 @@ const handleSwitch = () => {
   )
 }
 
-export default Login
+export default LoginAdmin

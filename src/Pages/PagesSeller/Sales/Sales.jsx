@@ -9,7 +9,7 @@ import {showAlertError, showAlertSuccess} from "../../../Components/Commons/Aler
 import Cookies from 'js-cookie';
 import {useNavigate} from "react-router-dom";
 
-const userId= Cookies.get("id")
+const userId = Cookies.get("id")
 
 const Sales = () => {
   const navigate = useNavigate();
@@ -27,6 +27,8 @@ const Sales = () => {
     estado: '',
     fechaPublicacion: new Date().toISOString().slice(0, 19).replace('T', ' ')
   });
+
+
 
 
   useEffect(() => {
@@ -63,7 +65,6 @@ const Sales = () => {
     e.preventDefault();
     try {
       const response = await axios.post(process.env.REACT_APP_API+'/insertProduct', formData);
-      console.log(response.data);
       showAlertSuccess("¡El producto ha sido registrado correctamente!", () => {
         navigate("/SellerProducts")
       })
@@ -147,8 +148,8 @@ const Sales = () => {
     onChange={(e) => setFormData({ ...formData, estado: e.target.value })}
   >
     <option value="">Selecciona un estado</option>
-    <option value="nuevo">Nuevo</option>
-    <option value="usado">Usado</option>
+    <option value="activo">ACTIVO</option>
+    <option value="suspendido">INACTIVO</option>
   </select>
 </div>
         <br />

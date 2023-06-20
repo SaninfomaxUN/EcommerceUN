@@ -1,14 +1,9 @@
 import React, {useRef, useState, useEffect} from 'react';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
 import {Box} from "@mui/material";
-import Stack from '@mui/material/Stack';
-import {TextField} from '@mui/material';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import Cookies from 'js-cookie';
 import categories from '../../Sales/Data/categories';
-import "./Edit.css"
 import {showAlertError, showAlertSuccess} from "../../../../Components/Commons/Alerts/AlertsModal.js"
 
 

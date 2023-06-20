@@ -20,11 +20,17 @@ import ResultsPage from '../Pages/Results/ResultsPage';
 import ProductPage from '../Pages/Product/ProductPage';
 import PrivateRoutesShopper from '../Components/Security/PrivateRoutesShopper'
 import PrivateRoutesSeller from '../Components/Security/PrivateRoutesSeller'
+import PrivateRoutesAdmin from '../Components/Security/PrivateRoutesAdmin'
 import CartPage from '../Pages/Cart/CartPage';
-
 import SellerProductsPage from '../Pages/PagesSeller/SellerProducts/SellerProductsPage';
 import CheckoutPage from "../Pages/Checkout/CheckoutPage";
 import AddressesPage from "../Pages/PagesShopper/Addresses/AddressesPage";
+//Admin imports
+import SellersAdminPage from '../Pages/PagesAdmin/SellersAdmin/SellersAdminPage';
+import ShoppersAdminPage from '../Pages/PagesAdmin/ShoppersAdmin/ShoppersAdminPage';
+import ProductsAdminPage from '../Pages/PagesAdmin/ProductsAdmin/ProductsAdminPage';
+import LoginAdminPage from '../Pages/LoginAdmin/LoginAdminPage';
+
 
 export default function App(){
 
@@ -35,6 +41,7 @@ return(
             <Route path="/" element ={<HomePage/>} />
             <Route path="/Home" element ={<HomePage/>} />
             <Route path="/Login" element ={<LoginPage/>} />
+            <Route path="/Admin" element ={<LoginAdminPage/>} />
             <Route path="/SignUp" element ={<SignUpPage/>} />
             <Route path="/SignUpShopper" element ={<SignUpShopperPage/>} />
             <Route path="/SignUpSeller" element ={<SignUpSellerPage/>} />
@@ -54,18 +61,26 @@ return(
                     <Route path="/MyPurchases" element ={<MyPurchasesPage/>} />
                     <Route path="/PaymentMethods" element ={<PaymentMethodsPage/>} />
                     <Route path="/Addresses" element ={<AddressesPage/>} />
-                    <Route path="/Notification" element ={<NotificationPage/>} /> 
+                    <Route path="/Notification" element ={<NotificationPage/>} />
                     <Route path="/Cart" element ={<CartPage/>} />
                     <Route path="/Checkout" element ={<CheckoutPage/>} />
             </Route>
     
-            {/* rutas a protegervendedor */}
+            {/* rutas a proteger vendedor */}
             <Route element={<PrivateRoutesSeller/>}>
                       {/*<Route path="/DashSeller" element ={<DashBoardSeller/>} />*/}
                       <Route path="/ProfileSeller" element ={<ProfileSellerPage/>} />
                       <Route path="/SellerProducts" element ={<SellerProductsPage/>} />
                       <Route path="/Sales" element ={<SalesPage/>} />
                       <Route path="/Payments" element ={<PaymentsPage/>} />
+             </Route>
+
+
+             {/* rutas a proteger Admin */}
+             <Route element={<PrivateRoutesAdmin/>}>
+             <Route path="/SellerAdmin" element ={<SellersAdminPage/>} />
+             <Route path="/ShopperAdmin" element ={<ShoppersAdminPage/>} />
+             <Route path="/ProductsAdmin" element ={<ProductsAdminPage/>} />
              </Route>
         </Routes>
     </BrowserRouter>

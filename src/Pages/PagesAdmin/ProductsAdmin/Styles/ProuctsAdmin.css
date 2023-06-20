@@ -1,0 +1,19 @@
+.table{
+    justify-content: center;
+    text-align: center;
+    margin: auto auto;
+}
+
+.suspend{
+    background-color: rgb(123, 156, 234);
+    color: white;
+}
+.delete{
+    color: white;
+}
+
+.form-control{
+    justify-content: center;
+    margin: auto auto;
+    width: 80%;
+}

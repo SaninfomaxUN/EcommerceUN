@@ -16,11 +16,12 @@ import img6 from './Assets/Carrousel/img10.jpg'
 
 
 import Navbar from "../../Components/Commons/Navbar/Navbar.jsx"
+import NavbarUp from "../../Components/Commons/NavbarAD/NavbarUp.jsx"
 import Deslice from "../../Components/Commons/Deslice/Deslice.jsx"
 import Footer from '../../Components/Commons/Footer/Footer'
 import NavbarShopper from "../../Components/Commons/NavbarShopper/NavbarShopper";
 import NavbarSeller from "../../Components/Commons/NavbarSeller/NavbarSeller";
-
+import NavbarAdmin from "../../Components/Commons/NavbarAdmin/NavbarAdmin";
 
 // Pages
 
@@ -30,8 +31,9 @@ export default function Home(props) {
         <div>
             {props.shopperConnected && <NavbarShopper/>}
             {props.sellerConnected && <NavbarSeller/>}
-            <Navbar userConnected={!props.shopperConnected && !props.sellerConnected}/>
-
+            {props.adminConnected && <NavbarAdmin/>}
+            <Navbar userConnected={!props.shopperConnected && !props.sellerConnected  && !props.adminConnected}/>
+           
 
             <div className='carousel'>
                 <div id="carouselExampleIndicators" className="carousel slide">
