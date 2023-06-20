@@ -24,31 +24,34 @@
         .sub-titles-product-sell{
             font-size:20px;
             font-style: italic;
-            margin-inline-start: 80px;
+            margin-inline-start: 120px;
+            margin-top:20px;
         }
 
         .sub-titles-image-sell{
             font-size:20px;
             font-style: italic;
-            margin-inline-start: 180px;
+            margin-inline-start: 200px;
+            margin-top:20px;
         }
 
         .sub-titles-quantity-sell{
-            font-size:20px;
+            font-size:18px;            
             font-style: italic;
-            margin-inline-start: 100px;
+            margin-inline-start: 60px;
         }
     
         .sub-titles-total-sell{
             font-size:20px;
             font-style: italic;
-            margin-inline-start: 100px;
+            margin-inline-start: 45px;
         }
 
         .sub-titles-profit{
             font-size:20px;
             font-style: italic;
-            margin-inline-start: 100px;
+            margin-inline-start: 70px;
+            margin-top:20px;
         }
 
             .sells-table{
@@ -56,49 +59,52 @@
                 margin-top:5px;
                 margin-left:40px;
                 margin-bottom: 25px;
-                width:90%;
+                width:92.5%;
                 border-spacing: 30px;
                 padding:5em;
             }
 
                 .sales-card{
-                    display: center;
+                    border: 0.5px solid black;
+                    display: auto;
                     font-size: 18px;
-                    margin-bottom: 0px; 
+                    color:black;
                 }
 
                     .product-name-seller{
+                        border: 0.5px solid black;
                         font-size: 20px;
                         margin-left: 0px;
                         align-self: center;
                         width: 38%;  
                     }
 
-                    .image-p-seller{
-                        max-width: 80px; 
-                        max-height: 80px;
-                        align-self: center;
-                        margin-left: -20px;
+                    .image-p-seller{                        
+                        max-width: 100px; 
+                        max-height: 100px;
                         margin-bottom: 7px; 
                     }
                     
                     .quantity-seller{
-                        font-size: 19px;
-                        justify-content: center;
-                        align-self: center;
-                        width: 0;
+                        border: 0.5px solid black;
+                        font-size: 20px;
+                        padding-block: 1cm;
+                        justify-content: left;
+                        width: 8%;
                     }
 
                     .total-sell-seller{
-                        font-size: 19px;
+                        border: 0.5px solid black;
+                        font-size: 22px;
                         justify-content: center;
                         align-self: center;
-                        width:0;
+                        width:15%;
                     }
 
                     .profit-seller{
-                        font-size: 19px;
+                        border: 0.5px solid black;
+                        font-size: 22px;
                         justify-content: center;
                         align-self: center;
-                        width: 0;
+                        width: 15%;
                     }
