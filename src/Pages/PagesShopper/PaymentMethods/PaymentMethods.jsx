@@ -7,6 +7,7 @@ import './Styles/ModalStyles.css';
 import './Styles/Header.css';
 
 
+
 const PaymentMethods = () => {
 
 
@@ -151,7 +152,7 @@ const PaymentMethods = () => {
 
       
 
-      <Modal className='modal-container' isOpen={modalEditar}>
+      <Modal className='custom-modal' isOpen={modalEditar}>
         <ModalHeader>
           <h3>
             Editar Tarjeta
@@ -160,73 +161,81 @@ const PaymentMethods = () => {
 
         <ModalBody>
           <FormGroup>
-            <div className="">
+            <table stripped className='modal-table' >
+              <tbody>
+                <tr>
+                  <td>Tipo Metodo de Pago</td>
+                  <td>
+                  <input
+                    className='from-control'
+                    type='text'
+                    name='TIPOMETODO'
+                    value={tarjetaSeleccionada && tarjetaSeleccionada.TIPOMETODO}
+                    onChange={handleChange}
+                  />
+                  </td>
+                </tr>
 
-              <label>Tipo Metodo de pago</label>
-              <input
-                className='from-control'
-                type='text'
-                name='TIPOMETODO'
-                value={tarjetaSeleccionada && tarjetaSeleccionada.TIPOMETODO}
-                onChange={handleChange}
-              />
+                <tr>
+                <td>Franquicia</td>
+                  <td>
+                    <input
+                      className='from-control'
+                      type='text'
+                      name='FRANQUICIA'
+                      value={tarjetaSeleccionada && tarjetaSeleccionada.FRANQUICIA}
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
 
-              <br />
 
-              <label>FRANQUICIA</label>
-              <input
-                className='from-control'
-                type='text'
-                name='FRANQUICIA'
-                value={tarjetaSeleccionada && tarjetaSeleccionada.FRANQUICIA}
-                onChange={handleChange}
-              />
+                <tr>
+                <td>Numero de Tarjeta</td>
+                  <td>
+                    <input
+                      className='from-control'
+                      type='text'
+                      name='NUMEROTARJETA'
+                      value={tarjetaSeleccionada && tarjetaSeleccionada.NUMEROTARJETA}
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
 
-              <br />
 
-              <label>Nombre del Titular</label>
-              <input
-                className='from-control'
-                type='text'
-                name='NOMBRETITULAR'
-                value={tarjetaSeleccionada && tarjetaSeleccionada.NOMBRETITULAR}
-                onChange={handleChange}
-              />
+                <tr>
+                <td>Fecha de Expiración</td>
+                  <td>
+                    <input
+                      className='from-control'
+                      type='text'
+                      name='FECHAVENCIMIENTO'
+                      value={tarjetaSeleccionada && tarjetaSeleccionada.FECHAVENCIMIENTO}
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
 
-              <br />
 
-              <label>Numero de Tarjeta</label>
-              <input
-                className='from-control'
-                type='text'
-                name='NUMEROTARJETA'
-                value={tarjetaSeleccionada && tarjetaSeleccionada.NUMEROTARJETA}
-                onChange={handleChange}
-              />
+                <tr>
+                <td>CCV</td>
+                  <td>
+                    <input
+                      className='from-control'
+                      type='number'
+                      name='CCV'
+                      value={tarjetaSeleccionada && tarjetaSeleccionada.CCV}
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
-              <br />
 
-              <label>Fecha de Expiración</label>
-              <input
-                className='from-control'
-                type='text'
-                name='FECHAVENCIMIENTO'
-                value={tarjetaSeleccionada && tarjetaSeleccionada.FECHAVENCIMIENTO}
-                onChange={handleChange}
-              />
+ 
 
-              <br />
-
-              <label>CCV</label>
-              <input
-                className='from-control'
-                type= 'number'
-                name='CCV'
-                value={tarjetaSeleccionada && tarjetaSeleccionada.CCV}
-                onChange={handleChange}
-              />
-
-             </div>
           </FormGroup>
         </ModalBody>
 
@@ -247,7 +256,7 @@ const PaymentMethods = () => {
 
       <Modal className='modal-container' isOpen={modalEliminar}>
         <ModalBody>
-          Estás Seguro que deseas eliminar la tarjeta: {tarjetaSeleccionada && tarjetaSeleccionada.NUMEROTARJETA}
+          Estás Seguro que deseas eliminar esta tarjeta
         </ModalBody>
         <ModalFooter>
           <button className="btn btn-danger" onClick={()=>eliminar()}>
@@ -264,84 +273,109 @@ const PaymentMethods = () => {
 
 
 
-      <Modal className='modal-container' isOpen={modalInsertar}>
+      <Modal className='custom-modal-green' isOpen={modalInsertar}>
         <ModalHeader>
           <h3>
             Insertar Tarjeta
           </h3>
         </ModalHeader>
 
+
         <ModalBody>
           <FormGroup>
-            <div className="">
+            <table stripped className='modal-table-green' >
+              <tbody>
+                <tr>
+                  <td>Tipo Metodo de Pago</td>
+                  <td>
+                  <input
+                    className='from-control'
+                    type='text'
+                    name='TIPOMETODO'
+                    value={tarjetaSeleccionada ? tarjetaSeleccionada.TIPOMETODO:""}
+                    onChange={handleChange}
+                  />
+                  </td>
+                </tr>
 
-              <label>Tipo Metodo de pago</label>
-              <input
-                className='from-control'
-                type='text'
-                name='TIPOMETODO'
-                value={tarjetaSeleccionada ? tarjetaSeleccionada.TIPOMETODO:""}
-                onChange={handleChange}
-              />
+                <tr>
+                <td>Franquicia</td>
+                  <td>
+                    <input
+                      className='from-control'
+                      type='text'
+                      name='FRANQUICIA'
+                      value={tarjetaSeleccionada ? tarjetaSeleccionada.FRANQUICIA : ""}
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
 
-              <br />
 
-              <label>FRANQUICIA</label>
-              <input
-                className='from-control'
-                type='text'
-                name='FRANQUICIA'
-                value={tarjetaSeleccionada ? tarjetaSeleccionada.FRANQUICIA : ""}
-                onChange={handleChange}
-              />
+                <tr>
+                <td>Nombre del Titular</td>
+                  <td>
+                    <input
+                      className='from-control'
+                      type='text'
+                      name='NOMBRETITULAR'
+                      value={tarjetaSeleccionada ? tarjetaSeleccionada.NOMBRETITULAR : ""}
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
 
-              <br />
 
-              <label>Nombre del Titular</label>
-              <input
-                className='from-control'
-                type='text'
-                name='NOMBRETITULAR'
-                value={tarjetaSeleccionada ? tarjetaSeleccionada.NOMBRETITULAR: ""}
-                onChange={handleChange}
-              />
+                <tr>
+                <td>Numero de Tarjeta</td>
+                  <td>
+                    <input
+                      className='from-control'
+                      type='text'
+                      name='NUMEROTARJETA'
+                      value={tarjetaSeleccionada ? tarjetaSeleccionada.NUMEROTARJETA : ""}
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
 
-              <br />
 
-              <label>Numero de Tarjeta</label>
-              <input
-                className='from-control'
-                type='text'
-                name='NUMEROTARJETA'
-                value={tarjetaSeleccionada ? tarjetaSeleccionada.NUMEROTARJETA : ""}
-                onChange={handleChange}
-              />
+                <tr>
+                <td>Fecha de Expiración</td>
+                  <td>
+                    <input
+                      className='from-control'
+                      type='text'
+                      name='FECHAVENCIMIENTO'
+                      value={tarjetaSeleccionada ? tarjetaSeleccionada.FECHAVENCIMIENTO : ""}
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
 
-              <br />
 
-              <label>Fecha de Expiración</label>
-              <input
-                className='from-control'
-                type='text'
-                name='FECHAVENCIMIENTO'
-                value={tarjetaSeleccionada ? tarjetaSeleccionada.FECHAVENCIMIENTO : ""}
-                onChange={handleChange}
-              />
+                <tr>
+                <td>CCV</td>
+                  <td>
+                    <input
+                      className='from-control'
+                      type='number'
+                      name='CCV'
+                      value={tarjetaSeleccionada ? tarjetaSeleccionada.CCV : ""}
+                      onChange={handleChange}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
-              <br />
 
-              <label>CCV</label>
-              <input
-                className='from-control'
-                type= 'number'
-                name='CCV'
-                value={tarjetaSeleccionada ? tarjetaSeleccionada.CCV : ""}
-                onChange={handleChange}
-              />
+ 
 
-             </div>
           </FormGroup>
         </ModalBody>
+
+        
 
         <ModalFooter>
           <button className='green-button'  onClick={()=>insertar()}>

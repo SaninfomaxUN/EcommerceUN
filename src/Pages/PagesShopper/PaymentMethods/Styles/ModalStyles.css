@@ -1,74 +1,171 @@
-/* Modal Container */
-.modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-  }
-  
-  /* Modal Content */
+/* Estilos personalizados para el modal */
+.custom-modal {
+  /* Estilos para el fondo del modal */
   .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    max-width: 400px;
-    width: 100%;
-    position: relative;
+    background-color: #84b6f4;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(233, 9, 9, 0.1);
   }
-  
-  /* Close Button */
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 18px;
-    color: #999;
-    cursor: pointer;
+
+  /* Estilos para el encabezado del modal */
+  .modal-header {
+    background-color: #84b6f4;
+    color: #fff;
+    border-bottom: none;
+    padding: 15px;
+    justify-content: center;
   }
-  
-  /* Modal Title */
+
+  /* Estilos para el título del modal */
   .modal-title {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 10px;
+    align-items: center;
   }
-  
-  /* Modal Content Body */
+
+  /* Estilos para el cuerpo del modal */
   .modal-body {
-    margin-bottom: 20px;
+    padding: 15px;
   }
-  
-  /* Modal Actions */
-  .modal-actions {
-    display: flex;
+
+  /* Estilos para el pie del modal */
+  .modal-footer {
+    background-color:  #84b6f4;
+    border-top: none;
+    padding: 15px;
     justify-content: flex-end;
   }
-  
-  /* Action Buttons */
-  .modal-actions button {
-    padding: 10px 20px;
+
+  /* Estilos para los botones del modal */
+  .modal-footer .btn {
     margin-left: 10px;
-    font-size: 16px;
-    border-radius: 5px;
+  }
+
+  .modal-table {
+    width: 100%;
+    background-color: #c3e3fd;
+    border-radius: 10px;
+  }
+  
+  
+  .modal-table thead th {
+    background-color: #f8f9fa;
+    color: #212529;
+    font-weight: bold;
+    border-bottom: 2px solid #dee2e6;
+  }
+  
+  .modal-table tbody td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .modal-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .modal-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+}
+
+
+
+
+/* -------------------------------------------------------------------------------------------------------------------- */
+
+.custom-modal-green{
+  .modal-content {
+    background-color: #f7f7f7;
     border: none;
-    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(233, 9, 9, 0.1);
   }
-  
-  /* Example Button Styles */
-  .modal-actions .save-button {
-    background-color: #007bff;
+
+  /* Estilos para el encabezado del modal */
+  .modal-header {
+    background-color: #a3eba9;
     color: #fff;
+    border-bottom: none;
+    padding: 15px;
+    justify-content: center;
+  }
+
+  /* Estilos para el título del modal */
+  .modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    align-items: center;
+  }
+
+  /* Estilos para el cuerpo del modal */
+  .modal-body {
+    padding: 15px;
+  }
+
+  /* Estilos para el pie del modal */
+  .modal-footer {
+    background-color:  #a3eba9;
+    border-top: none;
+    padding: 15px;
+    justify-content: flex-end;
+  }
+
+  /* Estilos para los botones del modal */
+  .modal-footer .btn {
+    margin-left: 10px;
+  }
+
+  .modal-table-green {
+    width: 100%;
+    background-color: #8ae9a6;
+    border-radius: 10px;
   }
   
-  .modal-actions .cancel-button {
-    background-color: #999;
-    color: #fff;
+  
+  .modal-table-green thead th {
+    background-color: #f8f9fa;
+    color: #212529;
+    font-weight: bold;
+    border-bottom: 2px solid #dee2e6;
   }
   
+  .modal-table-green tbody td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .modal-table-green tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .modal-table-green tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  .modal-table-green th,
+  .modal-table-green td {
+    border: 1px solid #a3eba9;
+  }
+  
+  .modal-table-green thead th {
+    border-bottom: 2px solid #a3eba9;
+  }
+  
+  .modal-table-green tfoot th,
+  .modal-table-green tfoot td {
+    border-top: 2px solid #a3eba9;
+  }
+  
+  .modal-table-green tbody tr:first-child th,
+  .modal-table-green tbody tr:first-child td {
+    border-top: 2px solid #a3eba9;
+  }
+  
+  .modal-table-green tbody tr:last-child th,
+  .modal-table-green tbody tr:last-child td {
+    border-bottom: 2px solid #a3eba9;
+  }
+
+}
