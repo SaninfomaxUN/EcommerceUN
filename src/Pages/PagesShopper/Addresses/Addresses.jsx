@@ -234,7 +234,7 @@ const Addresses = () => {
                 <ModalHeader>
                     <div>
                         <h3>
-                            Editar Tarjeta
+                            Editar Dirección
                         </h3>
                     </div>
                 </ModalHeader>
