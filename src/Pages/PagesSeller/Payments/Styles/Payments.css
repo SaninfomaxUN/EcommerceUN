@@ -1,0 +1,118 @@
+.sales-cards{
+    border-color:rgb(136, 128, 128);
+    border-radius: 5px;
+    border-width: 3px;
+    border-style: outset;
+    margin: auto auto;
+    text-align: center;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap:1px;
+    margin: 5%;
+    margin-left: 150px;
+    cursor:default;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    background-color: #ee9c30;
+}
+
+.subtitle-stack{
+    color:rgb(0, 0, 0);
+    font-size:10px;
+    padding: 2em;
+
+}
+
+.sub-titles-product-sell{
+    font-size:20px;
+    font-style: italic;
+    margin-inline-start: 120px;
+    margin-top:20px;
+    font-weight: 900;
+}
+
+.sub-titles-image-sell{
+    font-size:20px;
+    font-style: italic;
+    margin-inline-start: 190px;
+    margin-top:20px;
+    font-weight: 900;
+}
+
+.sub-titles-quantity-sell{
+    font-size:18px;
+    font-style: italic;
+    margin-inline-start: 70px;
+    font-weight: 900;
+}
+
+.sub-titles-total-sell{
+    font-size:20px;
+    font-style: italic;
+    margin-inline-start: 40px;
+    font-weight: 900;
+}
+
+.sub-titles-profit{
+    font-size:20px;
+    font-style: italic;
+    margin-inline-start: 65px;
+    margin-top: 20px;
+    font-weight: 1000;
+    color:rgb(0, 74, 143);
+}
+
+.sells-table{
+    margin-top:5px;
+    margin-left:40px;
+    margin-bottom: 25px;
+    width:92.5%;
+    border-spacing: 30px;
+    padding:5em;
+}
+
+.sales-card{
+    border: 0.5px solid black;
+    font-size: 18px;
+    color:black;
+    background-color: rgb(255, 255, 255);
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 0px rgb(255, 255, 255), 0.4em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.product-name-seller{
+    border: 0.5px solid black;
+    font-size: 20px;
+    margin-left: 0px;
+    align-self: center;
+    width: 38%;
+}
+
+.image-p-seller{
+    max-width: 100px;
+    max-height: 100px;
+    margin-bottom: 7px;
+}
+
+.quantity-seller{
+    border: 0.5px solid black;
+    font-size: 20px;
+    padding-block: 1cm;
+    justify-content: left;
+    width: 8%;
+}
+
+.total-sell-seller{
+    border: 0.5px solid black;
+    font-size: 22px;
+    justify-content: center;
+    align-self: center;
+    width:15%;
+}
+
+.profit-seller{
+    border: 0.5px solid black;
+    font-size: 22px;
+    justify-content: center;
+    align-self: center;
+    width: 15%;
+}
