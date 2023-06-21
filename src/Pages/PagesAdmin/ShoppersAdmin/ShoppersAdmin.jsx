@@ -25,7 +25,7 @@ const ShoppersAdmin = () => {
   const suspendShopper = async (compradorId) => {
     try {
       const result = await Swal.fire({
-        title: '¿suspender vendedor?',
+        title: '¿suspender comprador?',
         text: '¿Estás seguro de que deseas suspender a este comprador?',
         icon: 'info',
         showCancelButton: true,
