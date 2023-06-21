@@ -37,7 +37,7 @@ const ProductsAdmin = () => {
       if (result.isConfirmed) {
       console.log("El id del producto en suspend es", productoId);
       await axios.put(process.env.REACT_APP_API + '/suspendProduct',{ id_producto: productoId });
-      const updatedProduct = { ...searchedProduct, ESTADO: 'suspendido' };
+      const updatedProduct = { ...searchedProduct, ESTADO: 'INACTIVO' };
       setSearchedProduct(updatedProduct);
       fetchProducts();
       
@@ -61,7 +61,7 @@ const ProductsAdmin = () => {
  
       console.log("El id del producto en active es", productoId);
       await axios.put(process.env.REACT_APP_API + '/activateProduct',{ id_producto: productoId });
-      const updatedProduct = { ...searchedProduct, ESTADO: 'activo' };
+      const updatedProduct = { ...searchedProduct, ESTADO: 'ACTIVO' };
       setSearchedProduct(updatedProduct);
       fetchProducts();
       }
@@ -146,7 +146,7 @@ return (
               <td>{product.CATEGORIA}</td>
               <td>{product.ESTADO}</td>
               <td>
-                  {product.ESTADO === 'activo' ? (
+                  {product.ESTADO === 'ACTIVO' ? (
                     <button className='btn suspend' onClick={() => suspendProduct(product.ID_PRODUCTO)}>Suspender</button>
                   ) : (
                     <button className='btn btnActive' onClick={() => activateProduct(product.ID_PRODUCTO)}>Activar</button>

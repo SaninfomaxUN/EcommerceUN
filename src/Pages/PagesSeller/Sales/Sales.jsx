@@ -148,8 +148,8 @@ const Sales = () => {
     onChange={(e) => setFormData({ ...formData, estado: e.target.value })}
   >
     <option value="">Selecciona un estado</option>
-    <option value="activo">ACTIVO</option>
-    <option value="suspendido">INACTIVO</option>
+    <option value="ACTIVO">ACTIVO</option>
+    <option value="INACTIVO">INACTIVO</option>
   </select>
 </div>
         <br />

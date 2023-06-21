@@ -107,7 +107,7 @@ module.exports = {
     }
   },
   activateProduct: async (req, res) => {
-    const activeProductQuery = "UPDATE producto SET estado = 'activo' WHERE id_producto = ?";
+    const activeProductQuery = "UPDATE producto SET estado = 'ACTIVO' WHERE id_producto = ?";
     console.log("el id de activate en la api es:",req.body.id_producto)
     const productId = [req.body.id_producto];
   
@@ -124,7 +124,7 @@ module.exports = {
 
 
   suspendProduct: async (req, res) => {
-    const suspendProductQuery = "UPDATE producto SET estado = 'suspendido' WHERE id_producto = ?";
+    const suspendProductQuery = "UPDATE producto SET estado = 'INACTIVO' WHERE id_producto = ?";
     console.log("el id de suspend es en la api es:",req.body.id_producto)
     const productId = [req.body.id_producto];
   
